@@ -1,0 +1,193 @@
+import ply.yacc as yacc
+from forthLexer import tokens
+
+# Definição da stack
+stack = []
+
+#Esta função é responsável por definir a regra gramatical para o programa, que consiste em uma sequência de declarações (statements).
+def p_program(p):
+    '''program : statements'''
+    p[0] = ('program', p[1])
+    
+#Esta função define a regra gramatical para uma sequência de declarações. Pode ser uma única declaração ou várias declarações em sequência.
+def p_statements(p):
+    '''statements : statement
+                  | statements statement'''
+    if len(p) == 2:
+        p[0] = ('statements', [p[1]])
+    else:
+        p[1][1].append(p[2])
+        p[0] = p[1]
+
+#Esta função define a regra gramatical para uma declaração, que pode ser uma expressão ou uma estrutura de controle de fluxo.
+def p_statement(p):
+    '''statement : expression
+                 | flow_control'''
+    p[0] = ('statement', p[1])
+
+#Esta função define a regra gramatical para uma expressão, que pode ser um número, uma string, uma variável ou uma expressão especial.
+def p_expression(p):
+    '''expression : NUMBER
+                  | STRING
+                  | VARIABLE
+                  | special_expression'''
+    p[0] = p[1] if isinstance(p[1], str) else (p[1],)
+
+#Esta função define a regra gramatical para uma expressão aritmética, que consiste em uma expressão seguida por um operador aritmético e outra expressão.
+def p_expression_arithmetic(p):
+    '''expression : expression arithmetic_op expression'''
+    if len(stack) < 2:
+        print("Error: Not enough values on the stack for arithmetic operation")
+        return
+    # Desempilhar dois valores e realizar a operação aritmética
+    b = stack.pop()
+    a = stack.pop()
+    op = p[2]
+    if op == '+':
+        stack.append(a + b)
+    elif op == '-':
+        stack.append(a - b)
+    elif op == '*':
+        stack.append(a * b)
+    elif op == '/':
+        stack.append(a / b)
+    elif op == '%':
+        stack.append(a % b)
+    elif op == '^':
+        stack.append(a ** b)
+
+#Esta função define a regra gramatical para operadores aritméticos, como adição, subtração, multiplicação, divisão, módulo e potência.
+def p_arithmetic_op(p):
+    '''arithmetic_op : PLUS
+                     | MINUS
+                     | TIMES
+                     | DIVIDE
+                     | MOD
+                     | POWER'''
+    p[0] = p[1]
+    
+#Esta função define a regra gramatical para expressões relacionais, que consistem em uma expressão seguida por um operador relacional e outra expressão.
+def p_expression_relational(p):
+    '''expression : expression relational_op expression'''
+    if len(stack) < 2:
+        print("Error: Not enough values on the stack for arithmetic operation")
+        return
+    b = stack.pop()
+    a = stack.pop()
+    op = p[2]
+    if op == '=':
+        stack.append(a == b)
+    elif op == '<':
+        stack.append(a < b)
+    elif op == '>':
+        stack.append(a > b)
+
+#Esta função define a regra gramatical para operadores relacionais, como igualdade, menor que e maior que.
+def p_relational_op(p):
+    '''relational_op : EQUAL
+                      | LESS_THAN
+                      | GREATER_THAN'''
+    p[0] = p[1]
+
+#Esta função define a regra gramatical para expressões especiais, como exclamação, arroba, ponto, dois pontos, ponto e vírgula, parênteses esquerdo e direito.
+def p_special_expression(p):
+    '''special_expression : EXCLAMATION
+                           | AT
+                           | DOT
+                           | COLON
+                           | SEMICOLON
+                           | LEFT_PAREN
+                           | RIGHT_PAREN'''
+    p[0] = p[1]
+
+#Esta função define a regra gramatical para estruturas de controle de fluxo, como declarações condicionais (if-else), loops (while e repeat) e declarações de saída.
+def p_flow_control(p):
+    '''flow_control : if_statement
+                    | else_statement
+                    | while_loop
+                    | repeat_loop
+                    | exit_statement
+                    | drop_statement
+                    | dup_statement
+                    | swap_statement
+                    | rot_statement
+                    | over_statement'''
+    p[0] = ('flow_control', p[1])
+
+#Estas funções definem as regras gramaticais para cada tipo específico de estrutura de controle de fluxo.
+
+def p_if_statement(p):
+    '''if_statement : IF expression THEN'''
+    p[0] = p[2] + " IF "
+
+def p_else_statement(p):
+    '''else_statement : ELSE'''
+    p[0] = " ELSE "
+
+def p_while_loop(p):
+    '''while_loop : WHILE expression DO statements LOOP'''
+    p[0] = " BEGIN " + p[2] + " WHILE " + p[4] + " REPEAT "
+
+def p_repeat_loop(p):
+    '''repeat_loop : BEGIN statements WHILE expression REPEAT'''
+    p[0] = " BEGIN " + p[2] + " " + p[4] + " REPEAT "
+
+def p_exit_statement(p):
+    '''exit_statement : EXIT'''
+    p[0] = " EXIT "
+
+def p_drop_statement(p):
+    '''drop_statement : DROP'''
+    p[0] = " DROP "
+
+def p_dup_statement(p):
+    '''dup_statement : DUP'''
+    if not stack:
+        print("Error: Not enough values on the stack for DUP operation")
+        return
+    top_value = stack[-1]
+    stack.append(top_value)
+    p[0] = " DUP "
+
+def p_swap_statement(p):
+    '''swap_statement : SWAP'''
+    if len(stack) < 2:
+        print("Error: Not enough values on the stack for SWAP operation")
+        return
+    a = stack.pop()
+    b = stack.pop()
+    stack.append(a)
+    stack.append(b)
+    p[0] = " SWAP "
+
+def p_rot_statement(p):
+    '''rot_statement : ROT'''
+    if len(stack) < 3:
+        print("Error: Not enough values on the stack for ROT operation")
+        return
+    a = stack.pop()
+    b = stack.pop()
+    c = stack.pop()
+    stack.append(b)
+    stack.append(a)
+    stack.append(c)
+    p[0] = " ROT "
+
+def p_over_statement(p):
+    '''over_statement : OVER'''
+    if len(stack) < 2:
+        print("Error: Not enough values on the stack for OVER operation")
+        return
+    a = stack[-2]
+    stack.append(a)
+    p[0] = " OVER "
+
+#Esta função é chamada quando ocorre um erro durante o processo de análise sintática. Ela imprime uma mensagem de erro e termina o processo de análise.
+def p_error(p):
+    print("Syntax error:", p)
+    yacc.errok()
+
+parser = yacc.yacc()
+
+def parse_input(input_string):
+    return parser.parse(input_string)

@@ -68,13 +68,16 @@ t_DUP = r'[Dd][Uu][Pp]'
 t_SWAP = r'[Ss][Ww][Aa][Pp]'
 t_ROT = r'[Rr][Oo][Tt]'
 t_OVER = r'[Oo][Vv][Ee][Rr]'
-t_STRING = r'\"[^\"]*[\wáéíóúÁÉÍÓÚãõÃÕâêîôûÂÊÎÔÛàèìòùÀÈÌÒÙ\s]*\"' #Strings com acentos
 t_VARIABLE = r'[a-zA-Z_][a-zA-Z0-9_]*'
 
-# Definição do token NUMBER
 def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
+    r'\d+(\.\d+)?'
+    t.value = float(t.value) if '.' in t.value else int(t.value)
+    return t
+
+def t_STRING(t):
+    r'\".*\"'
+    t.value = str(t.value)
     return t
 
 # Ignorar espaços em branco e tabulações

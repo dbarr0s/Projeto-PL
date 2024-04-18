@@ -4,17 +4,20 @@ from forthLexer import tokens
 # Definição da stack
 stack = []
 
+vm_code = ""
+
 #Esta função é responsável por definir a regra gramatical para o programa, que consiste em uma sequência de declarações (statements).
 def p_program(p):
     '''program : statements'''
-    p[0] = ('program', p[1])
+    p[0] = p[1]
     
 #Esta função define a regra gramatical para uma sequência de declarações. Pode ser uma única declaração ou várias declarações em sequência.
 def p_statements(p):
     '''statements : statement
                   | statements statement'''
     if len(p) == 2:
-        p[0] = ('statements', [p[1]])
+        p[0] = p[1]
+        
     else:
         p[1][1].append(p[2])
         p[0] = p[1]
@@ -23,38 +26,79 @@ def p_statements(p):
 def p_statement(p):
     '''statement : expression
                  | flow_control'''
+    
     p[0] = ('statement', p[1])
 
 #Esta função define a regra gramatical para uma expressão, que pode ser um número, uma string, uma variável ou uma expressão especial.
-def p_expression(p):
+def p_expression(p):    
     '''expression : NUMBER
                   | STRING
                   | VARIABLE
                   | special_expression'''
-    p[0] = p[1] if isinstance(p[1], str) else (p[1],)
+    global vm_code
+    p[0] = p[1]
+    if isinstance(p[1], int):
+        stack.append(p[1])
+        vm_code += f"PUSHI {p[1]}\n"     
+    elif isinstance(p[1], float):
+        stack.append(p[1])
+        vm_code += f"PUSHF {p[1]}\n"
+    elif isinstance(p[1], str):
+        stack.append(p[1])
+        vm_code += f"PUSHS {p[1]}\n"
+    else:
+        print("Error: Invalid expression")
+
+def p_dot(p):
+    '''expression : DOT'''
+    global vm_code
+    top_value = stack.pop()
+    if isinstance(top_value, int):
+        vm_code += "WRITEI\n"
+    elif isinstance(top_value, float):
+        vm_code += "WRITEF\n"
+    elif isinstance(top_value, str):
+        vm_code += "WRITES\n"
+    p[0] = top_value
 
 #Esta função define a regra gramatical para uma expressão aritmética, que consiste em uma expressão seguida por um operador aritmético e outra expressão.
 def p_expression_arithmetic(p):
-    '''expression : expression arithmetic_op expression'''
+    '''expression : expression expression arithmetic_op'''
+    global vm_code
     if len(stack) < 2:
         print("Error: Not enough values on the stack for arithmetic operation")
-        return
-    # Desempilhar dois valores e realizar a operação aritmética
+        return  
     b = stack.pop()
     a = stack.pop()
-    op = p[2]
+    op = p[3]
     if op == '+':
-        stack.append(a + b)
+        result = a + b
+        stack.append(result)
+        if isinstance(result, float):
+            vm_code += "FADD\n"
+        else: vm_code += "ADD\n"
     elif op == '-':
-        stack.append(a - b)
+        result = a - b
+        stack.append(result)
+        if isinstance(result, float):
+            vm_code += "FSUB\n"
+        else: vm_code += "SUB\n"
     elif op == '*':
-        stack.append(a * b)
+        result = a * b
+        stack.append(result)
+        if isinstance(result, float):
+            vm_code += "FMUL\n"
+        else: vm_code += "MUL\n"
     elif op == '/':
-        stack.append(a / b)
+        result = a / b
+        stack.append(result)
+        if isinstance(result, float):
+            vm_code += "FDIV\n"
+        else: vm_code += "DIV\n"
     elif op == '%':
-        stack.append(a % b)
-    elif op == '^':
-        stack.append(a ** b)
+        result = a % b
+        stack.append(result)
+        vm_code += "MOD\n"
 
 #Esta função define a regra gramatical para operadores aritméticos, como adição, subtração, multiplicação, divisão, módulo e potência.
 def p_arithmetic_op(p):
@@ -68,7 +112,7 @@ def p_arithmetic_op(p):
     
 #Esta função define a regra gramatical para expressões relacionais, que consistem em uma expressão seguida por um operador relacional e outra expressão.
 def p_expression_relational(p):
-    '''expression : expression relational_op expression'''
+    '''expression : expression expression relational_op'''
     if len(stack) < 2:
         print("Error: Not enough values on the stack for arithmetic operation")
         return
@@ -93,7 +137,6 @@ def p_relational_op(p):
 def p_special_expression(p):
     '''special_expression : EXCLAMATION
                            | AT
-                           | DOT
                            | COLON
                            | SEMICOLON
                            | LEFT_PAREN
@@ -184,10 +227,12 @@ def p_over_statement(p):
 
 #Esta função é chamada quando ocorre um erro durante o processo de análise sintática. Ela imprime uma mensagem de erro e termina o processo de análise.
 def p_error(p):
-    print("Syntax error:", p)
-    yacc.errok()
+    if p:
+        print("Syntax error:", p)
+        yacc.errok()
 
 parser = yacc.yacc()
 
 def parse_input(input_string):
-    return parser.parse(input_string)
+    parser.parse(input_string)
+    return vm_code

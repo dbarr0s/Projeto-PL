@@ -106,31 +106,39 @@ def p_arithmetic_op(p):
                      | MINUS
                      | TIMES
                      | DIVIDE
-                     | MOD
-                     | POWER'''
+                     | MOD'''
     p[0] = p[1]
     
 #Esta função define a regra gramatical para expressões relacionais, que consistem em uma expressão seguida por um operador relacional e outra expressão.
 def p_expression_relational(p):
     '''expression : expression expression relational_op'''
+    global vm_code
     if len(stack) < 2:
-        print("Error: Not enough values on the stack for arithmetic operation")
+        print("Error: Not enough values on the stack for relational operation")
         return
     b = stack.pop()
     a = stack.pop()
-    op = p[2]
-    if op == '=':
-        stack.append(a == b)
-    elif op == '<':
+    op = p[3]
+    if op == '<':
         stack.append(a < b)
+        vm_code += "INF\n"
     elif op == '>':
         stack.append(a > b)
+        vm_code += "SUP\n"
+    elif op == '<=':
+        stack.append(a <= b)
+        vm_code += "INFEQ\n"
+    elif op == '>=':
+        stack.append(a >= b)
+        vm_code += "SUPEQ\n"
 
 #Esta função define a regra gramatical para operadores relacionais, como igualdade, menor que e maior que.
 def p_relational_op(p):
-    '''relational_op : EQUAL
-                      | LESS_THAN
-                      | GREATER_THAN'''
+    '''relational_op : NOT
+                     | INF
+                     | SUP
+                     | INFEQ
+                     | SUPEQ'''
     p[0] = p[1]
 
 #Esta função define a regra gramatical para expressões especiais, como exclamação, arroba, ponto, dois pontos, ponto e vírgula, parênteses esquerdo e direito.

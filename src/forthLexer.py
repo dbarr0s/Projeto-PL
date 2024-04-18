@@ -9,10 +9,11 @@ tokens = (
     'TIMES',
     'DIVIDE',
     'MOD',
-    'POWER',
-    'EQUAL',
-    'LESS_THAN',
-    'GREATER_THAN',
+    'NOT',
+    'INF',
+    'SUP',
+    'INFEQ',
+    'SUPEQ',
     'EXCLAMATION',
     'AT',
     'DOT',
@@ -43,10 +44,11 @@ t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_MOD = r'%'
-t_POWER = r'\^'
-t_EQUAL = r'='
-t_LESS_THAN = r'<'
-t_GREATER_THAN = r'>'
+t_NOT = r'\='
+t_INF = r'<'
+t_SUP = r'>'
+t_INFEQ = r'<='
+t_SUPEQ = r'>='
 t_EXCLAMATION = r'!'
 t_AT = r'@'
 t_DOT = r'\.'

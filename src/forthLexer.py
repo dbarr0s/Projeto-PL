@@ -1,8 +1,27 @@
 import ply.lex as lex
 
+
+reserved = {
+    'IF': 'IF',
+    'ELSE': 'ELSE',
+    'THEN': 'THEN',
+    'WHILE': 'WHILE',
+    'DO': 'DO',
+    'LOOP': 'LOOP',
+    'BEGIN': 'BEGIN',
+    'REPEAT': 'REPEAT',
+    'EXIT': 'EXIT',
+    'DROP': 'DROP',
+    'DUP': 'DUP',
+    'SWAP': 'SWAP',
+    'ROT': 'ROT',
+    'OVER': 'OVER',
+    'CONCAT': 'CONCAT'
+}
 # Lista de tokens
-tokens = (
+tokens = [
     'VARIABLE',
+    'STRING',
     'NUMBER',
     'PLUS',
     'MINUS',
@@ -21,22 +40,9 @@ tokens = (
     'SEMICOLON',
     'LEFT_PAREN',
     'RIGHT_PAREN',
-    'IF',
-    'ELSE',
-    'THEN',
-    'DO',
-    'LOOP',
-    'BEGIN',
-    'WHILE',
-    'REPEAT',
-    'EXIT',
-    'DROP',
-    'DUP',
-    'SWAP',
-    'ROT',
-    'OVER',
-    'STRING'
-)
+    'reserved_word'
+ ] + list(reserved.values())
+
 
 # Expressões regulares para os tokens
 t_PLUS = r'\+'
@@ -67,6 +73,7 @@ t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
 t_EXIT = r'[Ee][Xx][Ii][Tt]'
 t_DROP = r'[Dd][Rr][Oo][Pp]'
 t_DUP = r'[Dd][Uu][Pp]'
+t_CONCAT = r'[Cc][Oo][Nn][Cc][Aa][Tt]'
 t_SWAP = r'[Ss][Ww][Aa][Pp]'
 t_ROT = r'[Rr][Oo][Tt]'
 t_OVER = r'[Oo][Vv][Ee][Rr]'

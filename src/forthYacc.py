@@ -34,7 +34,8 @@ def p_expression(p):
     '''expression : NUMBER
                   | STRING
                   | VARIABLE
-                  | special_expression'''
+                  | special_expression
+                  | reserved_word'''
     global vm_code
     p[0] = p[1]
     if isinstance(p[1], int):
@@ -45,7 +46,10 @@ def p_expression(p):
         vm_code += f"PUSHF {p[1]}\n"
     elif isinstance(p[1], str):
         stack.append(p[1])
-        vm_code += f"PUSHS {p[1]}\n"
+        if p[1] in ['IF', 'ELSE', 'THEN', 'WHILE', 'DO', 'LOOP', 'BEGIN', 'REPEAT', 'EXIT', 'DROP', 'DUP', 'SWAP', 'ROT', 'OVER', 'CONCAT']:
+            vm_code += f"{p[1]}\n"
+        else:
+            vm_code += f"PUSHS {p[1]}\n"
     else:
         print("Error: Invalid expression")
 
@@ -118,19 +122,28 @@ def p_expression_relational(p):
         return
     b = stack.pop()
     a = stack.pop()
+    result = 0
     op = p[3]
     if op == '<':
         stack.append(a < b)
-        vm_code += "INF\n"
+        if isinstance(result, float):
+            vm_code += "FINF\n"
+        else: vm_code += "INF\n"
     elif op == '>':
         stack.append(a > b)
-        vm_code += "SUP\n"
+        if isinstance(result, float):
+            vm_code += "FSUP\n"
+        else: vm_code += "SUP\n"
     elif op == '<=':
         stack.append(a <= b)
-        vm_code += "INFEQ\n"
+        if isinstance(result,float):
+            vm_code += "FINFEQ\n"
+        else: vm_code += "INFEQ\n"
     elif op == '>=':
         stack.append(a >= b)
-        vm_code += "SUPEQ\n"
+        if isinstance(result,float):
+            vm_code += "FSUPEQ\n"
+        else: vm_code += "SUPEQ\n"
 
 #Esta função define a regra gramatical para operadores relacionais, como igualdade, menor que e maior que.
 def p_relational_op(p):
@@ -140,6 +153,30 @@ def p_relational_op(p):
                      | INFEQ
                      | SUPEQ'''
     p[0] = p[1]
+
+#Esta função define a regra gramatical para operações com strings, nomeadamente o CONCAT.
+def p_string_operations(p):
+    '''expression : expression expression string_op'''
+    global vm_code
+    if len(stack) < 2:
+        print("Error: Not enough values on the stack for string operation")
+        return
+    m = stack.pop()
+    n = stack.pop()
+    op = p[3]
+    if not (isinstance(m, str) and isinstance(n,str)): #Tratamento de Erro quando não são strings
+        print("Error: CONCAT op requires the operands to be strings")
+        return      
+    result = n + m
+    stack.append(result)
+
+
+def p_string_op(p):
+    '''string_op : CONCAT'''
+    p[0] = p[1]
+    global vm_code
+    vm_code += f"{p[1]}"
+
 
 #Esta função define a regra gramatical para expressões especiais, como exclamação, arroba, ponto, dois pontos, ponto e vírgula, parênteses esquerdo e direito.
 def p_special_expression(p):
@@ -168,7 +205,7 @@ def p_flow_control(p):
 #Estas funções definem as regras gramaticais para cada tipo específico de estrutura de controle de fluxo.
 
 def p_if_statement(p):
-    '''if_statement : IF expression THEN'''
+    '''if_statement : expression IF statements THEN'''
     p[0] = p[2] + " IF "
 
 def p_else_statement(p):
@@ -190,6 +227,8 @@ def p_exit_statement(p):
 def p_drop_statement(p):
     '''drop_statement : DROP'''
     p[0] = " DROP "
+    global vm_code
+    vm_code += "POP 1\n"
 
 def p_dup_statement(p):
     '''dup_statement : DUP'''
@@ -199,14 +238,25 @@ def p_dup_statement(p):
     top_value = stack[-1]
     stack.append(top_value)
     p[0] = " DUP "
+    global vm_code
+    if isinstance(top_value, int):
+        vm_code += f"PUSHI {top_value}\n"     
+    elif isinstance(top_value, float):
+        vm_code += f"PUSHF {top_value}\n"
+    elif isinstance(top_value, str):
+        vm_code += f"PUSHS {top_value}\n"
+    else:
+        print("Error: Invalid expression")
 
 def p_swap_statement(p):
     '''swap_statement : SWAP'''
     if len(stack) < 2:
         print("Error: Not enough values on the stack for SWAP operation")
         return
+    global vm_code
     a = stack.pop()
     b = stack.pop()
+    vm_code += "SWAP\n"
     stack.append(a)
     stack.append(b)
     p[0] = " SWAP "
@@ -219,6 +269,27 @@ def p_rot_statement(p):
     a = stack.pop()
     b = stack.pop()
     c = stack.pop()
+    if isinstance(a, int):
+        vm_code += f"PUSHI {b}\n"
+    elif isinstance(a, float):
+        vm_code += f"PUSHF {b}\n"
+    elif isinstance(a, str):
+        vm_code += f"PUSHS {b}\n"
+
+    if isinstance(b, int):
+        vm_code += f"PUSHI {a}\n"
+    elif isinstance(b, float):
+        vm_code += f"PUSHF {a}\n"
+    elif isinstance(b, str):
+        vm_code += f"PUSHS {a}\n"
+
+    if isinstance(c, int):
+        vm_code += f"PUSHI {c}\n"
+    elif isinstance(c, float):
+        vm_code += f"PUSHF {c}\n"
+    elif isinstance(c, str):
+        vm_code += f"PUSHS {c}\n"
+        
     stack.append(b)
     stack.append(a)
     stack.append(c)
@@ -229,8 +300,15 @@ def p_over_statement(p):
     if len(stack) < 2:
         print("Error: Not enough values on the stack for OVER operation")
         return
+        global vm_code
     a = stack[-2]
     stack.append(a)
+    if isinstance(a, int):
+        vm_code += f"PUSHI {a}\n"
+    elif isinstance(a, float):
+        vm_code += f"PUSHF {a}\n"
+    elif isinstance(a, str):
+        vm_code += f"PUSHS {a}\n"
     p[0] = " OVER "
 
 #Esta função é chamada quando ocorre um erro durante o processo de análise sintática. Ela imprime uma mensagem de erro e termina o processo de análise.

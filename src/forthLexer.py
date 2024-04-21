@@ -16,7 +16,9 @@ reserved = {
     'SWAP': 'SWAP',
     'ROT': 'ROT',
     'OVER': 'OVER',
-    'CONCAT': 'CONCAT'
+    'CONCAT': 'CONCAT',
+    'CHAR' : 'CHAR',
+    'EMIT' : 'EMIT',
 }
 # Lista de tokens
 tokens = [
@@ -74,6 +76,8 @@ t_EXIT = r'[Ee][Xx][Ii][Tt]'
 t_DROP = r'[Dd][Rr][Oo][Pp]'
 t_DUP = r'[Dd][Uu][Pp]'
 t_CONCAT = r'[Cc][Oo][Nn][Cc][Aa][Tt]'
+t_CHAR = r'[Cc][Hh][Aa][Rr]'
+t_EMIT = r'[Ee][Mm][Ii][Tt]'
 t_SWAP = r'[Ss][Ww][Aa][Pp]'
 t_ROT = r'[Rr][Oo][Tt]'
 t_OVER = r'[Oo][Vv][Ee][Rr]'
@@ -85,9 +89,10 @@ def t_NUMBER(t):
     return t
 
 def t_STRING(t):
-    r'\".*\"'
+    r'"([^"]|\s)*"'
     t.value = str(t.value)
     return t
+
 
 # Ignorar espaços em branco e tabulações
 t_ignore = ' \t'

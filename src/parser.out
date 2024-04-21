@@ -1,5 +1,10 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    CHAR
+    EMIT
+
 Grammar
 
 Rule 0     S' -> program
@@ -40,58 +45,56 @@ Rule 34    flow_control -> while_loop
 Rule 35    flow_control -> repeat_loop
 Rule 36    flow_control -> exit_statement
 Rule 37    flow_control -> drop_statement
-Rule 38    flow_control -> dup_statement
-Rule 39    flow_control -> swap_statement
-Rule 40    flow_control -> rot_statement
-Rule 41    flow_control -> over_statement
-Rule 42    if_statement -> expression IF statements THEN
-Rule 43    else_statement -> ELSE
-Rule 44    while_loop -> WHILE expression DO statements LOOP
-Rule 45    repeat_loop -> BEGIN statements WHILE expression REPEAT
-Rule 46    exit_statement -> EXIT
-Rule 47    drop_statement -> DROP
-Rule 48    dup_statement -> DUP
-Rule 49    swap_statement -> SWAP
-Rule 50    rot_statement -> ROT
-Rule 51    over_statement -> OVER
+Rule 38    if_statement -> expression IF statements THEN
+Rule 39    else_statement -> ELSE
+Rule 40    while_loop -> WHILE expression DO statements LOOP
+Rule 41    repeat_loop -> BEGIN statements WHILE expression REPEAT
+Rule 42    exit_statement -> EXIT
+Rule 43    drop_statement -> DROP
+Rule 44    dup_statement -> DUP
+Rule 45    swap_statement -> SWAP
+Rule 46    rot_statement -> ROT
+Rule 47    over_statement -> OVER
 
 Terminals, with rules where they appear
 
 AT                   : 27
-BEGIN                : 45
+BEGIN                : 41
+CHAR                 : 
 COLON                : 28
 CONCAT               : 25
 DIVIDE               : 16
-DO                   : 44
+DO                   : 40
 DOT                  : 11
-DROP                 : 47
-DUP                  : 48
-ELSE                 : 43
+DROP                 : 43
+DUP                  : 44
+ELSE                 : 39
+EMIT                 : 
 EXCLAMATION          : 26
-EXIT                 : 46
-IF                   : 42
+EXIT                 : 42
+IF                   : 38
 INF                  : 20
 INFEQ                : 22
 LEFT_PAREN           : 30
-LOOP                 : 44
+LOOP                 : 40
 MINUS                : 14
 MOD                  : 17
 NOT                  : 19
 NUMBER               : 6
-OVER                 : 51
+OVER                 : 47
 PLUS                 : 13
-REPEAT               : 45
+REPEAT               : 41
 RIGHT_PAREN          : 31
-ROT                  : 50
+ROT                  : 46
 SEMICOLON            : 29
 STRING               : 7
 SUP                  : 21
 SUPEQ                : 23
-SWAP                 : 49
-THEN                 : 42
+SWAP                 : 45
+THEN                 : 38
 TIMES                : 15
 VARIABLE             : 8
-WHILE                : 44 45
+WHILE                : 40 41
 error                : 
 reserved_word        : 10
 
@@ -99,22 +102,22 @@ Nonterminals, with rules where they appear
 
 arithmetic_op        : 12
 drop_statement       : 37
-dup_statement        : 38
+dup_statement        : 
 else_statement       : 33
 exit_statement       : 36
-expression           : 4 12 12 18 18 24 24 42 44 45
+expression           : 4 12 12 18 18 24 24 38 40 41
 flow_control         : 5
 if_statement         : 32
-over_statement       : 41
+over_statement       : 
 program              : 0
 relational_op        : 18
 repeat_loop          : 35
-rot_statement        : 40
+rot_statement        : 
 special_expression   : 9
 statement            : 2 3
-statements           : 1 3 42 44 45
+statements           : 1 3 38 40 41
 string_op            : 24
-swap_statement       : 39
+swap_statement       : 
 while_loop           : 34
 
 Parsing method: LALR
@@ -142,47 +145,35 @@ state 0
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
     program                        shift and go to state 1
     statements                     shift and go to state 2
@@ -196,10 +187,6 @@ state 0
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
 state 1
 
@@ -228,26 +215,18 @@ state 2
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
     $end            reduce using rule 1 (program -> statements .)
     NUMBER          shift and go to state 6
@@ -255,23 +234,19 @@ state 2
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
-    statement                      shift and go to state 37
+    statement                      shift and go to state 29
     expression                     shift and go to state 4
     flow_control                   shift and go to state 5
     special_expression             shift and go to state 9
@@ -281,10 +256,6 @@ state 2
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
 state 3
 
@@ -306,10 +277,6 @@ state 3
     BEGIN           reduce using rule 2 (statements -> statement .)
     EXIT            reduce using rule 2 (statements -> statement .)
     DROP            reduce using rule 2 (statements -> statement .)
-    DUP             reduce using rule 2 (statements -> statement .)
-    SWAP            reduce using rule 2 (statements -> statement .)
-    ROT             reduce using rule 2 (statements -> statement .)
-    OVER            reduce using rule 2 (statements -> statement .)
     $end            reduce using rule 2 (statements -> statement .)
     THEN            reduce using rule 2 (statements -> statement .)
     LOOP            reduce using rule 2 (statements -> statement .)
@@ -321,7 +288,7 @@ state 4
     (12) expression -> expression . expression arithmetic_op
     (18) expression -> expression . expression relational_op
     (24) expression -> expression . expression string_op
-    (42) if_statement -> expression . IF statements THEN
+    (38) if_statement -> expression . IF statements THEN
     (6) expression -> . NUMBER
     (7) expression -> . STRING
     (8) expression -> . VARIABLE
@@ -354,25 +321,21 @@ state 4
     BEGIN           reduce using rule 4 (statement -> expression .)
     EXIT            reduce using rule 4 (statement -> expression .)
     DROP            reduce using rule 4 (statement -> expression .)
-    DUP             reduce using rule 4 (statement -> expression .)
-    SWAP            reduce using rule 4 (statement -> expression .)
-    ROT             reduce using rule 4 (statement -> expression .)
-    OVER            reduce using rule 4 (statement -> expression .)
     $end            reduce using rule 4 (statement -> expression .)
     THEN            reduce using rule 4 (statement -> expression .)
     LOOP            reduce using rule 4 (statement -> expression .)
-    IF              shift and go to state 39
+    IF              shift and go to state 31
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
 
   ! NUMBER          [ reduce using rule 4 (statement -> expression .) ]
   ! STRING          [ reduce using rule 4 (statement -> expression .) ]
@@ -386,7 +349,7 @@ state 4
   ! LEFT_PAREN      [ reduce using rule 4 (statement -> expression .) ]
   ! RIGHT_PAREN     [ reduce using rule 4 (statement -> expression .) ]
 
-    expression                     shift and go to state 38
+    expression                     shift and go to state 30
     special_expression             shift and go to state 9
 
 state 5
@@ -409,10 +372,6 @@ state 5
     BEGIN           reduce using rule 5 (statement -> flow_control .)
     EXIT            reduce using rule 5 (statement -> flow_control .)
     DROP            reduce using rule 5 (statement -> flow_control .)
-    DUP             reduce using rule 5 (statement -> flow_control .)
-    SWAP            reduce using rule 5 (statement -> flow_control .)
-    ROT             reduce using rule 5 (statement -> flow_control .)
-    OVER            reduce using rule 5 (statement -> flow_control .)
     $end            reduce using rule 5 (statement -> flow_control .)
     THEN            reduce using rule 5 (statement -> flow_control .)
     LOOP            reduce using rule 5 (statement -> flow_control .)
@@ -439,10 +398,6 @@ state 6
     BEGIN           reduce using rule 6 (expression -> NUMBER .)
     EXIT            reduce using rule 6 (expression -> NUMBER .)
     DROP            reduce using rule 6 (expression -> NUMBER .)
-    DUP             reduce using rule 6 (expression -> NUMBER .)
-    SWAP            reduce using rule 6 (expression -> NUMBER .)
-    ROT             reduce using rule 6 (expression -> NUMBER .)
-    OVER            reduce using rule 6 (expression -> NUMBER .)
     $end            reduce using rule 6 (expression -> NUMBER .)
     PLUS            reduce using rule 6 (expression -> NUMBER .)
     MINUS           reduce using rule 6 (expression -> NUMBER .)
@@ -482,10 +437,6 @@ state 7
     BEGIN           reduce using rule 7 (expression -> STRING .)
     EXIT            reduce using rule 7 (expression -> STRING .)
     DROP            reduce using rule 7 (expression -> STRING .)
-    DUP             reduce using rule 7 (expression -> STRING .)
-    SWAP            reduce using rule 7 (expression -> STRING .)
-    ROT             reduce using rule 7 (expression -> STRING .)
-    OVER            reduce using rule 7 (expression -> STRING .)
     $end            reduce using rule 7 (expression -> STRING .)
     PLUS            reduce using rule 7 (expression -> STRING .)
     MINUS           reduce using rule 7 (expression -> STRING .)
@@ -525,10 +476,6 @@ state 8
     BEGIN           reduce using rule 8 (expression -> VARIABLE .)
     EXIT            reduce using rule 8 (expression -> VARIABLE .)
     DROP            reduce using rule 8 (expression -> VARIABLE .)
-    DUP             reduce using rule 8 (expression -> VARIABLE .)
-    SWAP            reduce using rule 8 (expression -> VARIABLE .)
-    ROT             reduce using rule 8 (expression -> VARIABLE .)
-    OVER            reduce using rule 8 (expression -> VARIABLE .)
     $end            reduce using rule 8 (expression -> VARIABLE .)
     PLUS            reduce using rule 8 (expression -> VARIABLE .)
     MINUS           reduce using rule 8 (expression -> VARIABLE .)
@@ -568,10 +515,6 @@ state 9
     BEGIN           reduce using rule 9 (expression -> special_expression .)
     EXIT            reduce using rule 9 (expression -> special_expression .)
     DROP            reduce using rule 9 (expression -> special_expression .)
-    DUP             reduce using rule 9 (expression -> special_expression .)
-    SWAP            reduce using rule 9 (expression -> special_expression .)
-    ROT             reduce using rule 9 (expression -> special_expression .)
-    OVER            reduce using rule 9 (expression -> special_expression .)
     $end            reduce using rule 9 (expression -> special_expression .)
     PLUS            reduce using rule 9 (expression -> special_expression .)
     MINUS           reduce using rule 9 (expression -> special_expression .)
@@ -611,10 +554,6 @@ state 10
     BEGIN           reduce using rule 10 (expression -> reserved_word .)
     EXIT            reduce using rule 10 (expression -> reserved_word .)
     DROP            reduce using rule 10 (expression -> reserved_word .)
-    DUP             reduce using rule 10 (expression -> reserved_word .)
-    SWAP            reduce using rule 10 (expression -> reserved_word .)
-    ROT             reduce using rule 10 (expression -> reserved_word .)
-    OVER            reduce using rule 10 (expression -> reserved_word .)
     $end            reduce using rule 10 (expression -> reserved_word .)
     PLUS            reduce using rule 10 (expression -> reserved_word .)
     MINUS           reduce using rule 10 (expression -> reserved_word .)
@@ -654,10 +593,6 @@ state 11
     BEGIN           reduce using rule 11 (expression -> DOT .)
     EXIT            reduce using rule 11 (expression -> DOT .)
     DROP            reduce using rule 11 (expression -> DOT .)
-    DUP             reduce using rule 11 (expression -> DOT .)
-    SWAP            reduce using rule 11 (expression -> DOT .)
-    ROT             reduce using rule 11 (expression -> DOT .)
-    OVER            reduce using rule 11 (expression -> DOT .)
     $end            reduce using rule 11 (expression -> DOT .)
     PLUS            reduce using rule 11 (expression -> DOT .)
     MINUS           reduce using rule 11 (expression -> DOT .)
@@ -696,10 +631,6 @@ state 12
     BEGIN           reduce using rule 32 (flow_control -> if_statement .)
     EXIT            reduce using rule 32 (flow_control -> if_statement .)
     DROP            reduce using rule 32 (flow_control -> if_statement .)
-    DUP             reduce using rule 32 (flow_control -> if_statement .)
-    SWAP            reduce using rule 32 (flow_control -> if_statement .)
-    ROT             reduce using rule 32 (flow_control -> if_statement .)
-    OVER            reduce using rule 32 (flow_control -> if_statement .)
     $end            reduce using rule 32 (flow_control -> if_statement .)
     THEN            reduce using rule 32 (flow_control -> if_statement .)
     LOOP            reduce using rule 32 (flow_control -> if_statement .)
@@ -725,10 +656,6 @@ state 13
     BEGIN           reduce using rule 33 (flow_control -> else_statement .)
     EXIT            reduce using rule 33 (flow_control -> else_statement .)
     DROP            reduce using rule 33 (flow_control -> else_statement .)
-    DUP             reduce using rule 33 (flow_control -> else_statement .)
-    SWAP            reduce using rule 33 (flow_control -> else_statement .)
-    ROT             reduce using rule 33 (flow_control -> else_statement .)
-    OVER            reduce using rule 33 (flow_control -> else_statement .)
     $end            reduce using rule 33 (flow_control -> else_statement .)
     THEN            reduce using rule 33 (flow_control -> else_statement .)
     LOOP            reduce using rule 33 (flow_control -> else_statement .)
@@ -754,10 +681,6 @@ state 14
     BEGIN           reduce using rule 34 (flow_control -> while_loop .)
     EXIT            reduce using rule 34 (flow_control -> while_loop .)
     DROP            reduce using rule 34 (flow_control -> while_loop .)
-    DUP             reduce using rule 34 (flow_control -> while_loop .)
-    SWAP            reduce using rule 34 (flow_control -> while_loop .)
-    ROT             reduce using rule 34 (flow_control -> while_loop .)
-    OVER            reduce using rule 34 (flow_control -> while_loop .)
     $end            reduce using rule 34 (flow_control -> while_loop .)
     THEN            reduce using rule 34 (flow_control -> while_loop .)
     LOOP            reduce using rule 34 (flow_control -> while_loop .)
@@ -783,10 +706,6 @@ state 15
     BEGIN           reduce using rule 35 (flow_control -> repeat_loop .)
     EXIT            reduce using rule 35 (flow_control -> repeat_loop .)
     DROP            reduce using rule 35 (flow_control -> repeat_loop .)
-    DUP             reduce using rule 35 (flow_control -> repeat_loop .)
-    SWAP            reduce using rule 35 (flow_control -> repeat_loop .)
-    ROT             reduce using rule 35 (flow_control -> repeat_loop .)
-    OVER            reduce using rule 35 (flow_control -> repeat_loop .)
     $end            reduce using rule 35 (flow_control -> repeat_loop .)
     THEN            reduce using rule 35 (flow_control -> repeat_loop .)
     LOOP            reduce using rule 35 (flow_control -> repeat_loop .)
@@ -812,10 +731,6 @@ state 16
     BEGIN           reduce using rule 36 (flow_control -> exit_statement .)
     EXIT            reduce using rule 36 (flow_control -> exit_statement .)
     DROP            reduce using rule 36 (flow_control -> exit_statement .)
-    DUP             reduce using rule 36 (flow_control -> exit_statement .)
-    SWAP            reduce using rule 36 (flow_control -> exit_statement .)
-    ROT             reduce using rule 36 (flow_control -> exit_statement .)
-    OVER            reduce using rule 36 (flow_control -> exit_statement .)
     $end            reduce using rule 36 (flow_control -> exit_statement .)
     THEN            reduce using rule 36 (flow_control -> exit_statement .)
     LOOP            reduce using rule 36 (flow_control -> exit_statement .)
@@ -841,132 +756,12 @@ state 17
     BEGIN           reduce using rule 37 (flow_control -> drop_statement .)
     EXIT            reduce using rule 37 (flow_control -> drop_statement .)
     DROP            reduce using rule 37 (flow_control -> drop_statement .)
-    DUP             reduce using rule 37 (flow_control -> drop_statement .)
-    SWAP            reduce using rule 37 (flow_control -> drop_statement .)
-    ROT             reduce using rule 37 (flow_control -> drop_statement .)
-    OVER            reduce using rule 37 (flow_control -> drop_statement .)
     $end            reduce using rule 37 (flow_control -> drop_statement .)
     THEN            reduce using rule 37 (flow_control -> drop_statement .)
     LOOP            reduce using rule 37 (flow_control -> drop_statement .)
 
 
 state 18
-
-    (38) flow_control -> dup_statement .
-
-    NUMBER          reduce using rule 38 (flow_control -> dup_statement .)
-    STRING          reduce using rule 38 (flow_control -> dup_statement .)
-    VARIABLE        reduce using rule 38 (flow_control -> dup_statement .)
-    reserved_word   reduce using rule 38 (flow_control -> dup_statement .)
-    DOT             reduce using rule 38 (flow_control -> dup_statement .)
-    EXCLAMATION     reduce using rule 38 (flow_control -> dup_statement .)
-    AT              reduce using rule 38 (flow_control -> dup_statement .)
-    COLON           reduce using rule 38 (flow_control -> dup_statement .)
-    SEMICOLON       reduce using rule 38 (flow_control -> dup_statement .)
-    LEFT_PAREN      reduce using rule 38 (flow_control -> dup_statement .)
-    RIGHT_PAREN     reduce using rule 38 (flow_control -> dup_statement .)
-    ELSE            reduce using rule 38 (flow_control -> dup_statement .)
-    WHILE           reduce using rule 38 (flow_control -> dup_statement .)
-    BEGIN           reduce using rule 38 (flow_control -> dup_statement .)
-    EXIT            reduce using rule 38 (flow_control -> dup_statement .)
-    DROP            reduce using rule 38 (flow_control -> dup_statement .)
-    DUP             reduce using rule 38 (flow_control -> dup_statement .)
-    SWAP            reduce using rule 38 (flow_control -> dup_statement .)
-    ROT             reduce using rule 38 (flow_control -> dup_statement .)
-    OVER            reduce using rule 38 (flow_control -> dup_statement .)
-    $end            reduce using rule 38 (flow_control -> dup_statement .)
-    THEN            reduce using rule 38 (flow_control -> dup_statement .)
-    LOOP            reduce using rule 38 (flow_control -> dup_statement .)
-
-
-state 19
-
-    (39) flow_control -> swap_statement .
-
-    NUMBER          reduce using rule 39 (flow_control -> swap_statement .)
-    STRING          reduce using rule 39 (flow_control -> swap_statement .)
-    VARIABLE        reduce using rule 39 (flow_control -> swap_statement .)
-    reserved_word   reduce using rule 39 (flow_control -> swap_statement .)
-    DOT             reduce using rule 39 (flow_control -> swap_statement .)
-    EXCLAMATION     reduce using rule 39 (flow_control -> swap_statement .)
-    AT              reduce using rule 39 (flow_control -> swap_statement .)
-    COLON           reduce using rule 39 (flow_control -> swap_statement .)
-    SEMICOLON       reduce using rule 39 (flow_control -> swap_statement .)
-    LEFT_PAREN      reduce using rule 39 (flow_control -> swap_statement .)
-    RIGHT_PAREN     reduce using rule 39 (flow_control -> swap_statement .)
-    ELSE            reduce using rule 39 (flow_control -> swap_statement .)
-    WHILE           reduce using rule 39 (flow_control -> swap_statement .)
-    BEGIN           reduce using rule 39 (flow_control -> swap_statement .)
-    EXIT            reduce using rule 39 (flow_control -> swap_statement .)
-    DROP            reduce using rule 39 (flow_control -> swap_statement .)
-    DUP             reduce using rule 39 (flow_control -> swap_statement .)
-    SWAP            reduce using rule 39 (flow_control -> swap_statement .)
-    ROT             reduce using rule 39 (flow_control -> swap_statement .)
-    OVER            reduce using rule 39 (flow_control -> swap_statement .)
-    $end            reduce using rule 39 (flow_control -> swap_statement .)
-    THEN            reduce using rule 39 (flow_control -> swap_statement .)
-    LOOP            reduce using rule 39 (flow_control -> swap_statement .)
-
-
-state 20
-
-    (40) flow_control -> rot_statement .
-
-    NUMBER          reduce using rule 40 (flow_control -> rot_statement .)
-    STRING          reduce using rule 40 (flow_control -> rot_statement .)
-    VARIABLE        reduce using rule 40 (flow_control -> rot_statement .)
-    reserved_word   reduce using rule 40 (flow_control -> rot_statement .)
-    DOT             reduce using rule 40 (flow_control -> rot_statement .)
-    EXCLAMATION     reduce using rule 40 (flow_control -> rot_statement .)
-    AT              reduce using rule 40 (flow_control -> rot_statement .)
-    COLON           reduce using rule 40 (flow_control -> rot_statement .)
-    SEMICOLON       reduce using rule 40 (flow_control -> rot_statement .)
-    LEFT_PAREN      reduce using rule 40 (flow_control -> rot_statement .)
-    RIGHT_PAREN     reduce using rule 40 (flow_control -> rot_statement .)
-    ELSE            reduce using rule 40 (flow_control -> rot_statement .)
-    WHILE           reduce using rule 40 (flow_control -> rot_statement .)
-    BEGIN           reduce using rule 40 (flow_control -> rot_statement .)
-    EXIT            reduce using rule 40 (flow_control -> rot_statement .)
-    DROP            reduce using rule 40 (flow_control -> rot_statement .)
-    DUP             reduce using rule 40 (flow_control -> rot_statement .)
-    SWAP            reduce using rule 40 (flow_control -> rot_statement .)
-    ROT             reduce using rule 40 (flow_control -> rot_statement .)
-    OVER            reduce using rule 40 (flow_control -> rot_statement .)
-    $end            reduce using rule 40 (flow_control -> rot_statement .)
-    THEN            reduce using rule 40 (flow_control -> rot_statement .)
-    LOOP            reduce using rule 40 (flow_control -> rot_statement .)
-
-
-state 21
-
-    (41) flow_control -> over_statement .
-
-    NUMBER          reduce using rule 41 (flow_control -> over_statement .)
-    STRING          reduce using rule 41 (flow_control -> over_statement .)
-    VARIABLE        reduce using rule 41 (flow_control -> over_statement .)
-    reserved_word   reduce using rule 41 (flow_control -> over_statement .)
-    DOT             reduce using rule 41 (flow_control -> over_statement .)
-    EXCLAMATION     reduce using rule 41 (flow_control -> over_statement .)
-    AT              reduce using rule 41 (flow_control -> over_statement .)
-    COLON           reduce using rule 41 (flow_control -> over_statement .)
-    SEMICOLON       reduce using rule 41 (flow_control -> over_statement .)
-    LEFT_PAREN      reduce using rule 41 (flow_control -> over_statement .)
-    RIGHT_PAREN     reduce using rule 41 (flow_control -> over_statement .)
-    ELSE            reduce using rule 41 (flow_control -> over_statement .)
-    WHILE           reduce using rule 41 (flow_control -> over_statement .)
-    BEGIN           reduce using rule 41 (flow_control -> over_statement .)
-    EXIT            reduce using rule 41 (flow_control -> over_statement .)
-    DROP            reduce using rule 41 (flow_control -> over_statement .)
-    DUP             reduce using rule 41 (flow_control -> over_statement .)
-    SWAP            reduce using rule 41 (flow_control -> over_statement .)
-    ROT             reduce using rule 41 (flow_control -> over_statement .)
-    OVER            reduce using rule 41 (flow_control -> over_statement .)
-    $end            reduce using rule 41 (flow_control -> over_statement .)
-    THEN            reduce using rule 41 (flow_control -> over_statement .)
-    LOOP            reduce using rule 41 (flow_control -> over_statement .)
-
-
-state 22
 
     (26) special_expression -> EXCLAMATION .
 
@@ -987,10 +782,6 @@ state 22
     BEGIN           reduce using rule 26 (special_expression -> EXCLAMATION .)
     EXIT            reduce using rule 26 (special_expression -> EXCLAMATION .)
     DROP            reduce using rule 26 (special_expression -> EXCLAMATION .)
-    DUP             reduce using rule 26 (special_expression -> EXCLAMATION .)
-    SWAP            reduce using rule 26 (special_expression -> EXCLAMATION .)
-    ROT             reduce using rule 26 (special_expression -> EXCLAMATION .)
-    OVER            reduce using rule 26 (special_expression -> EXCLAMATION .)
     $end            reduce using rule 26 (special_expression -> EXCLAMATION .)
     PLUS            reduce using rule 26 (special_expression -> EXCLAMATION .)
     MINUS           reduce using rule 26 (special_expression -> EXCLAMATION .)
@@ -1009,7 +800,7 @@ state 22
     REPEAT          reduce using rule 26 (special_expression -> EXCLAMATION .)
 
 
-state 23
+state 19
 
     (27) special_expression -> AT .
 
@@ -1030,10 +821,6 @@ state 23
     BEGIN           reduce using rule 27 (special_expression -> AT .)
     EXIT            reduce using rule 27 (special_expression -> AT .)
     DROP            reduce using rule 27 (special_expression -> AT .)
-    DUP             reduce using rule 27 (special_expression -> AT .)
-    SWAP            reduce using rule 27 (special_expression -> AT .)
-    ROT             reduce using rule 27 (special_expression -> AT .)
-    OVER            reduce using rule 27 (special_expression -> AT .)
     $end            reduce using rule 27 (special_expression -> AT .)
     PLUS            reduce using rule 27 (special_expression -> AT .)
     MINUS           reduce using rule 27 (special_expression -> AT .)
@@ -1052,7 +839,7 @@ state 23
     REPEAT          reduce using rule 27 (special_expression -> AT .)
 
 
-state 24
+state 20
 
     (28) special_expression -> COLON .
 
@@ -1073,10 +860,6 @@ state 24
     BEGIN           reduce using rule 28 (special_expression -> COLON .)
     EXIT            reduce using rule 28 (special_expression -> COLON .)
     DROP            reduce using rule 28 (special_expression -> COLON .)
-    DUP             reduce using rule 28 (special_expression -> COLON .)
-    SWAP            reduce using rule 28 (special_expression -> COLON .)
-    ROT             reduce using rule 28 (special_expression -> COLON .)
-    OVER            reduce using rule 28 (special_expression -> COLON .)
     $end            reduce using rule 28 (special_expression -> COLON .)
     PLUS            reduce using rule 28 (special_expression -> COLON .)
     MINUS           reduce using rule 28 (special_expression -> COLON .)
@@ -1095,7 +878,7 @@ state 24
     REPEAT          reduce using rule 28 (special_expression -> COLON .)
 
 
-state 25
+state 21
 
     (29) special_expression -> SEMICOLON .
 
@@ -1116,10 +899,6 @@ state 25
     BEGIN           reduce using rule 29 (special_expression -> SEMICOLON .)
     EXIT            reduce using rule 29 (special_expression -> SEMICOLON .)
     DROP            reduce using rule 29 (special_expression -> SEMICOLON .)
-    DUP             reduce using rule 29 (special_expression -> SEMICOLON .)
-    SWAP            reduce using rule 29 (special_expression -> SEMICOLON .)
-    ROT             reduce using rule 29 (special_expression -> SEMICOLON .)
-    OVER            reduce using rule 29 (special_expression -> SEMICOLON .)
     $end            reduce using rule 29 (special_expression -> SEMICOLON .)
     PLUS            reduce using rule 29 (special_expression -> SEMICOLON .)
     MINUS           reduce using rule 29 (special_expression -> SEMICOLON .)
@@ -1138,7 +917,7 @@ state 25
     REPEAT          reduce using rule 29 (special_expression -> SEMICOLON .)
 
 
-state 26
+state 22
 
     (30) special_expression -> LEFT_PAREN .
 
@@ -1159,10 +938,6 @@ state 26
     BEGIN           reduce using rule 30 (special_expression -> LEFT_PAREN .)
     EXIT            reduce using rule 30 (special_expression -> LEFT_PAREN .)
     DROP            reduce using rule 30 (special_expression -> LEFT_PAREN .)
-    DUP             reduce using rule 30 (special_expression -> LEFT_PAREN .)
-    SWAP            reduce using rule 30 (special_expression -> LEFT_PAREN .)
-    ROT             reduce using rule 30 (special_expression -> LEFT_PAREN .)
-    OVER            reduce using rule 30 (special_expression -> LEFT_PAREN .)
     $end            reduce using rule 30 (special_expression -> LEFT_PAREN .)
     PLUS            reduce using rule 30 (special_expression -> LEFT_PAREN .)
     MINUS           reduce using rule 30 (special_expression -> LEFT_PAREN .)
@@ -1181,7 +956,7 @@ state 26
     REPEAT          reduce using rule 30 (special_expression -> LEFT_PAREN .)
 
 
-state 27
+state 23
 
     (31) special_expression -> RIGHT_PAREN .
 
@@ -1202,10 +977,6 @@ state 27
     BEGIN           reduce using rule 31 (special_expression -> RIGHT_PAREN .)
     EXIT            reduce using rule 31 (special_expression -> RIGHT_PAREN .)
     DROP            reduce using rule 31 (special_expression -> RIGHT_PAREN .)
-    DUP             reduce using rule 31 (special_expression -> RIGHT_PAREN .)
-    SWAP            reduce using rule 31 (special_expression -> RIGHT_PAREN .)
-    ROT             reduce using rule 31 (special_expression -> RIGHT_PAREN .)
-    OVER            reduce using rule 31 (special_expression -> RIGHT_PAREN .)
     $end            reduce using rule 31 (special_expression -> RIGHT_PAREN .)
     PLUS            reduce using rule 31 (special_expression -> RIGHT_PAREN .)
     MINUS           reduce using rule 31 (special_expression -> RIGHT_PAREN .)
@@ -1224,38 +995,34 @@ state 27
     REPEAT          reduce using rule 31 (special_expression -> RIGHT_PAREN .)
 
 
-state 28
+state 24
 
-    (43) else_statement -> ELSE .
+    (39) else_statement -> ELSE .
 
-    NUMBER          reduce using rule 43 (else_statement -> ELSE .)
-    STRING          reduce using rule 43 (else_statement -> ELSE .)
-    VARIABLE        reduce using rule 43 (else_statement -> ELSE .)
-    reserved_word   reduce using rule 43 (else_statement -> ELSE .)
-    DOT             reduce using rule 43 (else_statement -> ELSE .)
-    EXCLAMATION     reduce using rule 43 (else_statement -> ELSE .)
-    AT              reduce using rule 43 (else_statement -> ELSE .)
-    COLON           reduce using rule 43 (else_statement -> ELSE .)
-    SEMICOLON       reduce using rule 43 (else_statement -> ELSE .)
-    LEFT_PAREN      reduce using rule 43 (else_statement -> ELSE .)
-    RIGHT_PAREN     reduce using rule 43 (else_statement -> ELSE .)
-    ELSE            reduce using rule 43 (else_statement -> ELSE .)
-    WHILE           reduce using rule 43 (else_statement -> ELSE .)
-    BEGIN           reduce using rule 43 (else_statement -> ELSE .)
-    EXIT            reduce using rule 43 (else_statement -> ELSE .)
-    DROP            reduce using rule 43 (else_statement -> ELSE .)
-    DUP             reduce using rule 43 (else_statement -> ELSE .)
-    SWAP            reduce using rule 43 (else_statement -> ELSE .)
-    ROT             reduce using rule 43 (else_statement -> ELSE .)
-    OVER            reduce using rule 43 (else_statement -> ELSE .)
-    $end            reduce using rule 43 (else_statement -> ELSE .)
-    THEN            reduce using rule 43 (else_statement -> ELSE .)
-    LOOP            reduce using rule 43 (else_statement -> ELSE .)
+    NUMBER          reduce using rule 39 (else_statement -> ELSE .)
+    STRING          reduce using rule 39 (else_statement -> ELSE .)
+    VARIABLE        reduce using rule 39 (else_statement -> ELSE .)
+    reserved_word   reduce using rule 39 (else_statement -> ELSE .)
+    DOT             reduce using rule 39 (else_statement -> ELSE .)
+    EXCLAMATION     reduce using rule 39 (else_statement -> ELSE .)
+    AT              reduce using rule 39 (else_statement -> ELSE .)
+    COLON           reduce using rule 39 (else_statement -> ELSE .)
+    SEMICOLON       reduce using rule 39 (else_statement -> ELSE .)
+    LEFT_PAREN      reduce using rule 39 (else_statement -> ELSE .)
+    RIGHT_PAREN     reduce using rule 39 (else_statement -> ELSE .)
+    ELSE            reduce using rule 39 (else_statement -> ELSE .)
+    WHILE           reduce using rule 39 (else_statement -> ELSE .)
+    BEGIN           reduce using rule 39 (else_statement -> ELSE .)
+    EXIT            reduce using rule 39 (else_statement -> ELSE .)
+    DROP            reduce using rule 39 (else_statement -> ELSE .)
+    $end            reduce using rule 39 (else_statement -> ELSE .)
+    THEN            reduce using rule 39 (else_statement -> ELSE .)
+    LOOP            reduce using rule 39 (else_statement -> ELSE .)
 
 
-state 29
+state 25
 
-    (44) while_loop -> WHILE . expression DO statements LOOP
+    (40) while_loop -> WHILE . expression DO statements LOOP
     (6) expression -> . NUMBER
     (7) expression -> . STRING
     (8) expression -> . VARIABLE
@@ -1277,19 +1044,19 @@ state 29
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
 
-    expression                     shift and go to state 40
+    expression                     shift and go to state 32
     special_expression             shift and go to state 9
 
-state 30
+state 26
 
-    (45) repeat_loop -> BEGIN . statements WHILE expression REPEAT
+    (41) repeat_loop -> BEGIN . statements WHILE expression REPEAT
     (2) statements -> . statement
     (3) statements -> . statements statement
     (4) statement -> . expression
@@ -1309,49 +1076,37 @@ state 30
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
-    statements                     shift and go to state 41
+    statements                     shift and go to state 33
     expression                     shift and go to state 4
     statement                      shift and go to state 3
     flow_control                   shift and go to state 5
@@ -1362,186 +1117,58 @@ state 30
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
-state 31
+state 27
 
-    (46) exit_statement -> EXIT .
+    (42) exit_statement -> EXIT .
 
-    NUMBER          reduce using rule 46 (exit_statement -> EXIT .)
-    STRING          reduce using rule 46 (exit_statement -> EXIT .)
-    VARIABLE        reduce using rule 46 (exit_statement -> EXIT .)
-    reserved_word   reduce using rule 46 (exit_statement -> EXIT .)
-    DOT             reduce using rule 46 (exit_statement -> EXIT .)
-    EXCLAMATION     reduce using rule 46 (exit_statement -> EXIT .)
-    AT              reduce using rule 46 (exit_statement -> EXIT .)
-    COLON           reduce using rule 46 (exit_statement -> EXIT .)
-    SEMICOLON       reduce using rule 46 (exit_statement -> EXIT .)
-    LEFT_PAREN      reduce using rule 46 (exit_statement -> EXIT .)
-    RIGHT_PAREN     reduce using rule 46 (exit_statement -> EXIT .)
-    ELSE            reduce using rule 46 (exit_statement -> EXIT .)
-    WHILE           reduce using rule 46 (exit_statement -> EXIT .)
-    BEGIN           reduce using rule 46 (exit_statement -> EXIT .)
-    EXIT            reduce using rule 46 (exit_statement -> EXIT .)
-    DROP            reduce using rule 46 (exit_statement -> EXIT .)
-    DUP             reduce using rule 46 (exit_statement -> EXIT .)
-    SWAP            reduce using rule 46 (exit_statement -> EXIT .)
-    ROT             reduce using rule 46 (exit_statement -> EXIT .)
-    OVER            reduce using rule 46 (exit_statement -> EXIT .)
-    $end            reduce using rule 46 (exit_statement -> EXIT .)
-    THEN            reduce using rule 46 (exit_statement -> EXIT .)
-    LOOP            reduce using rule 46 (exit_statement -> EXIT .)
+    NUMBER          reduce using rule 42 (exit_statement -> EXIT .)
+    STRING          reduce using rule 42 (exit_statement -> EXIT .)
+    VARIABLE        reduce using rule 42 (exit_statement -> EXIT .)
+    reserved_word   reduce using rule 42 (exit_statement -> EXIT .)
+    DOT             reduce using rule 42 (exit_statement -> EXIT .)
+    EXCLAMATION     reduce using rule 42 (exit_statement -> EXIT .)
+    AT              reduce using rule 42 (exit_statement -> EXIT .)
+    COLON           reduce using rule 42 (exit_statement -> EXIT .)
+    SEMICOLON       reduce using rule 42 (exit_statement -> EXIT .)
+    LEFT_PAREN      reduce using rule 42 (exit_statement -> EXIT .)
+    RIGHT_PAREN     reduce using rule 42 (exit_statement -> EXIT .)
+    ELSE            reduce using rule 42 (exit_statement -> EXIT .)
+    WHILE           reduce using rule 42 (exit_statement -> EXIT .)
+    BEGIN           reduce using rule 42 (exit_statement -> EXIT .)
+    EXIT            reduce using rule 42 (exit_statement -> EXIT .)
+    DROP            reduce using rule 42 (exit_statement -> EXIT .)
+    $end            reduce using rule 42 (exit_statement -> EXIT .)
+    THEN            reduce using rule 42 (exit_statement -> EXIT .)
+    LOOP            reduce using rule 42 (exit_statement -> EXIT .)
 
 
-state 32
+state 28
 
-    (47) drop_statement -> DROP .
+    (43) drop_statement -> DROP .
 
-    NUMBER          reduce using rule 47 (drop_statement -> DROP .)
-    STRING          reduce using rule 47 (drop_statement -> DROP .)
-    VARIABLE        reduce using rule 47 (drop_statement -> DROP .)
-    reserved_word   reduce using rule 47 (drop_statement -> DROP .)
-    DOT             reduce using rule 47 (drop_statement -> DROP .)
-    EXCLAMATION     reduce using rule 47 (drop_statement -> DROP .)
-    AT              reduce using rule 47 (drop_statement -> DROP .)
-    COLON           reduce using rule 47 (drop_statement -> DROP .)
-    SEMICOLON       reduce using rule 47 (drop_statement -> DROP .)
-    LEFT_PAREN      reduce using rule 47 (drop_statement -> DROP .)
-    RIGHT_PAREN     reduce using rule 47 (drop_statement -> DROP .)
-    ELSE            reduce using rule 47 (drop_statement -> DROP .)
-    WHILE           reduce using rule 47 (drop_statement -> DROP .)
-    BEGIN           reduce using rule 47 (drop_statement -> DROP .)
-    EXIT            reduce using rule 47 (drop_statement -> DROP .)
-    DROP            reduce using rule 47 (drop_statement -> DROP .)
-    DUP             reduce using rule 47 (drop_statement -> DROP .)
-    SWAP            reduce using rule 47 (drop_statement -> DROP .)
-    ROT             reduce using rule 47 (drop_statement -> DROP .)
-    OVER            reduce using rule 47 (drop_statement -> DROP .)
-    $end            reduce using rule 47 (drop_statement -> DROP .)
-    THEN            reduce using rule 47 (drop_statement -> DROP .)
-    LOOP            reduce using rule 47 (drop_statement -> DROP .)
+    NUMBER          reduce using rule 43 (drop_statement -> DROP .)
+    STRING          reduce using rule 43 (drop_statement -> DROP .)
+    VARIABLE        reduce using rule 43 (drop_statement -> DROP .)
+    reserved_word   reduce using rule 43 (drop_statement -> DROP .)
+    DOT             reduce using rule 43 (drop_statement -> DROP .)
+    EXCLAMATION     reduce using rule 43 (drop_statement -> DROP .)
+    AT              reduce using rule 43 (drop_statement -> DROP .)
+    COLON           reduce using rule 43 (drop_statement -> DROP .)
+    SEMICOLON       reduce using rule 43 (drop_statement -> DROP .)
+    LEFT_PAREN      reduce using rule 43 (drop_statement -> DROP .)
+    RIGHT_PAREN     reduce using rule 43 (drop_statement -> DROP .)
+    ELSE            reduce using rule 43 (drop_statement -> DROP .)
+    WHILE           reduce using rule 43 (drop_statement -> DROP .)
+    BEGIN           reduce using rule 43 (drop_statement -> DROP .)
+    EXIT            reduce using rule 43 (drop_statement -> DROP .)
+    DROP            reduce using rule 43 (drop_statement -> DROP .)
+    $end            reduce using rule 43 (drop_statement -> DROP .)
+    THEN            reduce using rule 43 (drop_statement -> DROP .)
+    LOOP            reduce using rule 43 (drop_statement -> DROP .)
 
 
-state 33
-
-    (48) dup_statement -> DUP .
-
-    NUMBER          reduce using rule 48 (dup_statement -> DUP .)
-    STRING          reduce using rule 48 (dup_statement -> DUP .)
-    VARIABLE        reduce using rule 48 (dup_statement -> DUP .)
-    reserved_word   reduce using rule 48 (dup_statement -> DUP .)
-    DOT             reduce using rule 48 (dup_statement -> DUP .)
-    EXCLAMATION     reduce using rule 48 (dup_statement -> DUP .)
-    AT              reduce using rule 48 (dup_statement -> DUP .)
-    COLON           reduce using rule 48 (dup_statement -> DUP .)
-    SEMICOLON       reduce using rule 48 (dup_statement -> DUP .)
-    LEFT_PAREN      reduce using rule 48 (dup_statement -> DUP .)
-    RIGHT_PAREN     reduce using rule 48 (dup_statement -> DUP .)
-    ELSE            reduce using rule 48 (dup_statement -> DUP .)
-    WHILE           reduce using rule 48 (dup_statement -> DUP .)
-    BEGIN           reduce using rule 48 (dup_statement -> DUP .)
-    EXIT            reduce using rule 48 (dup_statement -> DUP .)
-    DROP            reduce using rule 48 (dup_statement -> DUP .)
-    DUP             reduce using rule 48 (dup_statement -> DUP .)
-    SWAP            reduce using rule 48 (dup_statement -> DUP .)
-    ROT             reduce using rule 48 (dup_statement -> DUP .)
-    OVER            reduce using rule 48 (dup_statement -> DUP .)
-    $end            reduce using rule 48 (dup_statement -> DUP .)
-    THEN            reduce using rule 48 (dup_statement -> DUP .)
-    LOOP            reduce using rule 48 (dup_statement -> DUP .)
-
-
-state 34
-
-    (49) swap_statement -> SWAP .
-
-    NUMBER          reduce using rule 49 (swap_statement -> SWAP .)
-    STRING          reduce using rule 49 (swap_statement -> SWAP .)
-    VARIABLE        reduce using rule 49 (swap_statement -> SWAP .)
-    reserved_word   reduce using rule 49 (swap_statement -> SWAP .)
-    DOT             reduce using rule 49 (swap_statement -> SWAP .)
-    EXCLAMATION     reduce using rule 49 (swap_statement -> SWAP .)
-    AT              reduce using rule 49 (swap_statement -> SWAP .)
-    COLON           reduce using rule 49 (swap_statement -> SWAP .)
-    SEMICOLON       reduce using rule 49 (swap_statement -> SWAP .)
-    LEFT_PAREN      reduce using rule 49 (swap_statement -> SWAP .)
-    RIGHT_PAREN     reduce using rule 49 (swap_statement -> SWAP .)
-    ELSE            reduce using rule 49 (swap_statement -> SWAP .)
-    WHILE           reduce using rule 49 (swap_statement -> SWAP .)
-    BEGIN           reduce using rule 49 (swap_statement -> SWAP .)
-    EXIT            reduce using rule 49 (swap_statement -> SWAP .)
-    DROP            reduce using rule 49 (swap_statement -> SWAP .)
-    DUP             reduce using rule 49 (swap_statement -> SWAP .)
-    SWAP            reduce using rule 49 (swap_statement -> SWAP .)
-    ROT             reduce using rule 49 (swap_statement -> SWAP .)
-    OVER            reduce using rule 49 (swap_statement -> SWAP .)
-    $end            reduce using rule 49 (swap_statement -> SWAP .)
-    THEN            reduce using rule 49 (swap_statement -> SWAP .)
-    LOOP            reduce using rule 49 (swap_statement -> SWAP .)
-
-
-state 35
-
-    (50) rot_statement -> ROT .
-
-    NUMBER          reduce using rule 50 (rot_statement -> ROT .)
-    STRING          reduce using rule 50 (rot_statement -> ROT .)
-    VARIABLE        reduce using rule 50 (rot_statement -> ROT .)
-    reserved_word   reduce using rule 50 (rot_statement -> ROT .)
-    DOT             reduce using rule 50 (rot_statement -> ROT .)
-    EXCLAMATION     reduce using rule 50 (rot_statement -> ROT .)
-    AT              reduce using rule 50 (rot_statement -> ROT .)
-    COLON           reduce using rule 50 (rot_statement -> ROT .)
-    SEMICOLON       reduce using rule 50 (rot_statement -> ROT .)
-    LEFT_PAREN      reduce using rule 50 (rot_statement -> ROT .)
-    RIGHT_PAREN     reduce using rule 50 (rot_statement -> ROT .)
-    ELSE            reduce using rule 50 (rot_statement -> ROT .)
-    WHILE           reduce using rule 50 (rot_statement -> ROT .)
-    BEGIN           reduce using rule 50 (rot_statement -> ROT .)
-    EXIT            reduce using rule 50 (rot_statement -> ROT .)
-    DROP            reduce using rule 50 (rot_statement -> ROT .)
-    DUP             reduce using rule 50 (rot_statement -> ROT .)
-    SWAP            reduce using rule 50 (rot_statement -> ROT .)
-    ROT             reduce using rule 50 (rot_statement -> ROT .)
-    OVER            reduce using rule 50 (rot_statement -> ROT .)
-    $end            reduce using rule 50 (rot_statement -> ROT .)
-    THEN            reduce using rule 50 (rot_statement -> ROT .)
-    LOOP            reduce using rule 50 (rot_statement -> ROT .)
-
-
-state 36
-
-    (51) over_statement -> OVER .
-
-    NUMBER          reduce using rule 51 (over_statement -> OVER .)
-    STRING          reduce using rule 51 (over_statement -> OVER .)
-    VARIABLE        reduce using rule 51 (over_statement -> OVER .)
-    reserved_word   reduce using rule 51 (over_statement -> OVER .)
-    DOT             reduce using rule 51 (over_statement -> OVER .)
-    EXCLAMATION     reduce using rule 51 (over_statement -> OVER .)
-    AT              reduce using rule 51 (over_statement -> OVER .)
-    COLON           reduce using rule 51 (over_statement -> OVER .)
-    SEMICOLON       reduce using rule 51 (over_statement -> OVER .)
-    LEFT_PAREN      reduce using rule 51 (over_statement -> OVER .)
-    RIGHT_PAREN     reduce using rule 51 (over_statement -> OVER .)
-    ELSE            reduce using rule 51 (over_statement -> OVER .)
-    WHILE           reduce using rule 51 (over_statement -> OVER .)
-    BEGIN           reduce using rule 51 (over_statement -> OVER .)
-    EXIT            reduce using rule 51 (over_statement -> OVER .)
-    DROP            reduce using rule 51 (over_statement -> OVER .)
-    DUP             reduce using rule 51 (over_statement -> OVER .)
-    SWAP            reduce using rule 51 (over_statement -> OVER .)
-    ROT             reduce using rule 51 (over_statement -> OVER .)
-    OVER            reduce using rule 51 (over_statement -> OVER .)
-    $end            reduce using rule 51 (over_statement -> OVER .)
-    THEN            reduce using rule 51 (over_statement -> OVER .)
-    LOOP            reduce using rule 51 (over_statement -> OVER .)
-
-
-state 37
+state 29
 
     (3) statements -> statements statement .
 
@@ -1561,16 +1188,12 @@ state 37
     BEGIN           reduce using rule 3 (statements -> statements statement .)
     EXIT            reduce using rule 3 (statements -> statements statement .)
     DROP            reduce using rule 3 (statements -> statements statement .)
-    DUP             reduce using rule 3 (statements -> statements statement .)
-    SWAP            reduce using rule 3 (statements -> statements statement .)
-    ROT             reduce using rule 3 (statements -> statements statement .)
-    OVER            reduce using rule 3 (statements -> statements statement .)
     $end            reduce using rule 3 (statements -> statements statement .)
     THEN            reduce using rule 3 (statements -> statements statement .)
     LOOP            reduce using rule 3 (statements -> statements statement .)
 
 
-state 38
+state 30
 
     (12) expression -> expression expression . arithmetic_op
     (18) expression -> expression expression . relational_op
@@ -1605,38 +1228,38 @@ state 38
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
 
-    PLUS            shift and go to state 45
-    MINUS           shift and go to state 46
-    TIMES           shift and go to state 47
-    DIVIDE          shift and go to state 48
-    MOD             shift and go to state 49
-    NOT             shift and go to state 50
-    INF             shift and go to state 51
-    SUP             shift and go to state 52
-    INFEQ           shift and go to state 53
-    SUPEQ           shift and go to state 54
-    CONCAT          shift and go to state 55
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    TIMES           shift and go to state 39
+    DIVIDE          shift and go to state 40
+    MOD             shift and go to state 41
+    NOT             shift and go to state 42
+    INF             shift and go to state 43
+    SUP             shift and go to state 44
+    INFEQ           shift and go to state 45
+    SUPEQ           shift and go to state 46
+    CONCAT          shift and go to state 47
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
 
-    expression                     shift and go to state 38
-    arithmetic_op                  shift and go to state 42
-    relational_op                  shift and go to state 43
-    string_op                      shift and go to state 44
+    expression                     shift and go to state 30
+    arithmetic_op                  shift and go to state 34
+    relational_op                  shift and go to state 35
+    string_op                      shift and go to state 36
     special_expression             shift and go to state 9
 
-state 39
+state 31
 
-    (42) if_statement -> expression IF . statements THEN
+    (38) if_statement -> expression IF . statements THEN
     (2) statements -> . statement
     (3) statements -> . statements statement
     (4) statement -> . expression
@@ -1656,50 +1279,38 @@ state 39
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
     expression                     shift and go to state 4
-    statements                     shift and go to state 56
+    statements                     shift and go to state 48
     statement                      shift and go to state 3
     flow_control                   shift and go to state 5
     special_expression             shift and go to state 9
@@ -1709,14 +1320,10 @@ state 39
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
-state 40
+state 32
 
-    (44) while_loop -> WHILE expression . DO statements LOOP
+    (40) while_loop -> WHILE expression . DO statements LOOP
     (12) expression -> expression . expression arithmetic_op
     (18) expression -> expression . expression relational_op
     (24) expression -> expression . expression string_op
@@ -1736,25 +1343,25 @@ state 40
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
 
-    DO              shift and go to state 57
+    DO              shift and go to state 49
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
 
-    expression                     shift and go to state 38
+    expression                     shift and go to state 30
     special_expression             shift and go to state 9
 
-state 41
+state 33
 
-    (45) repeat_loop -> BEGIN statements . WHILE expression REPEAT
+    (41) repeat_loop -> BEGIN statements . WHILE expression REPEAT
     (3) statements -> statements . statement
     (4) statement -> . expression
     (5) statement -> . flow_control
@@ -1773,50 +1380,38 @@ state 41
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
-    WHILE           shift and go to state 58
+    WHILE           shift and go to state 50
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
     expression                     shift and go to state 4
-    statement                      shift and go to state 37
+    statement                      shift and go to state 29
     flow_control                   shift and go to state 5
     special_expression             shift and go to state 9
     if_statement                   shift and go to state 12
@@ -1825,12 +1420,8 @@ state 41
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
-state 42
+state 34
 
     (12) expression -> expression expression arithmetic_op .
 
@@ -1851,10 +1442,6 @@ state 42
     BEGIN           reduce using rule 12 (expression -> expression expression arithmetic_op .)
     EXIT            reduce using rule 12 (expression -> expression expression arithmetic_op .)
     DROP            reduce using rule 12 (expression -> expression expression arithmetic_op .)
-    DUP             reduce using rule 12 (expression -> expression expression arithmetic_op .)
-    SWAP            reduce using rule 12 (expression -> expression expression arithmetic_op .)
-    ROT             reduce using rule 12 (expression -> expression expression arithmetic_op .)
-    OVER            reduce using rule 12 (expression -> expression expression arithmetic_op .)
     $end            reduce using rule 12 (expression -> expression expression arithmetic_op .)
     PLUS            reduce using rule 12 (expression -> expression expression arithmetic_op .)
     MINUS           reduce using rule 12 (expression -> expression expression arithmetic_op .)
@@ -1873,7 +1460,7 @@ state 42
     REPEAT          reduce using rule 12 (expression -> expression expression arithmetic_op .)
 
 
-state 43
+state 35
 
     (18) expression -> expression expression relational_op .
 
@@ -1894,10 +1481,6 @@ state 43
     BEGIN           reduce using rule 18 (expression -> expression expression relational_op .)
     EXIT            reduce using rule 18 (expression -> expression expression relational_op .)
     DROP            reduce using rule 18 (expression -> expression expression relational_op .)
-    DUP             reduce using rule 18 (expression -> expression expression relational_op .)
-    SWAP            reduce using rule 18 (expression -> expression expression relational_op .)
-    ROT             reduce using rule 18 (expression -> expression expression relational_op .)
-    OVER            reduce using rule 18 (expression -> expression expression relational_op .)
     $end            reduce using rule 18 (expression -> expression expression relational_op .)
     PLUS            reduce using rule 18 (expression -> expression expression relational_op .)
     MINUS           reduce using rule 18 (expression -> expression expression relational_op .)
@@ -1916,7 +1499,7 @@ state 43
     REPEAT          reduce using rule 18 (expression -> expression expression relational_op .)
 
 
-state 44
+state 36
 
     (24) expression -> expression expression string_op .
 
@@ -1937,10 +1520,6 @@ state 44
     BEGIN           reduce using rule 24 (expression -> expression expression string_op .)
     EXIT            reduce using rule 24 (expression -> expression expression string_op .)
     DROP            reduce using rule 24 (expression -> expression expression string_op .)
-    DUP             reduce using rule 24 (expression -> expression expression string_op .)
-    SWAP            reduce using rule 24 (expression -> expression expression string_op .)
-    ROT             reduce using rule 24 (expression -> expression expression string_op .)
-    OVER            reduce using rule 24 (expression -> expression expression string_op .)
     $end            reduce using rule 24 (expression -> expression expression string_op .)
     PLUS            reduce using rule 24 (expression -> expression expression string_op .)
     MINUS           reduce using rule 24 (expression -> expression expression string_op .)
@@ -1959,7 +1538,7 @@ state 44
     REPEAT          reduce using rule 24 (expression -> expression expression string_op .)
 
 
-state 45
+state 37
 
     (13) arithmetic_op -> PLUS .
 
@@ -1980,10 +1559,6 @@ state 45
     BEGIN           reduce using rule 13 (arithmetic_op -> PLUS .)
     EXIT            reduce using rule 13 (arithmetic_op -> PLUS .)
     DROP            reduce using rule 13 (arithmetic_op -> PLUS .)
-    DUP             reduce using rule 13 (arithmetic_op -> PLUS .)
-    SWAP            reduce using rule 13 (arithmetic_op -> PLUS .)
-    ROT             reduce using rule 13 (arithmetic_op -> PLUS .)
-    OVER            reduce using rule 13 (arithmetic_op -> PLUS .)
     $end            reduce using rule 13 (arithmetic_op -> PLUS .)
     PLUS            reduce using rule 13 (arithmetic_op -> PLUS .)
     MINUS           reduce using rule 13 (arithmetic_op -> PLUS .)
@@ -2002,7 +1577,7 @@ state 45
     REPEAT          reduce using rule 13 (arithmetic_op -> PLUS .)
 
 
-state 46
+state 38
 
     (14) arithmetic_op -> MINUS .
 
@@ -2023,10 +1598,6 @@ state 46
     BEGIN           reduce using rule 14 (arithmetic_op -> MINUS .)
     EXIT            reduce using rule 14 (arithmetic_op -> MINUS .)
     DROP            reduce using rule 14 (arithmetic_op -> MINUS .)
-    DUP             reduce using rule 14 (arithmetic_op -> MINUS .)
-    SWAP            reduce using rule 14 (arithmetic_op -> MINUS .)
-    ROT             reduce using rule 14 (arithmetic_op -> MINUS .)
-    OVER            reduce using rule 14 (arithmetic_op -> MINUS .)
     $end            reduce using rule 14 (arithmetic_op -> MINUS .)
     PLUS            reduce using rule 14 (arithmetic_op -> MINUS .)
     MINUS           reduce using rule 14 (arithmetic_op -> MINUS .)
@@ -2045,7 +1616,7 @@ state 46
     REPEAT          reduce using rule 14 (arithmetic_op -> MINUS .)
 
 
-state 47
+state 39
 
     (15) arithmetic_op -> TIMES .
 
@@ -2066,10 +1637,6 @@ state 47
     BEGIN           reduce using rule 15 (arithmetic_op -> TIMES .)
     EXIT            reduce using rule 15 (arithmetic_op -> TIMES .)
     DROP            reduce using rule 15 (arithmetic_op -> TIMES .)
-    DUP             reduce using rule 15 (arithmetic_op -> TIMES .)
-    SWAP            reduce using rule 15 (arithmetic_op -> TIMES .)
-    ROT             reduce using rule 15 (arithmetic_op -> TIMES .)
-    OVER            reduce using rule 15 (arithmetic_op -> TIMES .)
     $end            reduce using rule 15 (arithmetic_op -> TIMES .)
     PLUS            reduce using rule 15 (arithmetic_op -> TIMES .)
     MINUS           reduce using rule 15 (arithmetic_op -> TIMES .)
@@ -2088,7 +1655,7 @@ state 47
     REPEAT          reduce using rule 15 (arithmetic_op -> TIMES .)
 
 
-state 48
+state 40
 
     (16) arithmetic_op -> DIVIDE .
 
@@ -2109,10 +1676,6 @@ state 48
     BEGIN           reduce using rule 16 (arithmetic_op -> DIVIDE .)
     EXIT            reduce using rule 16 (arithmetic_op -> DIVIDE .)
     DROP            reduce using rule 16 (arithmetic_op -> DIVIDE .)
-    DUP             reduce using rule 16 (arithmetic_op -> DIVIDE .)
-    SWAP            reduce using rule 16 (arithmetic_op -> DIVIDE .)
-    ROT             reduce using rule 16 (arithmetic_op -> DIVIDE .)
-    OVER            reduce using rule 16 (arithmetic_op -> DIVIDE .)
     $end            reduce using rule 16 (arithmetic_op -> DIVIDE .)
     PLUS            reduce using rule 16 (arithmetic_op -> DIVIDE .)
     MINUS           reduce using rule 16 (arithmetic_op -> DIVIDE .)
@@ -2131,7 +1694,7 @@ state 48
     REPEAT          reduce using rule 16 (arithmetic_op -> DIVIDE .)
 
 
-state 49
+state 41
 
     (17) arithmetic_op -> MOD .
 
@@ -2152,10 +1715,6 @@ state 49
     BEGIN           reduce using rule 17 (arithmetic_op -> MOD .)
     EXIT            reduce using rule 17 (arithmetic_op -> MOD .)
     DROP            reduce using rule 17 (arithmetic_op -> MOD .)
-    DUP             reduce using rule 17 (arithmetic_op -> MOD .)
-    SWAP            reduce using rule 17 (arithmetic_op -> MOD .)
-    ROT             reduce using rule 17 (arithmetic_op -> MOD .)
-    OVER            reduce using rule 17 (arithmetic_op -> MOD .)
     $end            reduce using rule 17 (arithmetic_op -> MOD .)
     PLUS            reduce using rule 17 (arithmetic_op -> MOD .)
     MINUS           reduce using rule 17 (arithmetic_op -> MOD .)
@@ -2174,7 +1733,7 @@ state 49
     REPEAT          reduce using rule 17 (arithmetic_op -> MOD .)
 
 
-state 50
+state 42
 
     (19) relational_op -> NOT .
 
@@ -2195,10 +1754,6 @@ state 50
     BEGIN           reduce using rule 19 (relational_op -> NOT .)
     EXIT            reduce using rule 19 (relational_op -> NOT .)
     DROP            reduce using rule 19 (relational_op -> NOT .)
-    DUP             reduce using rule 19 (relational_op -> NOT .)
-    SWAP            reduce using rule 19 (relational_op -> NOT .)
-    ROT             reduce using rule 19 (relational_op -> NOT .)
-    OVER            reduce using rule 19 (relational_op -> NOT .)
     $end            reduce using rule 19 (relational_op -> NOT .)
     PLUS            reduce using rule 19 (relational_op -> NOT .)
     MINUS           reduce using rule 19 (relational_op -> NOT .)
@@ -2217,7 +1772,7 @@ state 50
     REPEAT          reduce using rule 19 (relational_op -> NOT .)
 
 
-state 51
+state 43
 
     (20) relational_op -> INF .
 
@@ -2238,10 +1793,6 @@ state 51
     BEGIN           reduce using rule 20 (relational_op -> INF .)
     EXIT            reduce using rule 20 (relational_op -> INF .)
     DROP            reduce using rule 20 (relational_op -> INF .)
-    DUP             reduce using rule 20 (relational_op -> INF .)
-    SWAP            reduce using rule 20 (relational_op -> INF .)
-    ROT             reduce using rule 20 (relational_op -> INF .)
-    OVER            reduce using rule 20 (relational_op -> INF .)
     $end            reduce using rule 20 (relational_op -> INF .)
     PLUS            reduce using rule 20 (relational_op -> INF .)
     MINUS           reduce using rule 20 (relational_op -> INF .)
@@ -2260,7 +1811,7 @@ state 51
     REPEAT          reduce using rule 20 (relational_op -> INF .)
 
 
-state 52
+state 44
 
     (21) relational_op -> SUP .
 
@@ -2281,10 +1832,6 @@ state 52
     BEGIN           reduce using rule 21 (relational_op -> SUP .)
     EXIT            reduce using rule 21 (relational_op -> SUP .)
     DROP            reduce using rule 21 (relational_op -> SUP .)
-    DUP             reduce using rule 21 (relational_op -> SUP .)
-    SWAP            reduce using rule 21 (relational_op -> SUP .)
-    ROT             reduce using rule 21 (relational_op -> SUP .)
-    OVER            reduce using rule 21 (relational_op -> SUP .)
     $end            reduce using rule 21 (relational_op -> SUP .)
     PLUS            reduce using rule 21 (relational_op -> SUP .)
     MINUS           reduce using rule 21 (relational_op -> SUP .)
@@ -2303,7 +1850,7 @@ state 52
     REPEAT          reduce using rule 21 (relational_op -> SUP .)
 
 
-state 53
+state 45
 
     (22) relational_op -> INFEQ .
 
@@ -2324,10 +1871,6 @@ state 53
     BEGIN           reduce using rule 22 (relational_op -> INFEQ .)
     EXIT            reduce using rule 22 (relational_op -> INFEQ .)
     DROP            reduce using rule 22 (relational_op -> INFEQ .)
-    DUP             reduce using rule 22 (relational_op -> INFEQ .)
-    SWAP            reduce using rule 22 (relational_op -> INFEQ .)
-    ROT             reduce using rule 22 (relational_op -> INFEQ .)
-    OVER            reduce using rule 22 (relational_op -> INFEQ .)
     $end            reduce using rule 22 (relational_op -> INFEQ .)
     PLUS            reduce using rule 22 (relational_op -> INFEQ .)
     MINUS           reduce using rule 22 (relational_op -> INFEQ .)
@@ -2346,7 +1889,7 @@ state 53
     REPEAT          reduce using rule 22 (relational_op -> INFEQ .)
 
 
-state 54
+state 46
 
     (23) relational_op -> SUPEQ .
 
@@ -2367,10 +1910,6 @@ state 54
     BEGIN           reduce using rule 23 (relational_op -> SUPEQ .)
     EXIT            reduce using rule 23 (relational_op -> SUPEQ .)
     DROP            reduce using rule 23 (relational_op -> SUPEQ .)
-    DUP             reduce using rule 23 (relational_op -> SUPEQ .)
-    SWAP            reduce using rule 23 (relational_op -> SUPEQ .)
-    ROT             reduce using rule 23 (relational_op -> SUPEQ .)
-    OVER            reduce using rule 23 (relational_op -> SUPEQ .)
     $end            reduce using rule 23 (relational_op -> SUPEQ .)
     PLUS            reduce using rule 23 (relational_op -> SUPEQ .)
     MINUS           reduce using rule 23 (relational_op -> SUPEQ .)
@@ -2389,7 +1928,7 @@ state 54
     REPEAT          reduce using rule 23 (relational_op -> SUPEQ .)
 
 
-state 55
+state 47
 
     (25) string_op -> CONCAT .
 
@@ -2410,10 +1949,6 @@ state 55
     BEGIN           reduce using rule 25 (string_op -> CONCAT .)
     EXIT            reduce using rule 25 (string_op -> CONCAT .)
     DROP            reduce using rule 25 (string_op -> CONCAT .)
-    DUP             reduce using rule 25 (string_op -> CONCAT .)
-    SWAP            reduce using rule 25 (string_op -> CONCAT .)
-    ROT             reduce using rule 25 (string_op -> CONCAT .)
-    OVER            reduce using rule 25 (string_op -> CONCAT .)
     $end            reduce using rule 25 (string_op -> CONCAT .)
     PLUS            reduce using rule 25 (string_op -> CONCAT .)
     MINUS           reduce using rule 25 (string_op -> CONCAT .)
@@ -2432,9 +1967,9 @@ state 55
     REPEAT          reduce using rule 25 (string_op -> CONCAT .)
 
 
-state 56
+state 48
 
-    (42) if_statement -> expression IF statements . THEN
+    (38) if_statement -> expression IF statements . THEN
     (3) statements -> statements . statement
     (4) statement -> . expression
     (5) statement -> . flow_control
@@ -2453,51 +1988,39 @@ state 56
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
-    THEN            shift and go to state 59
+    THEN            shift and go to state 51
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
     expression                     shift and go to state 4
-    statement                      shift and go to state 37
+    statement                      shift and go to state 29
     flow_control                   shift and go to state 5
     special_expression             shift and go to state 9
     if_statement                   shift and go to state 12
@@ -2506,14 +2029,10 @@ state 56
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
-state 57
+state 49
 
-    (44) while_loop -> WHILE expression DO . statements LOOP
+    (40) while_loop -> WHILE expression DO . statements LOOP
     (2) statements -> . statement
     (3) statements -> . statements statement
     (4) statement -> . expression
@@ -2533,50 +2052,38 @@ state 57
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
     expression                     shift and go to state 4
-    statements                     shift and go to state 60
+    statements                     shift and go to state 52
     statement                      shift and go to state 3
     flow_control                   shift and go to state 5
     special_expression             shift and go to state 9
@@ -2586,15 +2093,11 @@ state 57
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
-state 58
+state 50
 
-    (45) repeat_loop -> BEGIN statements WHILE . expression REPEAT
-    (44) while_loop -> WHILE . expression DO statements LOOP
+    (41) repeat_loop -> BEGIN statements WHILE . expression REPEAT
+    (40) while_loop -> WHILE . expression DO statements LOOP
     (6) expression -> . NUMBER
     (7) expression -> . STRING
     (8) expression -> . VARIABLE
@@ -2616,48 +2119,44 @@ state 58
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
 
-    expression                     shift and go to state 61
+    expression                     shift and go to state 53
     special_expression             shift and go to state 9
 
-state 59
+state 51
 
-    (42) if_statement -> expression IF statements THEN .
+    (38) if_statement -> expression IF statements THEN .
 
-    NUMBER          reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    STRING          reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    VARIABLE        reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    reserved_word   reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    DOT             reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    EXCLAMATION     reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    AT              reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    COLON           reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    SEMICOLON       reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    LEFT_PAREN      reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    RIGHT_PAREN     reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    ELSE            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    WHILE           reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    BEGIN           reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    EXIT            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    DROP            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    DUP             reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    SWAP            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    ROT             reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    OVER            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    $end            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    THEN            reduce using rule 42 (if_statement -> expression IF statements THEN .)
-    LOOP            reduce using rule 42 (if_statement -> expression IF statements THEN .)
+    NUMBER          reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    STRING          reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    VARIABLE        reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    reserved_word   reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    DOT             reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    EXCLAMATION     reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    AT              reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    COLON           reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    SEMICOLON       reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    LEFT_PAREN      reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    RIGHT_PAREN     reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    ELSE            reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    WHILE           reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    BEGIN           reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    EXIT            reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    DROP            reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    $end            reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    THEN            reduce using rule 38 (if_statement -> expression IF statements THEN .)
+    LOOP            reduce using rule 38 (if_statement -> expression IF statements THEN .)
 
 
-state 60
+state 52
 
-    (44) while_loop -> WHILE expression DO statements . LOOP
+    (40) while_loop -> WHILE expression DO statements . LOOP
     (3) statements -> statements . statement
     (4) statement -> . expression
     (5) statement -> . flow_control
@@ -2676,51 +2175,39 @@ state 60
     (35) flow_control -> . repeat_loop
     (36) flow_control -> . exit_statement
     (37) flow_control -> . drop_statement
-    (38) flow_control -> . dup_statement
-    (39) flow_control -> . swap_statement
-    (40) flow_control -> . rot_statement
-    (41) flow_control -> . over_statement
     (26) special_expression -> . EXCLAMATION
     (27) special_expression -> . AT
     (28) special_expression -> . COLON
     (29) special_expression -> . SEMICOLON
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
-    (42) if_statement -> . expression IF statements THEN
-    (43) else_statement -> . ELSE
-    (44) while_loop -> . WHILE expression DO statements LOOP
-    (45) repeat_loop -> . BEGIN statements WHILE expression REPEAT
-    (46) exit_statement -> . EXIT
-    (47) drop_statement -> . DROP
-    (48) dup_statement -> . DUP
-    (49) swap_statement -> . SWAP
-    (50) rot_statement -> . ROT
-    (51) over_statement -> . OVER
+    (38) if_statement -> . expression IF statements THEN
+    (39) else_statement -> . ELSE
+    (40) while_loop -> . WHILE expression DO statements LOOP
+    (41) repeat_loop -> . BEGIN statements WHILE expression REPEAT
+    (42) exit_statement -> . EXIT
+    (43) drop_statement -> . DROP
 
-    LOOP            shift and go to state 62
+    LOOP            shift and go to state 54
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
-    ELSE            shift and go to state 28
-    WHILE           shift and go to state 29
-    BEGIN           shift and go to state 30
-    EXIT            shift and go to state 31
-    DROP            shift and go to state 32
-    DUP             shift and go to state 33
-    SWAP            shift and go to state 34
-    ROT             shift and go to state 35
-    OVER            shift and go to state 36
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
+    ELSE            shift and go to state 24
+    WHILE           shift and go to state 25
+    BEGIN           shift and go to state 26
+    EXIT            shift and go to state 27
+    DROP            shift and go to state 28
 
     expression                     shift and go to state 4
-    statement                      shift and go to state 37
+    statement                      shift and go to state 29
     flow_control                   shift and go to state 5
     special_expression             shift and go to state 9
     if_statement                   shift and go to state 12
@@ -2729,15 +2216,11 @@ state 60
     repeat_loop                    shift and go to state 15
     exit_statement                 shift and go to state 16
     drop_statement                 shift and go to state 17
-    dup_statement                  shift and go to state 18
-    swap_statement                 shift and go to state 19
-    rot_statement                  shift and go to state 20
-    over_statement                 shift and go to state 21
 
-state 61
+state 53
 
-    (45) repeat_loop -> BEGIN statements WHILE expression . REPEAT
-    (44) while_loop -> WHILE expression . DO statements LOOP
+    (41) repeat_loop -> BEGIN statements WHILE expression . REPEAT
+    (40) while_loop -> WHILE expression . DO statements LOOP
     (12) expression -> expression . expression arithmetic_op
     (18) expression -> expression . expression relational_op
     (24) expression -> expression . expression string_op
@@ -2757,79 +2240,71 @@ state 61
     (30) special_expression -> . LEFT_PAREN
     (31) special_expression -> . RIGHT_PAREN
 
-    REPEAT          shift and go to state 63
-    DO              shift and go to state 57
+    REPEAT          shift and go to state 55
+    DO              shift and go to state 49
     NUMBER          shift and go to state 6
     STRING          shift and go to state 7
     VARIABLE        shift and go to state 8
     reserved_word   shift and go to state 10
     DOT             shift and go to state 11
-    EXCLAMATION     shift and go to state 22
-    AT              shift and go to state 23
-    COLON           shift and go to state 24
-    SEMICOLON       shift and go to state 25
-    LEFT_PAREN      shift and go to state 26
-    RIGHT_PAREN     shift and go to state 27
+    EXCLAMATION     shift and go to state 18
+    AT              shift and go to state 19
+    COLON           shift and go to state 20
+    SEMICOLON       shift and go to state 21
+    LEFT_PAREN      shift and go to state 22
+    RIGHT_PAREN     shift and go to state 23
 
-    expression                     shift and go to state 38
+    expression                     shift and go to state 30
     special_expression             shift and go to state 9
 
-state 62
+state 54
 
-    (44) while_loop -> WHILE expression DO statements LOOP .
+    (40) while_loop -> WHILE expression DO statements LOOP .
 
-    NUMBER          reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    STRING          reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    VARIABLE        reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    reserved_word   reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    DOT             reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    EXCLAMATION     reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    AT              reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    COLON           reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    SEMICOLON       reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    LEFT_PAREN      reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    RIGHT_PAREN     reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    ELSE            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    WHILE           reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    BEGIN           reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    EXIT            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    DROP            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    DUP             reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    SWAP            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    ROT             reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    OVER            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    $end            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    THEN            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
-    LOOP            reduce using rule 44 (while_loop -> WHILE expression DO statements LOOP .)
+    NUMBER          reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    STRING          reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    VARIABLE        reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    reserved_word   reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    DOT             reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    EXCLAMATION     reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    AT              reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    COLON           reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    SEMICOLON       reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    LEFT_PAREN      reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    RIGHT_PAREN     reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    ELSE            reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    WHILE           reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    BEGIN           reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    EXIT            reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    DROP            reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    $end            reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    THEN            reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
+    LOOP            reduce using rule 40 (while_loop -> WHILE expression DO statements LOOP .)
 
 
-state 63
+state 55
 
-    (45) repeat_loop -> BEGIN statements WHILE expression REPEAT .
+    (41) repeat_loop -> BEGIN statements WHILE expression REPEAT .
 
-    NUMBER          reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    STRING          reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    VARIABLE        reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    reserved_word   reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    DOT             reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    EXCLAMATION     reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    AT              reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    COLON           reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    SEMICOLON       reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    LEFT_PAREN      reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    RIGHT_PAREN     reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    ELSE            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    WHILE           reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    BEGIN           reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    EXIT            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    DROP            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    DUP             reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    SWAP            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    ROT             reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    OVER            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    $end            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    THEN            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
-    LOOP            reduce using rule 45 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    NUMBER          reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    STRING          reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    VARIABLE        reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    reserved_word   reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    DOT             reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    EXCLAMATION     reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    AT              reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    COLON           reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    SEMICOLON       reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    LEFT_PAREN      reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    RIGHT_PAREN     reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    ELSE            reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    WHILE           reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    BEGIN           reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    EXIT            reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    DROP            reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    $end            reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    THEN            reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
+    LOOP            reduce using rule 41 (repeat_loop -> BEGIN statements WHILE expression REPEAT .)
 
 WARNING: 
 WARNING: Conflicts:

@@ -45,10 +45,26 @@ def p_expression(p):
         stack.append(p[1])
         vm_code += f"PUSHF {p[1]}\n"
     elif isinstance(p[1], str):
-        stack.append(p[1])
-        if p[1] in ['IF', 'ELSE', 'THEN', 'WHILE', 'DO', 'LOOP', 'BEGIN', 'REPEAT', 'EXIT', 'DROP', 'DUP', 'SWAP', 'ROT', 'OVER', 'CONCAT']:
-            vm_code += f"{p[1]}\n"
+        if p[1] in ['IF', 'ELSE', 'THEN', 'WHILE', 'DO', 'LOOP', 'BEGIN', 'REPEAT', 'EXIT', 'DROP', 'SWAP','ROT', 'DUP', 'OVER', 'CONCAT']:
+            if p[1] == 'ROT':
+                p_rot_statement(p)
+                return
+            elif p[1] == 'CONCAT':
+                p_string_operations(p)
+                return
+            elif p[1] == 'DUP':
+                p_dup_statement(p)
+                return
+            elif p[1] == 'OVER':
+                p_over_statement(p)
+                return
+            elif p[1] == 'DROP':
+                p_drop_statement(p)
+                return
+            else:
+                vm_code += f"{p[1]}\n"
         else:
+            stack.append(p[1])
             vm_code += f"PUSHS {p[1]}\n"
     else:
         print("Error: Invalid expression")
@@ -56,6 +72,9 @@ def p_expression(p):
 def p_dot(p):
     '''expression : DOT'''
     global vm_code
+    if len(stack) == 0:
+        print("Error: Not enough members in Stack for DOT")
+        return
     top_value = stack.pop()
     if isinstance(top_value, int):
         vm_code += "WRITEI\n"
@@ -65,12 +84,13 @@ def p_dot(p):
         vm_code += "WRITES\n"
     p[0] = top_value
 
+
 #Esta função define a regra gramatical para uma expressão aritmética, que consiste em uma expressão seguida por um operador aritmético e outra expressão.
 def p_expression_arithmetic(p):
     '''expression : expression expression arithmetic_op'''
     global vm_code
     if len(stack) < 2:
-        print("Error: Not enough values on the stack for arithmetic operation")
+        print("Error: Not enough members on the stack for arithmetic operation")
         return  
     b = stack.pop()
     a = stack.pop()
@@ -118,7 +138,7 @@ def p_expression_relational(p):
     '''expression : expression expression relational_op'''
     global vm_code
     if len(stack) < 2:
-        print("Error: Not enough values on the stack for relational operation")
+        print("Error: Not enough members on the stack for relational operation")
         return
     b = stack.pop()
     a = stack.pop()
@@ -159,24 +179,26 @@ def p_string_operations(p):
     '''expression : expression expression string_op'''
     global vm_code
     if len(stack) < 2:
-        print("Error: Not enough values on the stack for string operation")
+        print("Error: Not enough members on the stack for string operation")
         return
-    m = stack.pop()
-    n = stack.pop()
-    op = p[3]
-    if not (isinstance(m, str) and isinstance(n,str)): #Tratamento de Erro quando não são strings
-        print("Error: CONCAT op requires the operands to be strings")
-        return      
-    result = n + m
-    stack.append(result)
+    op = p[3] 
+    if op == 'CONCAT':
+        m = stack.pop()
+        n = stack.pop()
+        if not (isinstance(m, str) and isinstance(n,str)): #Tratamento de Erro quando não são strings
+            print("Error: CONCAT op requires the operands to be strings")
+            return     
+        stack.append(n + m)
+        vm_code += f"PUSHS {n}\n"
+        vm_code += f"PUSHS {m}\n"
+        vm_code += "CONCAT\n"
 
 
 def p_string_op(p):
     '''string_op : CONCAT'''
     p[0] = p[1]
     global vm_code
-    vm_code += f"{p[1]}"
-
+    vm_code += f"{p[1]}\n"
 
 #Esta função define a regra gramatical para expressões especiais, como exclamação, arroba, ponto, dois pontos, ponto e vírgula, parênteses esquerdo e direito.
 def p_special_expression(p):
@@ -195,11 +217,7 @@ def p_flow_control(p):
                     | while_loop
                     | repeat_loop
                     | exit_statement
-                    | drop_statement
-                    | dup_statement
-                    | swap_statement
-                    | rot_statement
-                    | over_statement'''
+                    | drop_statement'''
     p[0] = ('flow_control', p[1])
 
 #Estas funções definem as regras gramaticais para cada tipo específico de estrutura de controle de fluxo.
@@ -227,31 +245,27 @@ def p_exit_statement(p):
 def p_drop_statement(p):
     '''drop_statement : DROP'''
     p[0] = " DROP "
+    if len(stack) == 0:
+        print("Error: Not enough members on the stack for DROP operation")
+        return
     global vm_code
+    stack.pop()
     vm_code += "POP 1\n"
 
 def p_dup_statement(p):
     '''dup_statement : DUP'''
     if not stack:
-        print("Error: Not enough values on the stack for DUP operation")
+        print("Error: Not enough members on the stack for DUP operation")
         return
-    top_value = stack[-1]
-    stack.append(top_value)
-    p[0] = " DUP "
+    p[0] = None
+    stack.append(stack[-1])
     global vm_code
-    if isinstance(top_value, int):
-        vm_code += f"PUSHI {top_value}\n"     
-    elif isinstance(top_value, float):
-        vm_code += f"PUSHF {top_value}\n"
-    elif isinstance(top_value, str):
-        vm_code += f"PUSHS {top_value}\n"
-    else:
-        print("Error: Invalid expression")
+    vm_code += "DUP 1\n"
 
 def p_swap_statement(p):
     '''swap_statement : SWAP'''
     if len(stack) < 2:
-        print("Error: Not enough values on the stack for SWAP operation")
+        print("Error: Not enough members on the stack for SWAP operation")
         return
     global vm_code
     a = stack.pop()
@@ -264,11 +278,13 @@ def p_swap_statement(p):
 def p_rot_statement(p):
     '''rot_statement : ROT'''
     if len(stack) < 3:
-        print("Error: Not enough values on the stack for ROT operation")
+        print("Error: Not enough members on the stack for ROT operation")
         return
     a = stack.pop()
     b = stack.pop()
     c = stack.pop()
+    global vm_code
+    vm_code += "POP 3\n"
     if isinstance(a, int):
         vm_code += f"PUSHI {b}\n"
     elif isinstance(a, float):
@@ -298,7 +314,7 @@ def p_rot_statement(p):
 def p_over_statement(p):
     '''over_statement : OVER'''
     if len(stack) < 2:
-        print("Error: Not enough values on the stack for OVER operation")
+        print("Error: Not enough members on the stack for OVER operation")
         return
         global vm_code
     a = stack[-2]

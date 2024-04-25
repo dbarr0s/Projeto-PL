@@ -34,6 +34,8 @@ def p_expression(p):
     '''expression : NUMBER
                   | STRING
                   | VARIABLE
+                  | CHAR
+                  | EMIT
                   | special_expression
                   | reserved_word'''
     global vm_code
@@ -44,22 +46,38 @@ def p_expression(p):
     elif isinstance(p[1], float):
         stack.append(p[1])
         vm_code += f"PUSHF {p[1]}\n"
+    elif p[1] == 'EMIT':
+        if len(stack) == 0:
+            print("Error: Not enough members in Stack for EMIT")
+            return
+        top_value = stack[-1]
+        if isinstance(top_value, str) and len(top_value) == 1:
+            vm_code += f'PUSHS "{top_value}"\nWRITES\n'
+        if isinstance(top_value, int):
+            vm_code += f'PUSHS "{chr(top_value)}"\nWRITES\n'
+        p[0] = top_value
     elif isinstance(p[1], str):
-        if p[1] in ['IF', 'ELSE', 'THEN', 'WHILE', 'DO', 'LOOP', 'BEGIN', 'REPEAT', 'EXIT', 'DROP', 'SWAP','ROT', 'DUP', 'OVER', 'CONCAT']:
+        if p[1] in ['IF', 'ELSE', 'THEN', 'WHILE', 'DO', 'LOOP', 'BEGIN', 'REPEAT', 'EXIT', 'DROP', 'SWAP','ROT', 'OVER', 'CONCAT', 'DUP', 'CR']:
             if p[1] == 'ROT':
                 p_rot_statement(p)
                 return
             elif p[1] == 'CONCAT':
                 p_string_operations(p)
                 return
-            elif p[1] == 'DUP':
-                p_dup_statement(p)
-                return
             elif p[1] == 'OVER':
                 p_over_statement(p)
                 return
             elif p[1] == 'DROP':
                 p_drop_statement(p)
+                return
+            elif p[1] == 'EMIT':
+                p_STDOUT(p)
+                return
+            elif p[1] == 'DUP':
+                p_dup_statement(p)
+                return
+            elif p[1] == 'CR':
+                vm_code += "PUSHS \"\\n\"\nWRITES\n"
                 return
             else:
                 vm_code += f"{p[1]}\n"
@@ -84,6 +102,38 @@ def p_dot(p):
         vm_code += "WRITES\n"
     p[0] = top_value
 
+def p_STDOUT(p):
+    '''expression : STDOUT'''
+    global vm_code
+    value = p[1]
+    stack.append(value)
+    vm_code += f'PUSHS "{value}"\nWRITES\n'
+
+def p_dup_statement(p):
+    '''dup_statement : DUP'''
+    if len(stack) == 0:
+        print("Error: Not enough members in Stack for DUP")
+        return
+    global vm_code
+    top_value = stack[-1]
+    if isinstance(top_value, int):
+        vm_code += f"PUSHI {top_value}\n"
+    elif isinstance(top_value, float):
+        vm_code += f"PUSHF {top_value}\n"
+    elif isinstance(top_value, str):
+        vm_code += f"PUSHS {top_value}\n"
+    stack.append(top_value)
+    p[0] = top_value
+
+def p_comment(p):
+    '''expression : COMMENT'''
+    global vm_code
+    comment = p[1]
+    if comment[-1] == ')':
+        comment = comment[1:-1]
+    if comment[0] == '\\':
+        comment = comment[1:]
+    vm_code += f"// {comment}\n"
 
 #Esta função define a regra gramatical para uma expressão aritmética, que consiste em uma expressão seguida por um operador aritmético e outra expressão.
 def p_expression_arithmetic(p):
@@ -181,18 +231,18 @@ def p_string_operations(p):
     if len(stack) < 2:
         print("Error: Not enough members on the stack for string operation")
         return
-    op = p[3] 
-    if op == 'CONCAT':
-        m = stack.pop()
-        n = stack.pop()
-        if not (isinstance(m, str) and isinstance(n,str)): #Tratamento de Erro quando não são strings
-            print("Error: CONCAT op requires the operands to be strings")
-            return     
-        stack.append(n + m)
-        vm_code += f"PUSHS {n}\n"
-        vm_code += f"PUSHS {m}\n"
-        vm_code += "CONCAT\n"
-
+    if len(p) == 3:
+        op = p[3] 
+        if op == 'CONCAT':
+            m = stack.pop()
+            n = stack.pop()
+            if not (isinstance(m, str) and isinstance(n,str)): #Tratamento de Erro quando não são strings
+                print("Error: CONCAT op requires the operands to be strings")
+                return     
+            stack.append(n + m)
+            vm_code += f"PUSHS {n}\n"
+            vm_code += f"PUSHS {m}\n"
+            vm_code += "CONCAT\n"
 
 def p_string_op(p):
     '''string_op : CONCAT'''
@@ -223,8 +273,8 @@ def p_flow_control(p):
 #Estas funções definem as regras gramaticais para cada tipo específico de estrutura de controle de fluxo.
 
 def p_if_statement(p):
-    '''if_statement : expression IF statements THEN'''
-    p[0] = p[2] + " IF "
+    '''if_statement : IF expression THEN statements'''
+    p[0] = " IF " + p[2] + " THEN " + p[4] + " ENDIF "
 
 def p_else_statement(p):
     '''else_statement : ELSE'''
@@ -251,16 +301,6 @@ def p_drop_statement(p):
     global vm_code
     stack.pop()
     vm_code += "POP 1\n"
-
-def p_dup_statement(p):
-    '''dup_statement : DUP'''
-    if not stack:
-        print("Error: Not enough members on the stack for DUP operation")
-        return
-    p[0] = None
-    stack.append(stack[-1])
-    global vm_code
-    vm_code += "DUP 1\n"
 
 def p_swap_statement(p):
     '''swap_statement : SWAP'''
@@ -316,7 +356,7 @@ def p_over_statement(p):
     if len(stack) < 2:
         print("Error: Not enough members on the stack for OVER operation")
         return
-        global vm_code
+    global vm_code
     a = stack[-2]
     stack.append(a)
     if isinstance(a, int):
@@ -331,7 +371,7 @@ def p_over_statement(p):
 def p_error(p):
     if p:
         print("Syntax error:", p)
-        yacc.errok()
+        parser.errok()
 
 parser = yacc.yacc()
 

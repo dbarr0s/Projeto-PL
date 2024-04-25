@@ -12,13 +12,13 @@ reserved = {
     'REPEAT': 'REPEAT',
     'EXIT': 'EXIT',
     'DROP': 'DROP',
-    'DUP': 'DUP',
     'SWAP': 'SWAP',
     'ROT': 'ROT',
     'OVER': 'OVER',
     'CONCAT': 'CONCAT',
-    'CHAR' : 'CHAR',
-    'EMIT' : 'EMIT',
+    'DUP': 'DUP',
+    'EMIT': 'EMIT',
+    'CR': 'CR'
 }
 # Lista de tokens
 tokens = [
@@ -42,7 +42,11 @@ tokens = [
     'SEMICOLON',
     'LEFT_PAREN',
     'RIGHT_PAREN',
-    'reserved_word'
+    'STDOUT',
+    'CHAR',
+    'reserved_word',
+    'COMMENT',
+    'NEWLINE'
  ] + list(reserved.values())
 
 
@@ -74,10 +78,7 @@ t_WHILE = r'[Ww][Hh][Ii][Ll][Ee]'
 t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
 t_EXIT = r'[Ee][Xx][Ii][Tt]'
 t_DROP = r'[Dd][Rr][Oo][Pp]'
-t_DUP = r'[Dd][Uu][Pp]'
 t_CONCAT = r'[Cc][Oo][Nn][Cc][Aa][Tt]'
-t_CHAR = r'[Cc][Hh][Aa][Rr]'
-t_EMIT = r'[Ee][Mm][Ii][Tt]'
 t_SWAP = r'[Ss][Ww][Aa][Pp]'
 t_ROT = r'[Rr][Oo][Tt]'
 t_OVER = r'[Oo][Vv][Ee][Rr]'
@@ -93,17 +94,27 @@ def t_STRING(t):
     t.value = str(t.value)
     return t
 
+def t_STDOUT(t):
+    r'\.\s*"([^"]*)"\s*'
+    t.value = t.value[3:-1]
+    return t
+
+def t_CHAR(t):
+    r'CHAR\s+.'
+    t.value = str(f'"{t.value[5]}"')
+    return t
 
 # Ignorar espaços em branco e tabulações
-t_ignore = ' \t'
+t_ignore = ' \t\n'
 
-# Ignorar comentários entre parênteses
 def t_COMMENT(t):
-    r'\(.*\)'
-    pass
+    r'(?:\\.*$|\(.*?\))'
+    t.value = str(t.value)
+    print(t.value)
+    return t
 
 # Contagem de novas linhas
-def t_newline(t):
+def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 

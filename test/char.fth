@@ -1,1 +1,1 @@
-CHAR 1 CHAR A . .
+CHAR W .

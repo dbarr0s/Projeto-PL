@@ -1,1 +1,0 @@
-CHAR A 65 DUP . EMIT ." FIM"

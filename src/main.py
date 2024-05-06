@@ -13,7 +13,7 @@ def main(args):
 
     # Análise sintática do código Forth e geração de código
     vm_code = parse_input(code)
-
+    
     with open(f'../output/{file_name}.txt', 'w') as file:
         file.write(vm_code)
 

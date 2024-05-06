@@ -1,28 +1,8 @@
 import ply.lex as lex
 
-
-reserved = {
-    'IF': 'IF',
-    'ELSE': 'ELSE',
-    'THEN': 'THEN',
-    'WHILE': 'WHILE',
-    'DO': 'DO',
-    'LOOP': 'LOOP',
-    'BEGIN': 'BEGIN',
-    'REPEAT': 'REPEAT',
-    'EXIT': 'EXIT',
-    'DROP': 'DROP',
-    'SWAP': 'SWAP',
-    'ROT': 'ROT',
-    'OVER': 'OVER',
-    'CONCAT': 'CONCAT',
-    'DUP': 'DUP',
-    'EMIT': 'EMIT',
-    'CR': 'CR'
-}
 # Lista de tokens
 tokens = [
-    'VARIABLE',
+    'FUNCTION',
     'STRING',
     'NUMBER',
     'PLUS',
@@ -44,23 +24,48 @@ tokens = [
     'RIGHT_PAREN',
     'STDOUT',
     'CHAR',
-    'reserved_word',
-    'COMMENT',
-    'NEWLINE'
- ] + list(reserved.values())
+    'COMMENT_LINE',
+    'COMMENT_BLOCK',
+    'NEWLINE',
+    'IF',
+    'ELSE',
+    'THEN',
+    'WHILE',
+    'DO',
+    'LOOP',
+    'BEGIN',
+    'REPEAT',
+    'EXIT',
+    'DROP',
+    'SWAP',
+    'ROT',
+    'OVER',
+    'CONCAT',
+    'DUP',
+    'EMIT',
+    'CR',
+    'KEY',
+    'SPACE',
+    'SPACES',
+    '2DUP',
+    'FUNCTION_CALL'
+    ] 
 
-
-# Expressões regulares para os tokens
+# Expressões Aritméticas
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_MOD = r'%'
+
+# Expressões Relacionais
 t_NOT = r'\='
 t_INF = r'<'
 t_SUP = r'>'
 t_INFEQ = r'<='
 t_SUPEQ = r'>='
+
+# Símbolos
 t_EXCLAMATION = r'!'
 t_AT = r'@'
 t_DOT = r'\.'
@@ -68,21 +73,98 @@ t_COLON = r':'
 t_SEMICOLON = r';'
 t_LEFT_PAREN = r'\('
 t_RIGHT_PAREN = r'\)'
-t_IF = r'[Ii][Ff]'
-t_ELSE = r'[Ee][Ll][Ss][Ee]'
-t_THEN = r'[Tt][Hh][Ee][Nn]'
+
+# Expressões de Controlo de Fluxo
 t_DO = r'[Dd][Oo]'
 t_LOOP = r'[Ll][Oo][Oo][Pp]'
 t_BEGIN = r'[Bb][Ee][Gg][Ii][Nn]'
 t_WHILE = r'[Ww][Hh][Ii][Ll][Ee]'
 t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
 t_EXIT = r'[Ee][Xx][Ii][Tt]'
-t_DROP = r'[Dd][Rr][Oo][Pp]'
-t_CONCAT = r'[Cc][Oo][Nn][Cc][Aa][Tt]'
-t_SWAP = r'[Ss][Ww][Aa][Pp]'
-t_ROT = r'[Rr][Oo][Tt]'
-t_OVER = r'[Oo][Vv][Ee][Rr]'
-t_VARIABLE = r'[a-zA-Z_][a-zA-Z0-9_]*'
+
+def t_IF(t):
+    r'[Ii][Ff]'
+    return t
+
+def t_ELSE(t):
+    r'[Ee][Ll][Ss][Ee]'
+    return t
+
+def t_THEN(t):
+    r'[Tt][Hh][Ee][Nn]'
+    return t
+
+# Expressões de Funções 
+def t_2DUP(t):
+    r'[2][Dd][Uu][Pp]'
+    return t
+
+def t_SPACES(t):
+    r'\d+\s+SPACES'
+    t.value = int(t.value.split()[0])
+    return t
+
+def t_KEY(t):
+    r'[Kk][Ee][Yy]'
+    return t
+
+def t_CHAR(t):
+    r'CHAR\s+.'
+    t.value = str(f'{t.value[5]}')
+    return t
+
+def t_EMIT(t):
+    r'\d*\s*EMIT'
+    parts = t.value.split()
+    if parts[0].isdigit():
+        t.value = int(parts[0])
+    else:
+        t.value = None
+    return t
+
+def t_CR(t):
+    r'[Cc][Rr]'
+    return t
+
+def t_CONCAT(t):
+    r'[Cc][Oo][Nn][Cc][Aa][Tt]'
+    return t
+
+def t_OVER(t):
+    r'[Oo][Vv][Ee][Rr]'
+    return t
+
+def t_ROT(t):
+    r'[Rr][Oo][Tt]'
+    return t
+
+def t_SWAP(t):
+    r'[Ss][Ww][Aa][Pp]'
+    return t
+
+def t_DROP(t):
+    r'[Dd][Rr][Oo][Pp]'
+    return t
+
+def t_DUP(t):
+    r'[Dd][Uu][Pp]'
+    return t
+
+def t_SPACE(t):
+    r'[Ss][Pp][Aa][Cc][Ee]'
+    t.value = str(" ")
+    return t
+
+def t_FUNCTION(t):
+    r'[a-zA-Z_][a-zA-Z0-9_-]*'
+    t.value = str(t.value)
+    return t
+
+def t_FUNCTION_CALL(t):
+    r'([0-9]+\s+)*[a-zA-Z_][a-zA-Z0-9_-]*'
+    numbers_and_function = t.value.split()
+    t.value = numbers_and_function 
+    return t
 
 def t_NUMBER(t):
     r'\d+(\.\d+)?'
@@ -94,23 +176,21 @@ def t_STRING(t):
     t.value = str(t.value)
     return t
 
+# É o token que representa a função de saída de dados (".")
 def t_STDOUT(t):
     r'\.\s*"([^"]*)"\s*'
     t.value = t.value[3:-1]
     return t
 
-def t_CHAR(t):
-    r'CHAR\s+.'
-    t.value = str(f'"{t.value[5]}"')
-    return t
-
 # Ignorar espaços em branco e tabulações
 t_ignore = ' \t\n'
 
-def t_COMMENT(t):
-    r'(?:\\.*$|\(.*?\))'
-    t.value = str(t.value)
-    print(t.value)
+def t_COMMENT_LINE(t):
+    r'\\.*'
+    return t
+
+def t_COMMENT_BLOCK(t):
+    r'\(.*?\)'
     return t
 
 # Contagem de novas linhas

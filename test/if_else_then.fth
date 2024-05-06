@@ -1,1 +1,0 @@
-1 3 < if "maior" . else "menor" . then

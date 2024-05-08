@@ -128,7 +128,7 @@ def t_VARIABLE_FETCH(t):
     return t
 
 def t_VARIABLE_PRINT(t):
-    r'[A-Z]+\s?'
+    r'[A-Z]+\s\?'
     parts = t.value.split()
     t.value = parts[0]
     return t

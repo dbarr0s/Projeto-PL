@@ -5,7 +5,7 @@ from forthLexer import tokens, lexer
 stack = []
 vm_code = ""
 function_definitions = {}
-#variables = {}
+variables = {}
 
 def p_programa(p):
     '''programa : comandos'''
@@ -26,8 +26,8 @@ def p_comando(p):
                | exp_relacionais
                | functions
                | values
-               | creating_funcs'''
-               #| variable
+               | creating_funcs
+               | variable'''
                #| flow_control'''
     
     p[0] =  p[1]

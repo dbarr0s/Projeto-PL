@@ -1,12 +1,11 @@
 import ply.yacc as yacc
-from forthLexer import tokens
-import re
+from forthLexer import tokens, lexer
 
 # Definição da stack
 stack = []
 vm_code = ""
-current_function = []
 function_definitions = {}
+#variables = {}
 
 def p_programa(p):
     '''programa : comandos'''
@@ -28,6 +27,7 @@ def p_comando(p):
                | functions
                | values
                | creating_funcs'''
+               #| variable
                #| flow_control'''
     
     p[0] =  p[1]
@@ -314,8 +314,7 @@ def p_CONCAT(p):
 def p_CR(p):
     '''cr : CR'''
     global vm_code
-    par = "\n"
-    vm_code += f'PUSHS "{par}"\nWRITES\n'
+    vm_code += f'WRITELN\n'
     p[0] = " CR "
     
 def p_EMIT(p):
@@ -379,6 +378,57 @@ def p_2DUP(p):
     stack.append(a)
     stack.append(b)
     p[0] = " 2DUP "
+    
+def p_variable(p):
+    '''variable : variable_definition
+                 | variable_assignment
+                 | variable_fetch
+                 | variable_print'''
+    p[0] = p[1]
+
+def p_variable_definition(p):
+    '''variable_definition : VARIABLE_DEFENITION'''
+    global vm_code, variables
+    var = p[1]
+    variables[var] = 0
+    var_number = len(variables) - 1
+    vm_code += f'PUSHG {var_number}\n'
+
+def p_variable_assignment(p):
+    '''variable_assignment : VARIABLE_ASSIGNMENT'''
+    global vm_code, variables
+    value, var = p[1]
+    var_index = list(variables.keys()).index(var)
+    if isinstance(value, int):
+        vm_code += f'PUSHI {value}\n'
+    elif isinstance(value, float):
+        vm_code += f'PUSHF {value}\n'
+    elif isinstance(value, str):
+        vm_code += f'PUSHS {value}\n'
+    variables[var] = value
+    vm_code += f'STOREG {var_index}\n'
+
+def p_variable_fetch(p):
+    '''variable_fetch : VARIABLE_FETCH'''
+    global vm_code, variables
+    var = p[1]
+    value = variables[var]
+    stack.append(value)
+    var_index = list(variables.keys()).index(var)
+    vm_code += f'PUSHG {var_index}\n'
+
+def p_variable_print(p):
+    '''variable_print : VARIABLE_PRINT'''
+    global vm_code, variables
+    var = p[1]
+    value = variables[var]
+    var_index = list(variables.keys()).index(var)
+    if isinstance(value, int):
+        vm_code += f'PUSHG {var_index}\nWRITEI\n'
+    elif isinstance(value, float):
+        vm_code += f'PUSHG {var_index}\nWRITEF\n'
+    elif isinstance(value, str):
+        vm_code += f'PUSHG {var_index}\nWRITES\n'
 
 def p_creating_funcs(p):
     '''creating_funcs : func_criada
@@ -389,20 +439,33 @@ def p_function(p):
     '''function : FUNCTION
                 | FUNCTION_CALL'''
     global vm_code
+    executable_parts = []
     if isinstance(p[1], str): 
-        for f in current_function:
-            for func_name, func_body in function_definitions.items():
-                if f == func_name:
-                    vm_code += f"PUSHA {func_name}\nCALL\n\n"
-                    vm_code += f"{func_name}:\n"
-                    body_parts = func_body.split(" ")
-                    body_content = " ".join(body_parts[2:-1])
-                    
-                    parser.parse(body_content)
-        
-    print(body_content)                    
-    print(function_definitions)
-        
+        vm_code += f"PUSHA {p[1]}\nCALL\n\n"
+        vm_code += f"{p[1]}:\n"
+        for func_name, func_body in function_definitions.items():
+            print(function_definitions)
+            if func_name == p[1]:
+                body_parts = func_body.split(" ")  # DIVIDE A STRING EM PARTES
+                body_content = " ".join(body_parts[2:-1])  # JUNTA AS PARTES DA STRING, QUE DEVE SER EXECUTADO
+                print(body_content)
+                for part in body_content.split(" "): 
+                    print(part)
+                    if part in function_definitions:
+                        vm_code += f"PUSHA {part}\nCALL\n\n"
+                        vm_code += f"{part}:\n"
+                        body = function_definitions[part]
+                        body_parts1 = body.split(" ")  # DIVIDE A STRING EM PARTES
+                        body_content1 = " ".join(body_parts1[2:-1])  # JUNTA AS PARTES DA STRING, QUE DEVE SER EXECUTADO
+                        parser.parse(body_content1)
+                    elif part in tokens:
+                        parser.parse(part)     
+                    else:
+                        executable_parts.append(part)
+        full_body_content = " ".join(executable_parts)
+        parser.parse(full_body_content)
+    p[0] = p[1]
+            
 def p_func_criada(p):
     '''func_criada : FUNC_BODY'''
     global vm_code 
@@ -410,7 +473,6 @@ def p_func_criada(p):
     body_parts = func_body.split(" ")
     body_name = body_parts[1]
     function_definitions[body_name] = func_body
-    current_function.append(body_name)
 
 def p_error(p):
     if p:

@@ -49,7 +49,11 @@ tokens = [
     'SPACES',
     '2DUP',
     'FUNCTION_CALL',
-    'FUNC_BODY'
+    'FUNC_BODY',
+    'VARIABLE_DEFENITION',
+    'VARIABLE_ASSIGNMENT',
+    'VARIABLE_FETCH',
+    'VARIABLE_PRINT'
     ] 
 
 # Expressões Aritméticas
@@ -93,6 +97,40 @@ def t_ELSE(t):
 
 def t_THEN(t):
     r'[Tt][Hh][Ee][Nn]'
+    return t
+
+# Expressões de Variáveis
+def t_VARIABLE_DEFENITION(t):
+    R'VARIABLE\s+[^\s]+'
+    t.value = t.value[9:]
+    return t
+
+def t_VARIABLE_ASSIGNMENT(t):
+    r'\w+\s[A-Z]+\s!'
+    parts = t.value.split()
+    if parts[0].isdigit():
+        t.value = (int(parts[0]), parts[1])
+    elif parts[0].isfloat():
+        t.value = (float(parts[0]), parts[1])
+    else:
+        t.value = (parts[0], parts[1])
+    return t
+
+def t_VARIABLE_FETCH(t):
+    r'[A-Z]+\s@'
+    parts = t.value.split()
+    if isinstance(parts[0], str):
+        t.value = str(parts[0])
+    elif isinstance(parts[0], int):
+        t.value = int(parts[0])
+    elif isinstance(parts[0], float):
+        t.value = float(parts[0])
+    return t
+
+def t_VARIABLE_PRINT(t):
+    r'[A-Z]+\s?'
+    parts = t.value.split()
+    t.value = parts[0]
     return t
 
 # Expressões de Funções
@@ -157,12 +195,12 @@ def t_SPACE(t):
     return t
 
 def t_FUNCTION(t):
-    r'[a-zA-Z_][a-zA-Z0-9_-]*$'
+    r'[a-zA-Z_][a-zA-Z0-9_-]*'
     t.value = str(t.value)
     return t
 
 def t_FUNCTION_CALL(t):
-    r'([0-9]+\s+)*[a-zA-Z_][a-zA-Z0-9_-]*$'
+    r'([0-9]+\s+)*[a-zA-Z_][a-zA-Z0-9_-]*'
     numbers_and_function = t.value.split()
     t.value = numbers_and_function 
     return t

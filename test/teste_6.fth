@@ -1,4 +1,7 @@
 : TOFU ." Yummy bean curd!" ;
 TOFU
 : SPROUTS ." Miniature vegetables." ;
-SPROUTS
+: MENU
+ CR TOFU CR SPROUTS CR
+;
+MENU

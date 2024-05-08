@@ -80,12 +80,21 @@ t_LEFT_PAREN = r'\('
 t_RIGHT_PAREN = r'\)'
 
 # Expressões de Controlo de Fluxo
-t_DO = r'[Dd][Oo]'
-t_LOOP = r'[Ll][Oo][Oo][Pp]'
 t_BEGIN = r'[Bb][Ee][Gg][Ii][Nn]'
 t_WHILE = r'[Ww][Hh][Ii][Ll][Ee]'
 t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
 t_EXIT = r'[Ee][Xx][Ii][Tt]'
+
+def t_DO(t):
+    r'[0-9]+\s[0-9]+\sDO'
+    limit = t.value.split()[0]
+    start = t.value.split()[1]
+    t.value = (int(limit), int(start))
+    return t
+
+def t_LOOP(t):
+    r'[Ll][Oo][Oo][Pp]'
+    return t
 
 def t_IF(t):
     r'[Ii][Ff]'

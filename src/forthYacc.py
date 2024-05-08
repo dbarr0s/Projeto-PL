@@ -6,6 +6,9 @@ stack = []
 vm_code = ""
 function_definitions = {}
 variables = {}
+current_if = 0
+current_else = 0
+current_loop = 0
 
 def p_programa(p):
     '''programa : comandos'''
@@ -27,8 +30,8 @@ def p_comando(p):
                | functions
                | values
                | creating_funcs
-               | variable'''
-               #| flow_control'''
+               | variable
+               | flow_control'''
     
     p[0] =  p[1]
     
@@ -125,15 +128,74 @@ def p_values(p):
         stack.append(p[1])
         vm_code += f"PUSHS {p[1]}\n"
 
-#def p_flow_control(p):
-#    '''flow_control : if_else_then_comando'''
-                   #| while_do_loop_comando
-                   #| begin_repeat_exit_comando'''
-#    p[0] =  p[1]
-   
-#def if_else_then_comando(p):
-    #'''if_else_then_comando : comandos IF comandos THEN
-                            #| comandos IF comandos ELSE comandos THEN'''
+def p_flow_control(p):
+    '''flow_control : if
+                    | else
+                    | then
+                    | do
+                    | loop'''
+    p[0] =  p[1]
+
+def p_if(p):
+    '''if : IF'''
+    global vm_code, current_else
+    if len(stack) == 0:
+        print("Error: Not enough members on the stack for IF operation")
+        return
+    vm_code += f'jz else{current_else}\n'
+
+def p_else(p):
+    '''else : ELSE'''
+    global vm_code, current_else
+    if len(stack) == 0:
+        print("Error: Not enough members on the stack for ELSE operation")
+        return
+    vm_code += f'else{current_else}:\n'
+    current_else += 1
+    
+def p_then(p):
+    '''then : THEN'''
+    global vm_code, current_if
+    vm_code += f'jz endif{current_if}\n'
+    vm_code += f'endif{current_if}:\n'
+    current_if += 1
+
+def p_do(p):
+    '''do : DO'''
+    global vm_code, current_loop, variables
+    limit, index = p[1]
+    variables[f'limit{current_loop}'] = limit
+    var_len_1 = len(variables) - 1
+    variables[f'index{current_loop}'] = index
+    var_len_2 = len(variables) - 1
+
+    print(variables)
+
+    vm_code += f'PUSHG {var_len_1}\n'
+    vm_code += f'PUSHI {limit}\n'
+    vm_code += f'STOREG {var_len_1}\n'
+
+    vm_code += f'PUSHG {var_len_2}\n'
+    vm_code += f'PUSHI {index}\n'
+    vm_code += f'STOREG {var_len_2}\n'
+
+    vm_code += f'WHILE{current_loop}:\n'
+    vm_code += f'PUSHG {var_len_1}\n'
+    vm_code += f'PUSHG {var_len_2}\n'
+    vm_code += f'SUP\n'
+    vm_code += f'jz ENDWHILE{current_loop}\n'
+    current_loop += 1
+
+def p_loop(p):
+    '''loop : LOOP'''
+    global vm_code, current_loop, variables
+    limit_var_index = list(variables.keys()).index(f'limit{current_loop - 1}') + 1
+    vm_code += f'PUSHG {limit_var_index}\n'
+    vm_code += f'PUSHI 1\n'
+    vm_code += f'ADD\n'
+    vm_code += f'STOREG {limit_var_index}\n'
+    vm_code += f'jump WHILE{current_loop - 1}\n'
+    vm_code += f'ENDWHILE{current_loop - 1}:\n'
     
 def p_functions(p):
     '''functions : stdout

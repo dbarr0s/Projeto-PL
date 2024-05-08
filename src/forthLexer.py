@@ -48,7 +48,8 @@ tokens = [
     'SPACE',
     'SPACES',
     '2DUP',
-    'FUNCTION_CALL'
+    'FUNCTION_CALL',
+    'FUNC_BODY'
     ] 
 
 # Expressões Aritméticas
@@ -94,7 +95,7 @@ def t_THEN(t):
     r'[Tt][Hh][Ee][Nn]'
     return t
 
-# Expressões de Funções 
+# Expressões de Funções
 def t_2DUP(t):
     r'[2][Dd][Uu][Pp]'
     return t
@@ -156,14 +157,19 @@ def t_SPACE(t):
     return t
 
 def t_FUNCTION(t):
-    r'[a-zA-Z_][a-zA-Z0-9_-]*'
+    r'[a-zA-Z_][a-zA-Z0-9_-]*$'
     t.value = str(t.value)
     return t
 
 def t_FUNCTION_CALL(t):
-    r'([0-9]+\s+)*[a-zA-Z_][a-zA-Z0-9_-]*'
+    r'([0-9]+\s+)*[a-zA-Z_][a-zA-Z0-9_-]*$'
     numbers_and_function = t.value.split()
     t.value = numbers_and_function 
+    return t
+
+def t_FUNC_BODY(t):
+    r':\s*(\w+)\s*(.*?)\s*;'
+    t.value = t.value   
     return t
 
 def t_NUMBER(t):

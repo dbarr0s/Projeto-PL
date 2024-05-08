@@ -5,8 +5,8 @@ import re
 # Definição da stack
 stack = []
 vm_code = ""
-current_function = None
-comandos = {}
+current_function = []
+function_definitions = {}
 
 def p_programa(p):
     '''programa : comandos'''
@@ -26,7 +26,8 @@ def p_comando(p):
     '''comando : exp_aritmeticas
                | exp_relacionais
                | functions
-               | values'''
+               | values
+               | creating_funcs'''
                #| flow_control'''
     
     p[0] =  p[1]
@@ -150,10 +151,8 @@ def p_functions(p):
                  | char
                  | key
                  | spaces
-                 | 2dup
-                 | function
-                 | func_criadas'''
-    p[0] =  p[1]
+                 | 2dup'''
+    p[0] = p[1] 
 
 def p_STDOUT(p):
     '''stdout : STDOUT'''
@@ -380,28 +379,38 @@ def p_2DUP(p):
     stack.append(a)
     stack.append(b)
     p[0] = " 2DUP "
+
+def p_creating_funcs(p):
+    '''creating_funcs : func_criada
+                      | function'''
+    p[0] = p[1]          
     
 def p_function(p):
     '''function : FUNCTION
                 | FUNCTION_CALL'''
-    global vm_code, current_function
+    global vm_code
     if isinstance(p[1], str): 
-        current_function = p[1] 
-        p[0] = current_function
-    else:
-        p[0] = p[1]
-
-def p_func_criadas(p):
-    '''func_criadas : COLON FUNCTION comandos SEMICOLON function'''
-    global vm_code, current_function
-    if p[2] == current_function:
-        vm_code += f"PUSHI 0\nSTART\n  PUSHA {current_function}\n  CALL\n  STOP\n\n"
-        vm_code += f"{current_function}:\n"
-        for comando in p[3]:
-            vm_code += f"  {comando}\n"
-        vm_code += f"  RETURN\n"
-    else:
-        print(f"Error: function {p[2]} does not match the current function {current_function}")
+        for f in current_function:
+            for func_name, func_body in function_definitions.items():
+                if f == func_name:
+                    vm_code += f"PUSHA {func_name}\nCALL\n\n"
+                    vm_code += f"{func_name}:\n"
+                    body_parts = func_body.split(" ")
+                    body_content = " ".join(body_parts[2:-1])
+                    
+                    parser.parse(body_content)
+        
+    print(body_content)                    
+    print(function_definitions)
+        
+def p_func_criada(p):
+    '''func_criada : FUNC_BODY'''
+    global vm_code 
+    func_body = p[1]
+    body_parts = func_body.split(" ")
+    body_name = body_parts[1]
+    function_definitions[body_name] = func_body
+    current_function.append(body_name)
 
 def p_error(p):
     if p:

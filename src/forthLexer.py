@@ -35,7 +35,6 @@ tokens = [
     'LOOP',
     'BEGIN',
     'REPEAT',
-    'EXIT',
     'DROP',
     'SWAP',
     'ROT',
@@ -83,7 +82,6 @@ t_RIGHT_PAREN = r'\)'
 t_BEGIN = r'[Bb][Ee][Gg][Ii][Nn]'
 t_WHILE = r'[Ww][Hh][Ii][Ll][Ee]'
 t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
-t_EXIT = r'[Ee][Xx][Ii][Tt]'
 
 def t_DO(t):
     r'[0-9]+\s[0-9]+\sDO'

@@ -494,8 +494,10 @@ def p_variable_print(p):
 
 def p_creating_funcs(p):
     '''creating_funcs : func_criada
-                      | function'''
-    p[0] = p[1]          
+                      | function
+                      | creating_funcs function
+                      | creating_funcs func_criada'''
+    p[0] = p[1] 
     
 def p_function(p):
     '''function : FUNCTION
@@ -519,14 +521,14 @@ def p_function(p):
                         body = function_definitions[part]
                         body_parts1 = body.split(" ")  # DIVIDE A STRING EM PARTES
                         body_content1 = " ".join(body_parts1[2:-1])  # JUNTA AS PARTES DA STRING, QUE DEVE SER EXECUTADO
-                        parser.parse(body_content1)
+                        parse_input(body_content1)
                     elif part in tokens:
-                        parser.parse(part)     
+                        parse_input(part)  
                     else:
-                        executable_parts.append(part)
+                        executable_parts.append(part)       
         full_body_content = " ".join(executable_parts)
-        parser.parse(full_body_content)
-    p[0] = p[1]
+        parse_input(full_body_content)
+        p[0] = p[1]
             
 def p_func_criada(p):
     '''func_criada : FUNC_BODY'''

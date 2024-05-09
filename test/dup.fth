@@ -1,3 +1,1 @@
-1 DUP . .
-2 DUP . .
-4 DUP . .
+2 5 * DUP "HELLO" DUP . . . .

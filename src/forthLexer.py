@@ -79,7 +79,6 @@ t_LEFT_PAREN = r'\('
 t_RIGHT_PAREN = r'\)'
 
 # Expressões de Controlo de Fluxo
-t_BEGIN = r'[Bb][Ee][Gg][Ii][Nn]'
 t_WHILE = r'[Ww][Hh][Ii][Ll][Ee]'
 t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
 

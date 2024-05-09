@@ -34,6 +34,10 @@ def p_comando(p):
                | flow_control'''
     
     p[0] =  p[1]
+
+#def p_exp_aritmeticas_paren(p):
+    #'''exp_aritmeticas : LEFT_PAREN comando RIGHT_PAREN'''
+    #p[0] = p[2]
     
 def p_exp_aritmeticas(p):
     '''exp_aritmeticas : comando comando PLUS
@@ -169,8 +173,6 @@ def p_do(p):
     variables[f'index{current_loop}'] = index
     var_len_2 = len(variables) - 1
 
-    print(variables)
-
     vm_code += f'PUSHG {var_len_1}\n'
     vm_code += f'PUSHI {limit}\n'
     vm_code += f'STOREG {var_len_1}\n'
@@ -229,14 +231,13 @@ def p_DOT(p):
     if len(stack) == 0:
         print("Error: Not enough members in Stack for DOT")
         return
-    value = " "
     top_value = stack.pop()
     if isinstance(top_value, int):
-        vm_code += f'WRITEI\nPUSHS "{value}"\nWRITES\nPUSHI {top_value}\n'
+        vm_code += f'WRITEI\n'
     elif isinstance(top_value, float):
-        vm_code += f'WRITEF\nPUSHS "{value}"\nWRITES\nPUSHF {top_value}\n'
+        vm_code += f'WRITEF\n'
     elif isinstance(top_value, str):
-        vm_code += f'WRITES\nPUSHS "{value}"\nWRITES\nPUSHS {top_value}\n'
+        vm_code += f'WRITES\n'
     p[0] = top_value
     
 def p_SPACE(p):
@@ -248,20 +249,13 @@ def p_SPACE(p):
     p[0] = " SPACE "
 
 def p_DUP(p):
-    '''dup : DUP'''
+    '''dup : comando DUP'''
     if len(stack) == 0:
         print("Error: Not enough members in Stack for DUP")
         return
     global vm_code
-    top_value = stack[-1]
-    if isinstance(top_value, int):
-        vm_code += f"PUSHI {top_value}\n"
-    elif isinstance(top_value, float):
-        vm_code += f"PUSHF {top_value}\n"
-    elif isinstance(top_value, str):
-        vm_code += f"PUSHS {top_value}\n"
-    stack.append(top_value)
-    p[0] = top_value
+    vm_code += f'DUP 1\n'
+    stack.append(stack[-1])
     
 def p_COMMENT(p):
     '''comment : COMMENT_LINE
@@ -430,7 +424,6 @@ def p_2DUP(p):
         vm_code += f"PUSHF {a}\n"
     elif isinstance(a, str):
         vm_code += f"PUSHS {a}\n"
-        
     if isinstance(b, int):
         vm_code += f"PUSHI {b}\n"
     elif isinstance(b, float):

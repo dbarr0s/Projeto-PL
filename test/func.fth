@@ -1,0 +1,2 @@
+: FUNC 2 3 > IF " TRUE" . ELSE " FALSE" . THEN  ;
+FUNC

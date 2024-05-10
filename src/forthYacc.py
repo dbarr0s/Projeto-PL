@@ -34,10 +34,6 @@ def p_comando(p):
                | flow_control'''
     
     p[0] =  p[1]
-
-#def p_exp_aritmeticas_paren(p):
-    #'''exp_aritmeticas : LEFT_PAREN comando RIGHT_PAREN'''
-    #p[0] = p[2]
     
 def p_exp_aritmeticas(p):
     '''exp_aritmeticas : comando comando PLUS
@@ -56,31 +52,30 @@ def p_exp_aritmeticas(p):
         result = a + b
         stack.append(result)
         if isinstance(result, float):
-            vm_code += f'FADD\nPUSHF {result}\n'
-        else: vm_code += f'ADD\nPUSHI {result}\n'
+            vm_code += f'FADD\n'
+        else: vm_code += f'ADD\n'
     elif op == '-':
         result = a - b
         stack.append(result)
         if isinstance(result, float):
-            vm_code += f'FSUB\nPUSHF {result}\n'
-        else: vm_code += f'SUB\nPUSHI {result}\n'
+            vm_code += f'FSUB\n'
+        else: vm_code += f'SUB\n'
     elif op == '*':
         result = a * b
         stack.append(result)
         if isinstance(result, float):
-            vm_code += f'FMUL\nPUSHF {result}\n'
-        else: vm_code += f'MUL\nPUSHI {result}\n'
-        
+            vm_code += f'FMUL\n'
+        else: vm_code += f'MUL\n'
     elif op == '/':
         result = a / b
         stack.append(result)
         if isinstance(result, float):
-            vm_code += f'FDIV\nPUSHF {result}\n'
-        else: vm_code += f'DIV\nPUSHI {result}\n'
+            vm_code += f'FDIV\n'
+        else: vm_code += f'DIV\n'
     elif op == '%':
         result = a % b
         stack.append(result)
-        vm_code += f'MOD\nPUSHI {result}\n'
+        vm_code += f'MOD\n'
 
 def p_exp_relacionais(p):
     '''exp_relacionais : comando comando NOT
@@ -160,7 +155,7 @@ def p_else(p):
 def p_then(p):
     '''then : THEN'''
     global vm_code, current_if
-    vm_code += f'jz endif{current_if}\n'
+    vm_code += f'jump endif{current_if}\n'
     vm_code += f'endif{current_if}:\n'
     current_if += 1
 

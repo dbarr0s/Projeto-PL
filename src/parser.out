@@ -70,7 +70,7 @@ Rule 51    space -> SPACE
 Rule 52    dup -> comando DUP
 Rule 53    comment -> COMMENT_LINE
 Rule 54    comment -> COMMENT_BLOCK
-Rule 55    drop -> DROP
+Rule 55    drop -> comando DROP
 Rule 56    swap -> SWAP
 Rule 57    rot -> ROT
 Rule 58    over -> OVER
@@ -156,7 +156,7 @@ Nonterminals, with rules where they appear
 
 2dup                 : 48
 char                 : 45
-comando              : 2 3 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 20 52
+comando              : 2 3 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 20 52 55
 comandos             : 1 3
 comment              : 37
 concat               : 42
@@ -254,7 +254,7 @@ state 0
     (52) dup -> . comando DUP
     (53) comment -> . COMMENT_LINE
     (54) comment -> . COMMENT_BLOCK
-    (55) drop -> . DROP
+    (55) drop -> . comando DROP
     (56) swap -> . SWAP
     (57) rot -> . ROT
     (58) over -> . OVER
@@ -285,29 +285,28 @@ state 0
     SPACE           shift and go to state 42
     COMMENT_LINE    shift and go to state 43
     COMMENT_BLOCK   shift and go to state 44
-    DROP            shift and go to state 45
-    SWAP            shift and go to state 46
-    ROT             shift and go to state 47
-    OVER            shift and go to state 48
-    CONCAT          shift and go to state 49
-    CR              shift and go to state 50
-    EMIT            shift and go to state 51
-    CHAR            shift and go to state 52
-    KEY             shift and go to state 53
-    SPACES          shift and go to state 54
-    2DUP            shift and go to state 55
-    FUNC_BODY       shift and go to state 56
-    FUNCTION        shift and go to state 57
-    FUNCTION_CALL   shift and go to state 58
-    VARIABLE_DEFENITION shift and go to state 59
-    VARIABLE_ASSIGNMENT shift and go to state 60
-    VARIABLE_FETCH  shift and go to state 61
-    VARIABLE_PRINT  shift and go to state 62
-    IF              shift and go to state 63
-    ELSE            shift and go to state 64
-    THEN            shift and go to state 65
-    DO              shift and go to state 66
-    LOOP            shift and go to state 67
+    SWAP            shift and go to state 45
+    ROT             shift and go to state 46
+    OVER            shift and go to state 47
+    CONCAT          shift and go to state 48
+    CR              shift and go to state 49
+    EMIT            shift and go to state 50
+    CHAR            shift and go to state 51
+    KEY             shift and go to state 52
+    SPACES          shift and go to state 53
+    2DUP            shift and go to state 54
+    FUNC_BODY       shift and go to state 55
+    FUNCTION        shift and go to state 56
+    FUNCTION_CALL   shift and go to state 57
+    VARIABLE_DEFENITION shift and go to state 58
+    VARIABLE_ASSIGNMENT shift and go to state 59
+    VARIABLE_FETCH  shift and go to state 60
+    VARIABLE_PRINT  shift and go to state 61
+    IF              shift and go to state 62
+    ELSE            shift and go to state 63
+    THEN            shift and go to state 64
+    DO              shift and go to state 65
+    LOOP            shift and go to state 66
 
     programa                       shift and go to state 1
     comandos                       shift and go to state 2
@@ -411,7 +410,7 @@ state 2
     (52) dup -> . comando DUP
     (53) comment -> . COMMENT_LINE
     (54) comment -> . COMMENT_BLOCK
-    (55) drop -> . DROP
+    (55) drop -> . comando DROP
     (56) swap -> . SWAP
     (57) rot -> . ROT
     (58) over -> . OVER
@@ -443,31 +442,30 @@ state 2
     SPACE           shift and go to state 42
     COMMENT_LINE    shift and go to state 43
     COMMENT_BLOCK   shift and go to state 44
-    DROP            shift and go to state 45
-    SWAP            shift and go to state 46
-    ROT             shift and go to state 47
-    OVER            shift and go to state 48
-    CONCAT          shift and go to state 49
-    CR              shift and go to state 50
-    EMIT            shift and go to state 51
-    CHAR            shift and go to state 52
-    KEY             shift and go to state 53
-    SPACES          shift and go to state 54
-    2DUP            shift and go to state 55
-    FUNC_BODY       shift and go to state 56
-    FUNCTION        shift and go to state 57
-    FUNCTION_CALL   shift and go to state 58
-    VARIABLE_DEFENITION shift and go to state 59
-    VARIABLE_ASSIGNMENT shift and go to state 60
-    VARIABLE_FETCH  shift and go to state 61
-    VARIABLE_PRINT  shift and go to state 62
-    IF              shift and go to state 63
-    ELSE            shift and go to state 64
-    THEN            shift and go to state 65
-    DO              shift and go to state 66
-    LOOP            shift and go to state 67
+    SWAP            shift and go to state 45
+    ROT             shift and go to state 46
+    OVER            shift and go to state 47
+    CONCAT          shift and go to state 48
+    CR              shift and go to state 49
+    EMIT            shift and go to state 50
+    CHAR            shift and go to state 51
+    KEY             shift and go to state 52
+    SPACES          shift and go to state 53
+    2DUP            shift and go to state 54
+    FUNC_BODY       shift and go to state 55
+    FUNCTION        shift and go to state 56
+    FUNCTION_CALL   shift and go to state 57
+    VARIABLE_DEFENITION shift and go to state 58
+    VARIABLE_ASSIGNMENT shift and go to state 59
+    VARIABLE_FETCH  shift and go to state 60
+    VARIABLE_PRINT  shift and go to state 61
+    IF              shift and go to state 62
+    ELSE            shift and go to state 63
+    THEN            shift and go to state 64
+    DO              shift and go to state 65
+    LOOP            shift and go to state 66
 
-    comando                        shift and go to state 68
+    comando                        shift and go to state 67
     exp_aritmeticas                shift and go to state 4
     exp_relacionais                shift and go to state 5
     functions                      shift and go to state 6
@@ -517,6 +515,7 @@ state 3
     (19) exp_relacionais -> comando . comando INFEQ
     (20) exp_relacionais -> comando . comando SUPEQ
     (52) dup -> comando . DUP
+    (55) drop -> comando . DROP
     (4) comando -> . exp_aritmeticas
     (5) comando -> . exp_relacionais
     (6) comando -> . functions
@@ -571,7 +570,7 @@ state 3
     (52) dup -> . comando DUP
     (53) comment -> . COMMENT_LINE
     (54) comment -> . COMMENT_BLOCK
-    (55) drop -> . DROP
+    (55) drop -> . comando DROP
     (56) swap -> . SWAP
     (57) rot -> . ROT
     (58) over -> . OVER
@@ -602,7 +601,6 @@ state 3
   ! shift/reduce conflict for SPACE resolved as shift
   ! shift/reduce conflict for COMMENT_LINE resolved as shift
   ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
-  ! shift/reduce conflict for DROP resolved as shift
   ! shift/reduce conflict for SWAP resolved as shift
   ! shift/reduce conflict for ROT resolved as shift
   ! shift/reduce conflict for OVER resolved as shift
@@ -626,7 +624,8 @@ state 3
   ! shift/reduce conflict for DO resolved as shift
   ! shift/reduce conflict for LOOP resolved as shift
     $end            reduce using rule 2 (comandos -> comando .)
-    DUP             shift and go to state 70
+    DUP             shift and go to state 69
+    DROP            shift and go to state 70
     NUMBER          shift and go to state 27
     STRING          shift and go to state 28
     STDOUT          shift and go to state 40
@@ -634,29 +633,28 @@ state 3
     SPACE           shift and go to state 42
     COMMENT_LINE    shift and go to state 43
     COMMENT_BLOCK   shift and go to state 44
-    DROP            shift and go to state 45
-    SWAP            shift and go to state 46
-    ROT             shift and go to state 47
-    OVER            shift and go to state 48
-    CONCAT          shift and go to state 49
-    CR              shift and go to state 50
-    EMIT            shift and go to state 51
-    CHAR            shift and go to state 52
-    KEY             shift and go to state 53
-    SPACES          shift and go to state 54
-    2DUP            shift and go to state 55
-    FUNC_BODY       shift and go to state 56
-    FUNCTION        shift and go to state 57
-    FUNCTION_CALL   shift and go to state 58
-    VARIABLE_DEFENITION shift and go to state 59
-    VARIABLE_ASSIGNMENT shift and go to state 60
-    VARIABLE_FETCH  shift and go to state 61
-    VARIABLE_PRINT  shift and go to state 62
-    IF              shift and go to state 63
-    ELSE            shift and go to state 64
-    THEN            shift and go to state 65
-    DO              shift and go to state 66
-    LOOP            shift and go to state 67
+    SWAP            shift and go to state 45
+    ROT             shift and go to state 46
+    OVER            shift and go to state 47
+    CONCAT          shift and go to state 48
+    CR              shift and go to state 49
+    EMIT            shift and go to state 50
+    CHAR            shift and go to state 51
+    KEY             shift and go to state 52
+    SPACES          shift and go to state 53
+    2DUP            shift and go to state 54
+    FUNC_BODY       shift and go to state 55
+    FUNCTION        shift and go to state 56
+    FUNCTION_CALL   shift and go to state 57
+    VARIABLE_DEFENITION shift and go to state 58
+    VARIABLE_ASSIGNMENT shift and go to state 59
+    VARIABLE_FETCH  shift and go to state 60
+    VARIABLE_PRINT  shift and go to state 61
+    IF              shift and go to state 62
+    ELSE            shift and go to state 63
+    THEN            shift and go to state 64
+    DO              shift and go to state 65
+    LOOP            shift and go to state 66
 
   ! NUMBER          [ reduce using rule 2 (comandos -> comando .) ]
   ! STRING          [ reduce using rule 2 (comandos -> comando .) ]
@@ -665,7 +663,6 @@ state 3
   ! SPACE           [ reduce using rule 2 (comandos -> comando .) ]
   ! COMMENT_LINE    [ reduce using rule 2 (comandos -> comando .) ]
   ! COMMENT_BLOCK   [ reduce using rule 2 (comandos -> comando .) ]
-  ! DROP            [ reduce using rule 2 (comandos -> comando .) ]
   ! SWAP            [ reduce using rule 2 (comandos -> comando .) ]
   ! ROT             [ reduce using rule 2 (comandos -> comando .) ]
   ! OVER            [ reduce using rule 2 (comandos -> comando .) ]
@@ -689,7 +686,7 @@ state 3
   ! DO              [ reduce using rule 2 (comandos -> comando .) ]
   ! LOOP            [ reduce using rule 2 (comandos -> comando .) ]
 
-    comando                        shift and go to state 69
+    comando                        shift and go to state 68
     exp_aritmeticas                shift and go to state 4
     exp_relacionais                shift and go to state 5
     functions                      shift and go to state 6
@@ -730,6 +727,7 @@ state 4
     (4) comando -> exp_aritmeticas .
 
     DUP             reduce using rule 4 (comando -> exp_aritmeticas .)
+    DROP            reduce using rule 4 (comando -> exp_aritmeticas .)
     NUMBER          reduce using rule 4 (comando -> exp_aritmeticas .)
     STRING          reduce using rule 4 (comando -> exp_aritmeticas .)
     STDOUT          reduce using rule 4 (comando -> exp_aritmeticas .)
@@ -737,7 +735,6 @@ state 4
     SPACE           reduce using rule 4 (comando -> exp_aritmeticas .)
     COMMENT_LINE    reduce using rule 4 (comando -> exp_aritmeticas .)
     COMMENT_BLOCK   reduce using rule 4 (comando -> exp_aritmeticas .)
-    DROP            reduce using rule 4 (comando -> exp_aritmeticas .)
     SWAP            reduce using rule 4 (comando -> exp_aritmeticas .)
     ROT             reduce using rule 4 (comando -> exp_aritmeticas .)
     OVER            reduce using rule 4 (comando -> exp_aritmeticas .)
@@ -778,6 +775,7 @@ state 5
     (5) comando -> exp_relacionais .
 
     DUP             reduce using rule 5 (comando -> exp_relacionais .)
+    DROP            reduce using rule 5 (comando -> exp_relacionais .)
     NUMBER          reduce using rule 5 (comando -> exp_relacionais .)
     STRING          reduce using rule 5 (comando -> exp_relacionais .)
     STDOUT          reduce using rule 5 (comando -> exp_relacionais .)
@@ -785,7 +783,6 @@ state 5
     SPACE           reduce using rule 5 (comando -> exp_relacionais .)
     COMMENT_LINE    reduce using rule 5 (comando -> exp_relacionais .)
     COMMENT_BLOCK   reduce using rule 5 (comando -> exp_relacionais .)
-    DROP            reduce using rule 5 (comando -> exp_relacionais .)
     SWAP            reduce using rule 5 (comando -> exp_relacionais .)
     ROT             reduce using rule 5 (comando -> exp_relacionais .)
     OVER            reduce using rule 5 (comando -> exp_relacionais .)
@@ -826,6 +823,7 @@ state 6
     (6) comando -> functions .
 
     DUP             reduce using rule 6 (comando -> functions .)
+    DROP            reduce using rule 6 (comando -> functions .)
     NUMBER          reduce using rule 6 (comando -> functions .)
     STRING          reduce using rule 6 (comando -> functions .)
     STDOUT          reduce using rule 6 (comando -> functions .)
@@ -833,7 +831,6 @@ state 6
     SPACE           reduce using rule 6 (comando -> functions .)
     COMMENT_LINE    reduce using rule 6 (comando -> functions .)
     COMMENT_BLOCK   reduce using rule 6 (comando -> functions .)
-    DROP            reduce using rule 6 (comando -> functions .)
     SWAP            reduce using rule 6 (comando -> functions .)
     ROT             reduce using rule 6 (comando -> functions .)
     OVER            reduce using rule 6 (comando -> functions .)
@@ -874,6 +871,7 @@ state 7
     (7) comando -> values .
 
     DUP             reduce using rule 7 (comando -> values .)
+    DROP            reduce using rule 7 (comando -> values .)
     NUMBER          reduce using rule 7 (comando -> values .)
     STRING          reduce using rule 7 (comando -> values .)
     STDOUT          reduce using rule 7 (comando -> values .)
@@ -881,7 +879,6 @@ state 7
     SPACE           reduce using rule 7 (comando -> values .)
     COMMENT_LINE    reduce using rule 7 (comando -> values .)
     COMMENT_BLOCK   reduce using rule 7 (comando -> values .)
-    DROP            reduce using rule 7 (comando -> values .)
     SWAP            reduce using rule 7 (comando -> values .)
     ROT             reduce using rule 7 (comando -> values .)
     OVER            reduce using rule 7 (comando -> values .)
@@ -930,6 +927,7 @@ state 8
   ! shift/reduce conflict for FUNCTION_CALL resolved as shift
   ! shift/reduce conflict for FUNC_BODY resolved as shift
     DUP             reduce using rule 8 (comando -> creating_funcs .)
+    DROP            reduce using rule 8 (comando -> creating_funcs .)
     NUMBER          reduce using rule 8 (comando -> creating_funcs .)
     STRING          reduce using rule 8 (comando -> creating_funcs .)
     STDOUT          reduce using rule 8 (comando -> creating_funcs .)
@@ -937,7 +935,6 @@ state 8
     SPACE           reduce using rule 8 (comando -> creating_funcs .)
     COMMENT_LINE    reduce using rule 8 (comando -> creating_funcs .)
     COMMENT_BLOCK   reduce using rule 8 (comando -> creating_funcs .)
-    DROP            reduce using rule 8 (comando -> creating_funcs .)
     SWAP            reduce using rule 8 (comando -> creating_funcs .)
     ROT             reduce using rule 8 (comando -> creating_funcs .)
     OVER            reduce using rule 8 (comando -> creating_funcs .)
@@ -968,9 +965,9 @@ state 8
     SUP             reduce using rule 8 (comando -> creating_funcs .)
     INFEQ           reduce using rule 8 (comando -> creating_funcs .)
     SUPEQ           reduce using rule 8 (comando -> creating_funcs .)
-    FUNCTION        shift and go to state 57
-    FUNCTION_CALL   shift and go to state 58
-    FUNC_BODY       shift and go to state 56
+    FUNCTION        shift and go to state 56
+    FUNCTION_CALL   shift and go to state 57
+    FUNC_BODY       shift and go to state 55
 
   ! FUNC_BODY       [ reduce using rule 8 (comando -> creating_funcs .) ]
   ! FUNCTION        [ reduce using rule 8 (comando -> creating_funcs .) ]
@@ -984,6 +981,7 @@ state 9
     (9) comando -> variable .
 
     DUP             reduce using rule 9 (comando -> variable .)
+    DROP            reduce using rule 9 (comando -> variable .)
     NUMBER          reduce using rule 9 (comando -> variable .)
     STRING          reduce using rule 9 (comando -> variable .)
     STDOUT          reduce using rule 9 (comando -> variable .)
@@ -991,7 +989,6 @@ state 9
     SPACE           reduce using rule 9 (comando -> variable .)
     COMMENT_LINE    reduce using rule 9 (comando -> variable .)
     COMMENT_BLOCK   reduce using rule 9 (comando -> variable .)
-    DROP            reduce using rule 9 (comando -> variable .)
     SWAP            reduce using rule 9 (comando -> variable .)
     ROT             reduce using rule 9 (comando -> variable .)
     OVER            reduce using rule 9 (comando -> variable .)
@@ -1032,6 +1029,7 @@ state 10
     (10) comando -> flow_control .
 
     DUP             reduce using rule 10 (comando -> flow_control .)
+    DROP            reduce using rule 10 (comando -> flow_control .)
     NUMBER          reduce using rule 10 (comando -> flow_control .)
     STRING          reduce using rule 10 (comando -> flow_control .)
     STDOUT          reduce using rule 10 (comando -> flow_control .)
@@ -1039,7 +1037,6 @@ state 10
     SPACE           reduce using rule 10 (comando -> flow_control .)
     COMMENT_LINE    reduce using rule 10 (comando -> flow_control .)
     COMMENT_BLOCK   reduce using rule 10 (comando -> flow_control .)
-    DROP            reduce using rule 10 (comando -> flow_control .)
     SWAP            reduce using rule 10 (comando -> flow_control .)
     ROT             reduce using rule 10 (comando -> flow_control .)
     OVER            reduce using rule 10 (comando -> flow_control .)
@@ -1080,6 +1077,7 @@ state 11
     (33) functions -> stdout .
 
     DUP             reduce using rule 33 (functions -> stdout .)
+    DROP            reduce using rule 33 (functions -> stdout .)
     NUMBER          reduce using rule 33 (functions -> stdout .)
     STRING          reduce using rule 33 (functions -> stdout .)
     STDOUT          reduce using rule 33 (functions -> stdout .)
@@ -1087,7 +1085,6 @@ state 11
     SPACE           reduce using rule 33 (functions -> stdout .)
     COMMENT_LINE    reduce using rule 33 (functions -> stdout .)
     COMMENT_BLOCK   reduce using rule 33 (functions -> stdout .)
-    DROP            reduce using rule 33 (functions -> stdout .)
     SWAP            reduce using rule 33 (functions -> stdout .)
     ROT             reduce using rule 33 (functions -> stdout .)
     OVER            reduce using rule 33 (functions -> stdout .)
@@ -1128,6 +1125,7 @@ state 12
     (34) functions -> dot .
 
     DUP             reduce using rule 34 (functions -> dot .)
+    DROP            reduce using rule 34 (functions -> dot .)
     NUMBER          reduce using rule 34 (functions -> dot .)
     STRING          reduce using rule 34 (functions -> dot .)
     STDOUT          reduce using rule 34 (functions -> dot .)
@@ -1135,7 +1133,6 @@ state 12
     SPACE           reduce using rule 34 (functions -> dot .)
     COMMENT_LINE    reduce using rule 34 (functions -> dot .)
     COMMENT_BLOCK   reduce using rule 34 (functions -> dot .)
-    DROP            reduce using rule 34 (functions -> dot .)
     SWAP            reduce using rule 34 (functions -> dot .)
     ROT             reduce using rule 34 (functions -> dot .)
     OVER            reduce using rule 34 (functions -> dot .)
@@ -1176,6 +1173,7 @@ state 13
     (35) functions -> space .
 
     DUP             reduce using rule 35 (functions -> space .)
+    DROP            reduce using rule 35 (functions -> space .)
     NUMBER          reduce using rule 35 (functions -> space .)
     STRING          reduce using rule 35 (functions -> space .)
     STDOUT          reduce using rule 35 (functions -> space .)
@@ -1183,7 +1181,6 @@ state 13
     SPACE           reduce using rule 35 (functions -> space .)
     COMMENT_LINE    reduce using rule 35 (functions -> space .)
     COMMENT_BLOCK   reduce using rule 35 (functions -> space .)
-    DROP            reduce using rule 35 (functions -> space .)
     SWAP            reduce using rule 35 (functions -> space .)
     ROT             reduce using rule 35 (functions -> space .)
     OVER            reduce using rule 35 (functions -> space .)
@@ -1224,6 +1221,7 @@ state 14
     (36) functions -> dup .
 
     DUP             reduce using rule 36 (functions -> dup .)
+    DROP            reduce using rule 36 (functions -> dup .)
     NUMBER          reduce using rule 36 (functions -> dup .)
     STRING          reduce using rule 36 (functions -> dup .)
     STDOUT          reduce using rule 36 (functions -> dup .)
@@ -1231,7 +1229,6 @@ state 14
     SPACE           reduce using rule 36 (functions -> dup .)
     COMMENT_LINE    reduce using rule 36 (functions -> dup .)
     COMMENT_BLOCK   reduce using rule 36 (functions -> dup .)
-    DROP            reduce using rule 36 (functions -> dup .)
     SWAP            reduce using rule 36 (functions -> dup .)
     ROT             reduce using rule 36 (functions -> dup .)
     OVER            reduce using rule 36 (functions -> dup .)
@@ -1272,6 +1269,7 @@ state 15
     (37) functions -> comment .
 
     DUP             reduce using rule 37 (functions -> comment .)
+    DROP            reduce using rule 37 (functions -> comment .)
     NUMBER          reduce using rule 37 (functions -> comment .)
     STRING          reduce using rule 37 (functions -> comment .)
     STDOUT          reduce using rule 37 (functions -> comment .)
@@ -1279,7 +1277,6 @@ state 15
     SPACE           reduce using rule 37 (functions -> comment .)
     COMMENT_LINE    reduce using rule 37 (functions -> comment .)
     COMMENT_BLOCK   reduce using rule 37 (functions -> comment .)
-    DROP            reduce using rule 37 (functions -> comment .)
     SWAP            reduce using rule 37 (functions -> comment .)
     ROT             reduce using rule 37 (functions -> comment .)
     OVER            reduce using rule 37 (functions -> comment .)
@@ -1320,6 +1317,7 @@ state 16
     (38) functions -> drop .
 
     DUP             reduce using rule 38 (functions -> drop .)
+    DROP            reduce using rule 38 (functions -> drop .)
     NUMBER          reduce using rule 38 (functions -> drop .)
     STRING          reduce using rule 38 (functions -> drop .)
     STDOUT          reduce using rule 38 (functions -> drop .)
@@ -1327,7 +1325,6 @@ state 16
     SPACE           reduce using rule 38 (functions -> drop .)
     COMMENT_LINE    reduce using rule 38 (functions -> drop .)
     COMMENT_BLOCK   reduce using rule 38 (functions -> drop .)
-    DROP            reduce using rule 38 (functions -> drop .)
     SWAP            reduce using rule 38 (functions -> drop .)
     ROT             reduce using rule 38 (functions -> drop .)
     OVER            reduce using rule 38 (functions -> drop .)
@@ -1368,6 +1365,7 @@ state 17
     (39) functions -> swap .
 
     DUP             reduce using rule 39 (functions -> swap .)
+    DROP            reduce using rule 39 (functions -> swap .)
     NUMBER          reduce using rule 39 (functions -> swap .)
     STRING          reduce using rule 39 (functions -> swap .)
     STDOUT          reduce using rule 39 (functions -> swap .)
@@ -1375,7 +1373,6 @@ state 17
     SPACE           reduce using rule 39 (functions -> swap .)
     COMMENT_LINE    reduce using rule 39 (functions -> swap .)
     COMMENT_BLOCK   reduce using rule 39 (functions -> swap .)
-    DROP            reduce using rule 39 (functions -> swap .)
     SWAP            reduce using rule 39 (functions -> swap .)
     ROT             reduce using rule 39 (functions -> swap .)
     OVER            reduce using rule 39 (functions -> swap .)
@@ -1416,6 +1413,7 @@ state 18
     (40) functions -> rot .
 
     DUP             reduce using rule 40 (functions -> rot .)
+    DROP            reduce using rule 40 (functions -> rot .)
     NUMBER          reduce using rule 40 (functions -> rot .)
     STRING          reduce using rule 40 (functions -> rot .)
     STDOUT          reduce using rule 40 (functions -> rot .)
@@ -1423,7 +1421,6 @@ state 18
     SPACE           reduce using rule 40 (functions -> rot .)
     COMMENT_LINE    reduce using rule 40 (functions -> rot .)
     COMMENT_BLOCK   reduce using rule 40 (functions -> rot .)
-    DROP            reduce using rule 40 (functions -> rot .)
     SWAP            reduce using rule 40 (functions -> rot .)
     ROT             reduce using rule 40 (functions -> rot .)
     OVER            reduce using rule 40 (functions -> rot .)
@@ -1464,6 +1461,7 @@ state 19
     (41) functions -> over .
 
     DUP             reduce using rule 41 (functions -> over .)
+    DROP            reduce using rule 41 (functions -> over .)
     NUMBER          reduce using rule 41 (functions -> over .)
     STRING          reduce using rule 41 (functions -> over .)
     STDOUT          reduce using rule 41 (functions -> over .)
@@ -1471,7 +1469,6 @@ state 19
     SPACE           reduce using rule 41 (functions -> over .)
     COMMENT_LINE    reduce using rule 41 (functions -> over .)
     COMMENT_BLOCK   reduce using rule 41 (functions -> over .)
-    DROP            reduce using rule 41 (functions -> over .)
     SWAP            reduce using rule 41 (functions -> over .)
     ROT             reduce using rule 41 (functions -> over .)
     OVER            reduce using rule 41 (functions -> over .)
@@ -1512,6 +1509,7 @@ state 20
     (42) functions -> concat .
 
     DUP             reduce using rule 42 (functions -> concat .)
+    DROP            reduce using rule 42 (functions -> concat .)
     NUMBER          reduce using rule 42 (functions -> concat .)
     STRING          reduce using rule 42 (functions -> concat .)
     STDOUT          reduce using rule 42 (functions -> concat .)
@@ -1519,7 +1517,6 @@ state 20
     SPACE           reduce using rule 42 (functions -> concat .)
     COMMENT_LINE    reduce using rule 42 (functions -> concat .)
     COMMENT_BLOCK   reduce using rule 42 (functions -> concat .)
-    DROP            reduce using rule 42 (functions -> concat .)
     SWAP            reduce using rule 42 (functions -> concat .)
     ROT             reduce using rule 42 (functions -> concat .)
     OVER            reduce using rule 42 (functions -> concat .)
@@ -1560,6 +1557,7 @@ state 21
     (43) functions -> cr .
 
     DUP             reduce using rule 43 (functions -> cr .)
+    DROP            reduce using rule 43 (functions -> cr .)
     NUMBER          reduce using rule 43 (functions -> cr .)
     STRING          reduce using rule 43 (functions -> cr .)
     STDOUT          reduce using rule 43 (functions -> cr .)
@@ -1567,7 +1565,6 @@ state 21
     SPACE           reduce using rule 43 (functions -> cr .)
     COMMENT_LINE    reduce using rule 43 (functions -> cr .)
     COMMENT_BLOCK   reduce using rule 43 (functions -> cr .)
-    DROP            reduce using rule 43 (functions -> cr .)
     SWAP            reduce using rule 43 (functions -> cr .)
     ROT             reduce using rule 43 (functions -> cr .)
     OVER            reduce using rule 43 (functions -> cr .)
@@ -1608,6 +1605,7 @@ state 22
     (44) functions -> emit .
 
     DUP             reduce using rule 44 (functions -> emit .)
+    DROP            reduce using rule 44 (functions -> emit .)
     NUMBER          reduce using rule 44 (functions -> emit .)
     STRING          reduce using rule 44 (functions -> emit .)
     STDOUT          reduce using rule 44 (functions -> emit .)
@@ -1615,7 +1613,6 @@ state 22
     SPACE           reduce using rule 44 (functions -> emit .)
     COMMENT_LINE    reduce using rule 44 (functions -> emit .)
     COMMENT_BLOCK   reduce using rule 44 (functions -> emit .)
-    DROP            reduce using rule 44 (functions -> emit .)
     SWAP            reduce using rule 44 (functions -> emit .)
     ROT             reduce using rule 44 (functions -> emit .)
     OVER            reduce using rule 44 (functions -> emit .)
@@ -1656,6 +1653,7 @@ state 23
     (45) functions -> char .
 
     DUP             reduce using rule 45 (functions -> char .)
+    DROP            reduce using rule 45 (functions -> char .)
     NUMBER          reduce using rule 45 (functions -> char .)
     STRING          reduce using rule 45 (functions -> char .)
     STDOUT          reduce using rule 45 (functions -> char .)
@@ -1663,7 +1661,6 @@ state 23
     SPACE           reduce using rule 45 (functions -> char .)
     COMMENT_LINE    reduce using rule 45 (functions -> char .)
     COMMENT_BLOCK   reduce using rule 45 (functions -> char .)
-    DROP            reduce using rule 45 (functions -> char .)
     SWAP            reduce using rule 45 (functions -> char .)
     ROT             reduce using rule 45 (functions -> char .)
     OVER            reduce using rule 45 (functions -> char .)
@@ -1704,6 +1701,7 @@ state 24
     (46) functions -> key .
 
     DUP             reduce using rule 46 (functions -> key .)
+    DROP            reduce using rule 46 (functions -> key .)
     NUMBER          reduce using rule 46 (functions -> key .)
     STRING          reduce using rule 46 (functions -> key .)
     STDOUT          reduce using rule 46 (functions -> key .)
@@ -1711,7 +1709,6 @@ state 24
     SPACE           reduce using rule 46 (functions -> key .)
     COMMENT_LINE    reduce using rule 46 (functions -> key .)
     COMMENT_BLOCK   reduce using rule 46 (functions -> key .)
-    DROP            reduce using rule 46 (functions -> key .)
     SWAP            reduce using rule 46 (functions -> key .)
     ROT             reduce using rule 46 (functions -> key .)
     OVER            reduce using rule 46 (functions -> key .)
@@ -1752,6 +1749,7 @@ state 25
     (47) functions -> spaces .
 
     DUP             reduce using rule 47 (functions -> spaces .)
+    DROP            reduce using rule 47 (functions -> spaces .)
     NUMBER          reduce using rule 47 (functions -> spaces .)
     STRING          reduce using rule 47 (functions -> spaces .)
     STDOUT          reduce using rule 47 (functions -> spaces .)
@@ -1759,7 +1757,6 @@ state 25
     SPACE           reduce using rule 47 (functions -> spaces .)
     COMMENT_LINE    reduce using rule 47 (functions -> spaces .)
     COMMENT_BLOCK   reduce using rule 47 (functions -> spaces .)
-    DROP            reduce using rule 47 (functions -> spaces .)
     SWAP            reduce using rule 47 (functions -> spaces .)
     ROT             reduce using rule 47 (functions -> spaces .)
     OVER            reduce using rule 47 (functions -> spaces .)
@@ -1800,6 +1797,7 @@ state 26
     (48) functions -> 2dup .
 
     DUP             reduce using rule 48 (functions -> 2dup .)
+    DROP            reduce using rule 48 (functions -> 2dup .)
     NUMBER          reduce using rule 48 (functions -> 2dup .)
     STRING          reduce using rule 48 (functions -> 2dup .)
     STDOUT          reduce using rule 48 (functions -> 2dup .)
@@ -1807,7 +1805,6 @@ state 26
     SPACE           reduce using rule 48 (functions -> 2dup .)
     COMMENT_LINE    reduce using rule 48 (functions -> 2dup .)
     COMMENT_BLOCK   reduce using rule 48 (functions -> 2dup .)
-    DROP            reduce using rule 48 (functions -> 2dup .)
     SWAP            reduce using rule 48 (functions -> 2dup .)
     ROT             reduce using rule 48 (functions -> 2dup .)
     OVER            reduce using rule 48 (functions -> 2dup .)
@@ -1848,6 +1845,7 @@ state 27
     (21) values -> NUMBER .
 
     DUP             reduce using rule 21 (values -> NUMBER .)
+    DROP            reduce using rule 21 (values -> NUMBER .)
     NUMBER          reduce using rule 21 (values -> NUMBER .)
     STRING          reduce using rule 21 (values -> NUMBER .)
     STDOUT          reduce using rule 21 (values -> NUMBER .)
@@ -1855,7 +1853,6 @@ state 27
     SPACE           reduce using rule 21 (values -> NUMBER .)
     COMMENT_LINE    reduce using rule 21 (values -> NUMBER .)
     COMMENT_BLOCK   reduce using rule 21 (values -> NUMBER .)
-    DROP            reduce using rule 21 (values -> NUMBER .)
     SWAP            reduce using rule 21 (values -> NUMBER .)
     ROT             reduce using rule 21 (values -> NUMBER .)
     OVER            reduce using rule 21 (values -> NUMBER .)
@@ -1896,6 +1893,7 @@ state 28
     (22) values -> STRING .
 
     DUP             reduce using rule 22 (values -> STRING .)
+    DROP            reduce using rule 22 (values -> STRING .)
     NUMBER          reduce using rule 22 (values -> STRING .)
     STRING          reduce using rule 22 (values -> STRING .)
     STDOUT          reduce using rule 22 (values -> STRING .)
@@ -1903,7 +1901,6 @@ state 28
     SPACE           reduce using rule 22 (values -> STRING .)
     COMMENT_LINE    reduce using rule 22 (values -> STRING .)
     COMMENT_BLOCK   reduce using rule 22 (values -> STRING .)
-    DROP            reduce using rule 22 (values -> STRING .)
     SWAP            reduce using rule 22 (values -> STRING .)
     ROT             reduce using rule 22 (values -> STRING .)
     OVER            reduce using rule 22 (values -> STRING .)
@@ -1947,6 +1944,7 @@ state 29
     FUNCTION_CALL   reduce using rule 74 (creating_funcs -> func_criada .)
     FUNC_BODY       reduce using rule 74 (creating_funcs -> func_criada .)
     DUP             reduce using rule 74 (creating_funcs -> func_criada .)
+    DROP            reduce using rule 74 (creating_funcs -> func_criada .)
     NUMBER          reduce using rule 74 (creating_funcs -> func_criada .)
     STRING          reduce using rule 74 (creating_funcs -> func_criada .)
     STDOUT          reduce using rule 74 (creating_funcs -> func_criada .)
@@ -1954,7 +1952,6 @@ state 29
     SPACE           reduce using rule 74 (creating_funcs -> func_criada .)
     COMMENT_LINE    reduce using rule 74 (creating_funcs -> func_criada .)
     COMMENT_BLOCK   reduce using rule 74 (creating_funcs -> func_criada .)
-    DROP            reduce using rule 74 (creating_funcs -> func_criada .)
     SWAP            reduce using rule 74 (creating_funcs -> func_criada .)
     ROT             reduce using rule 74 (creating_funcs -> func_criada .)
     OVER            reduce using rule 74 (creating_funcs -> func_criada .)
@@ -1995,6 +1992,7 @@ state 30
     FUNCTION_CALL   reduce using rule 75 (creating_funcs -> function .)
     FUNC_BODY       reduce using rule 75 (creating_funcs -> function .)
     DUP             reduce using rule 75 (creating_funcs -> function .)
+    DROP            reduce using rule 75 (creating_funcs -> function .)
     NUMBER          reduce using rule 75 (creating_funcs -> function .)
     STRING          reduce using rule 75 (creating_funcs -> function .)
     STDOUT          reduce using rule 75 (creating_funcs -> function .)
@@ -2002,7 +2000,6 @@ state 30
     SPACE           reduce using rule 75 (creating_funcs -> function .)
     COMMENT_LINE    reduce using rule 75 (creating_funcs -> function .)
     COMMENT_BLOCK   reduce using rule 75 (creating_funcs -> function .)
-    DROP            reduce using rule 75 (creating_funcs -> function .)
     SWAP            reduce using rule 75 (creating_funcs -> function .)
     ROT             reduce using rule 75 (creating_funcs -> function .)
     OVER            reduce using rule 75 (creating_funcs -> function .)
@@ -2040,6 +2037,7 @@ state 31
     (66) variable -> variable_definition .
 
     DUP             reduce using rule 66 (variable -> variable_definition .)
+    DROP            reduce using rule 66 (variable -> variable_definition .)
     NUMBER          reduce using rule 66 (variable -> variable_definition .)
     STRING          reduce using rule 66 (variable -> variable_definition .)
     STDOUT          reduce using rule 66 (variable -> variable_definition .)
@@ -2047,7 +2045,6 @@ state 31
     SPACE           reduce using rule 66 (variable -> variable_definition .)
     COMMENT_LINE    reduce using rule 66 (variable -> variable_definition .)
     COMMENT_BLOCK   reduce using rule 66 (variable -> variable_definition .)
-    DROP            reduce using rule 66 (variable -> variable_definition .)
     SWAP            reduce using rule 66 (variable -> variable_definition .)
     ROT             reduce using rule 66 (variable -> variable_definition .)
     OVER            reduce using rule 66 (variable -> variable_definition .)
@@ -2088,6 +2085,7 @@ state 32
     (67) variable -> variable_assignment .
 
     DUP             reduce using rule 67 (variable -> variable_assignment .)
+    DROP            reduce using rule 67 (variable -> variable_assignment .)
     NUMBER          reduce using rule 67 (variable -> variable_assignment .)
     STRING          reduce using rule 67 (variable -> variable_assignment .)
     STDOUT          reduce using rule 67 (variable -> variable_assignment .)
@@ -2095,7 +2093,6 @@ state 32
     SPACE           reduce using rule 67 (variable -> variable_assignment .)
     COMMENT_LINE    reduce using rule 67 (variable -> variable_assignment .)
     COMMENT_BLOCK   reduce using rule 67 (variable -> variable_assignment .)
-    DROP            reduce using rule 67 (variable -> variable_assignment .)
     SWAP            reduce using rule 67 (variable -> variable_assignment .)
     ROT             reduce using rule 67 (variable -> variable_assignment .)
     OVER            reduce using rule 67 (variable -> variable_assignment .)
@@ -2136,6 +2133,7 @@ state 33
     (68) variable -> variable_fetch .
 
     DUP             reduce using rule 68 (variable -> variable_fetch .)
+    DROP            reduce using rule 68 (variable -> variable_fetch .)
     NUMBER          reduce using rule 68 (variable -> variable_fetch .)
     STRING          reduce using rule 68 (variable -> variable_fetch .)
     STDOUT          reduce using rule 68 (variable -> variable_fetch .)
@@ -2143,7 +2141,6 @@ state 33
     SPACE           reduce using rule 68 (variable -> variable_fetch .)
     COMMENT_LINE    reduce using rule 68 (variable -> variable_fetch .)
     COMMENT_BLOCK   reduce using rule 68 (variable -> variable_fetch .)
-    DROP            reduce using rule 68 (variable -> variable_fetch .)
     SWAP            reduce using rule 68 (variable -> variable_fetch .)
     ROT             reduce using rule 68 (variable -> variable_fetch .)
     OVER            reduce using rule 68 (variable -> variable_fetch .)
@@ -2184,6 +2181,7 @@ state 34
     (69) variable -> variable_print .
 
     DUP             reduce using rule 69 (variable -> variable_print .)
+    DROP            reduce using rule 69 (variable -> variable_print .)
     NUMBER          reduce using rule 69 (variable -> variable_print .)
     STRING          reduce using rule 69 (variable -> variable_print .)
     STDOUT          reduce using rule 69 (variable -> variable_print .)
@@ -2191,7 +2189,6 @@ state 34
     SPACE           reduce using rule 69 (variable -> variable_print .)
     COMMENT_LINE    reduce using rule 69 (variable -> variable_print .)
     COMMENT_BLOCK   reduce using rule 69 (variable -> variable_print .)
-    DROP            reduce using rule 69 (variable -> variable_print .)
     SWAP            reduce using rule 69 (variable -> variable_print .)
     ROT             reduce using rule 69 (variable -> variable_print .)
     OVER            reduce using rule 69 (variable -> variable_print .)
@@ -2232,6 +2229,7 @@ state 35
     (23) flow_control -> if .
 
     DUP             reduce using rule 23 (flow_control -> if .)
+    DROP            reduce using rule 23 (flow_control -> if .)
     NUMBER          reduce using rule 23 (flow_control -> if .)
     STRING          reduce using rule 23 (flow_control -> if .)
     STDOUT          reduce using rule 23 (flow_control -> if .)
@@ -2239,7 +2237,6 @@ state 35
     SPACE           reduce using rule 23 (flow_control -> if .)
     COMMENT_LINE    reduce using rule 23 (flow_control -> if .)
     COMMENT_BLOCK   reduce using rule 23 (flow_control -> if .)
-    DROP            reduce using rule 23 (flow_control -> if .)
     SWAP            reduce using rule 23 (flow_control -> if .)
     ROT             reduce using rule 23 (flow_control -> if .)
     OVER            reduce using rule 23 (flow_control -> if .)
@@ -2280,6 +2277,7 @@ state 36
     (24) flow_control -> else .
 
     DUP             reduce using rule 24 (flow_control -> else .)
+    DROP            reduce using rule 24 (flow_control -> else .)
     NUMBER          reduce using rule 24 (flow_control -> else .)
     STRING          reduce using rule 24 (flow_control -> else .)
     STDOUT          reduce using rule 24 (flow_control -> else .)
@@ -2287,7 +2285,6 @@ state 36
     SPACE           reduce using rule 24 (flow_control -> else .)
     COMMENT_LINE    reduce using rule 24 (flow_control -> else .)
     COMMENT_BLOCK   reduce using rule 24 (flow_control -> else .)
-    DROP            reduce using rule 24 (flow_control -> else .)
     SWAP            reduce using rule 24 (flow_control -> else .)
     ROT             reduce using rule 24 (flow_control -> else .)
     OVER            reduce using rule 24 (flow_control -> else .)
@@ -2328,6 +2325,7 @@ state 37
     (25) flow_control -> then .
 
     DUP             reduce using rule 25 (flow_control -> then .)
+    DROP            reduce using rule 25 (flow_control -> then .)
     NUMBER          reduce using rule 25 (flow_control -> then .)
     STRING          reduce using rule 25 (flow_control -> then .)
     STDOUT          reduce using rule 25 (flow_control -> then .)
@@ -2335,7 +2333,6 @@ state 37
     SPACE           reduce using rule 25 (flow_control -> then .)
     COMMENT_LINE    reduce using rule 25 (flow_control -> then .)
     COMMENT_BLOCK   reduce using rule 25 (flow_control -> then .)
-    DROP            reduce using rule 25 (flow_control -> then .)
     SWAP            reduce using rule 25 (flow_control -> then .)
     ROT             reduce using rule 25 (flow_control -> then .)
     OVER            reduce using rule 25 (flow_control -> then .)
@@ -2376,6 +2373,7 @@ state 38
     (26) flow_control -> do .
 
     DUP             reduce using rule 26 (flow_control -> do .)
+    DROP            reduce using rule 26 (flow_control -> do .)
     NUMBER          reduce using rule 26 (flow_control -> do .)
     STRING          reduce using rule 26 (flow_control -> do .)
     STDOUT          reduce using rule 26 (flow_control -> do .)
@@ -2383,7 +2381,6 @@ state 38
     SPACE           reduce using rule 26 (flow_control -> do .)
     COMMENT_LINE    reduce using rule 26 (flow_control -> do .)
     COMMENT_BLOCK   reduce using rule 26 (flow_control -> do .)
-    DROP            reduce using rule 26 (flow_control -> do .)
     SWAP            reduce using rule 26 (flow_control -> do .)
     ROT             reduce using rule 26 (flow_control -> do .)
     OVER            reduce using rule 26 (flow_control -> do .)
@@ -2424,6 +2421,7 @@ state 39
     (27) flow_control -> loop .
 
     DUP             reduce using rule 27 (flow_control -> loop .)
+    DROP            reduce using rule 27 (flow_control -> loop .)
     NUMBER          reduce using rule 27 (flow_control -> loop .)
     STRING          reduce using rule 27 (flow_control -> loop .)
     STDOUT          reduce using rule 27 (flow_control -> loop .)
@@ -2431,7 +2429,6 @@ state 39
     SPACE           reduce using rule 27 (flow_control -> loop .)
     COMMENT_LINE    reduce using rule 27 (flow_control -> loop .)
     COMMENT_BLOCK   reduce using rule 27 (flow_control -> loop .)
-    DROP            reduce using rule 27 (flow_control -> loop .)
     SWAP            reduce using rule 27 (flow_control -> loop .)
     ROT             reduce using rule 27 (flow_control -> loop .)
     OVER            reduce using rule 27 (flow_control -> loop .)
@@ -2472,6 +2469,7 @@ state 40
     (49) stdout -> STDOUT .
 
     DUP             reduce using rule 49 (stdout -> STDOUT .)
+    DROP            reduce using rule 49 (stdout -> STDOUT .)
     NUMBER          reduce using rule 49 (stdout -> STDOUT .)
     STRING          reduce using rule 49 (stdout -> STDOUT .)
     STDOUT          reduce using rule 49 (stdout -> STDOUT .)
@@ -2479,7 +2477,6 @@ state 40
     SPACE           reduce using rule 49 (stdout -> STDOUT .)
     COMMENT_LINE    reduce using rule 49 (stdout -> STDOUT .)
     COMMENT_BLOCK   reduce using rule 49 (stdout -> STDOUT .)
-    DROP            reduce using rule 49 (stdout -> STDOUT .)
     SWAP            reduce using rule 49 (stdout -> STDOUT .)
     ROT             reduce using rule 49 (stdout -> STDOUT .)
     OVER            reduce using rule 49 (stdout -> STDOUT .)
@@ -2520,6 +2517,7 @@ state 41
     (50) dot -> DOT .
 
     DUP             reduce using rule 50 (dot -> DOT .)
+    DROP            reduce using rule 50 (dot -> DOT .)
     NUMBER          reduce using rule 50 (dot -> DOT .)
     STRING          reduce using rule 50 (dot -> DOT .)
     STDOUT          reduce using rule 50 (dot -> DOT .)
@@ -2527,7 +2525,6 @@ state 41
     SPACE           reduce using rule 50 (dot -> DOT .)
     COMMENT_LINE    reduce using rule 50 (dot -> DOT .)
     COMMENT_BLOCK   reduce using rule 50 (dot -> DOT .)
-    DROP            reduce using rule 50 (dot -> DOT .)
     SWAP            reduce using rule 50 (dot -> DOT .)
     ROT             reduce using rule 50 (dot -> DOT .)
     OVER            reduce using rule 50 (dot -> DOT .)
@@ -2568,6 +2565,7 @@ state 42
     (51) space -> SPACE .
 
     DUP             reduce using rule 51 (space -> SPACE .)
+    DROP            reduce using rule 51 (space -> SPACE .)
     NUMBER          reduce using rule 51 (space -> SPACE .)
     STRING          reduce using rule 51 (space -> SPACE .)
     STDOUT          reduce using rule 51 (space -> SPACE .)
@@ -2575,7 +2573,6 @@ state 42
     SPACE           reduce using rule 51 (space -> SPACE .)
     COMMENT_LINE    reduce using rule 51 (space -> SPACE .)
     COMMENT_BLOCK   reduce using rule 51 (space -> SPACE .)
-    DROP            reduce using rule 51 (space -> SPACE .)
     SWAP            reduce using rule 51 (space -> SPACE .)
     ROT             reduce using rule 51 (space -> SPACE .)
     OVER            reduce using rule 51 (space -> SPACE .)
@@ -2616,6 +2613,7 @@ state 43
     (53) comment -> COMMENT_LINE .
 
     DUP             reduce using rule 53 (comment -> COMMENT_LINE .)
+    DROP            reduce using rule 53 (comment -> COMMENT_LINE .)
     NUMBER          reduce using rule 53 (comment -> COMMENT_LINE .)
     STRING          reduce using rule 53 (comment -> COMMENT_LINE .)
     STDOUT          reduce using rule 53 (comment -> COMMENT_LINE .)
@@ -2623,7 +2621,6 @@ state 43
     SPACE           reduce using rule 53 (comment -> COMMENT_LINE .)
     COMMENT_LINE    reduce using rule 53 (comment -> COMMENT_LINE .)
     COMMENT_BLOCK   reduce using rule 53 (comment -> COMMENT_LINE .)
-    DROP            reduce using rule 53 (comment -> COMMENT_LINE .)
     SWAP            reduce using rule 53 (comment -> COMMENT_LINE .)
     ROT             reduce using rule 53 (comment -> COMMENT_LINE .)
     OVER            reduce using rule 53 (comment -> COMMENT_LINE .)
@@ -2664,6 +2661,7 @@ state 44
     (54) comment -> COMMENT_BLOCK .
 
     DUP             reduce using rule 54 (comment -> COMMENT_BLOCK .)
+    DROP            reduce using rule 54 (comment -> COMMENT_BLOCK .)
     NUMBER          reduce using rule 54 (comment -> COMMENT_BLOCK .)
     STRING          reduce using rule 54 (comment -> COMMENT_BLOCK .)
     STDOUT          reduce using rule 54 (comment -> COMMENT_BLOCK .)
@@ -2671,7 +2669,6 @@ state 44
     SPACE           reduce using rule 54 (comment -> COMMENT_BLOCK .)
     COMMENT_LINE    reduce using rule 54 (comment -> COMMENT_BLOCK .)
     COMMENT_BLOCK   reduce using rule 54 (comment -> COMMENT_BLOCK .)
-    DROP            reduce using rule 54 (comment -> COMMENT_BLOCK .)
     SWAP            reduce using rule 54 (comment -> COMMENT_BLOCK .)
     ROT             reduce using rule 54 (comment -> COMMENT_BLOCK .)
     OVER            reduce using rule 54 (comment -> COMMENT_BLOCK .)
@@ -2709,57 +2706,10 @@ state 44
 
 state 45
 
-    (55) drop -> DROP .
-
-    DUP             reduce using rule 55 (drop -> DROP .)
-    NUMBER          reduce using rule 55 (drop -> DROP .)
-    STRING          reduce using rule 55 (drop -> DROP .)
-    STDOUT          reduce using rule 55 (drop -> DROP .)
-    DOT             reduce using rule 55 (drop -> DROP .)
-    SPACE           reduce using rule 55 (drop -> DROP .)
-    COMMENT_LINE    reduce using rule 55 (drop -> DROP .)
-    COMMENT_BLOCK   reduce using rule 55 (drop -> DROP .)
-    DROP            reduce using rule 55 (drop -> DROP .)
-    SWAP            reduce using rule 55 (drop -> DROP .)
-    ROT             reduce using rule 55 (drop -> DROP .)
-    OVER            reduce using rule 55 (drop -> DROP .)
-    CONCAT          reduce using rule 55 (drop -> DROP .)
-    CR              reduce using rule 55 (drop -> DROP .)
-    EMIT            reduce using rule 55 (drop -> DROP .)
-    CHAR            reduce using rule 55 (drop -> DROP .)
-    KEY             reduce using rule 55 (drop -> DROP .)
-    SPACES          reduce using rule 55 (drop -> DROP .)
-    2DUP            reduce using rule 55 (drop -> DROP .)
-    FUNC_BODY       reduce using rule 55 (drop -> DROP .)
-    FUNCTION        reduce using rule 55 (drop -> DROP .)
-    FUNCTION_CALL   reduce using rule 55 (drop -> DROP .)
-    VARIABLE_DEFENITION reduce using rule 55 (drop -> DROP .)
-    VARIABLE_ASSIGNMENT reduce using rule 55 (drop -> DROP .)
-    VARIABLE_FETCH  reduce using rule 55 (drop -> DROP .)
-    VARIABLE_PRINT  reduce using rule 55 (drop -> DROP .)
-    IF              reduce using rule 55 (drop -> DROP .)
-    ELSE            reduce using rule 55 (drop -> DROP .)
-    THEN            reduce using rule 55 (drop -> DROP .)
-    DO              reduce using rule 55 (drop -> DROP .)
-    LOOP            reduce using rule 55 (drop -> DROP .)
-    $end            reduce using rule 55 (drop -> DROP .)
-    PLUS            reduce using rule 55 (drop -> DROP .)
-    MINUS           reduce using rule 55 (drop -> DROP .)
-    TIMES           reduce using rule 55 (drop -> DROP .)
-    DIVIDE          reduce using rule 55 (drop -> DROP .)
-    MOD             reduce using rule 55 (drop -> DROP .)
-    NOT             reduce using rule 55 (drop -> DROP .)
-    INF             reduce using rule 55 (drop -> DROP .)
-    SUP             reduce using rule 55 (drop -> DROP .)
-    INFEQ           reduce using rule 55 (drop -> DROP .)
-    SUPEQ           reduce using rule 55 (drop -> DROP .)
-
-
-state 46
-
     (56) swap -> SWAP .
 
     DUP             reduce using rule 56 (swap -> SWAP .)
+    DROP            reduce using rule 56 (swap -> SWAP .)
     NUMBER          reduce using rule 56 (swap -> SWAP .)
     STRING          reduce using rule 56 (swap -> SWAP .)
     STDOUT          reduce using rule 56 (swap -> SWAP .)
@@ -2767,7 +2717,6 @@ state 46
     SPACE           reduce using rule 56 (swap -> SWAP .)
     COMMENT_LINE    reduce using rule 56 (swap -> SWAP .)
     COMMENT_BLOCK   reduce using rule 56 (swap -> SWAP .)
-    DROP            reduce using rule 56 (swap -> SWAP .)
     SWAP            reduce using rule 56 (swap -> SWAP .)
     ROT             reduce using rule 56 (swap -> SWAP .)
     OVER            reduce using rule 56 (swap -> SWAP .)
@@ -2803,11 +2752,12 @@ state 46
     SUPEQ           reduce using rule 56 (swap -> SWAP .)
 
 
-state 47
+state 46
 
     (57) rot -> ROT .
 
     DUP             reduce using rule 57 (rot -> ROT .)
+    DROP            reduce using rule 57 (rot -> ROT .)
     NUMBER          reduce using rule 57 (rot -> ROT .)
     STRING          reduce using rule 57 (rot -> ROT .)
     STDOUT          reduce using rule 57 (rot -> ROT .)
@@ -2815,7 +2765,6 @@ state 47
     SPACE           reduce using rule 57 (rot -> ROT .)
     COMMENT_LINE    reduce using rule 57 (rot -> ROT .)
     COMMENT_BLOCK   reduce using rule 57 (rot -> ROT .)
-    DROP            reduce using rule 57 (rot -> ROT .)
     SWAP            reduce using rule 57 (rot -> ROT .)
     ROT             reduce using rule 57 (rot -> ROT .)
     OVER            reduce using rule 57 (rot -> ROT .)
@@ -2851,11 +2800,12 @@ state 47
     SUPEQ           reduce using rule 57 (rot -> ROT .)
 
 
-state 48
+state 47
 
     (58) over -> OVER .
 
     DUP             reduce using rule 58 (over -> OVER .)
+    DROP            reduce using rule 58 (over -> OVER .)
     NUMBER          reduce using rule 58 (over -> OVER .)
     STRING          reduce using rule 58 (over -> OVER .)
     STDOUT          reduce using rule 58 (over -> OVER .)
@@ -2863,7 +2813,6 @@ state 48
     SPACE           reduce using rule 58 (over -> OVER .)
     COMMENT_LINE    reduce using rule 58 (over -> OVER .)
     COMMENT_BLOCK   reduce using rule 58 (over -> OVER .)
-    DROP            reduce using rule 58 (over -> OVER .)
     SWAP            reduce using rule 58 (over -> OVER .)
     ROT             reduce using rule 58 (over -> OVER .)
     OVER            reduce using rule 58 (over -> OVER .)
@@ -2899,11 +2848,12 @@ state 48
     SUPEQ           reduce using rule 58 (over -> OVER .)
 
 
-state 49
+state 48
 
     (59) concat -> CONCAT .
 
     DUP             reduce using rule 59 (concat -> CONCAT .)
+    DROP            reduce using rule 59 (concat -> CONCAT .)
     NUMBER          reduce using rule 59 (concat -> CONCAT .)
     STRING          reduce using rule 59 (concat -> CONCAT .)
     STDOUT          reduce using rule 59 (concat -> CONCAT .)
@@ -2911,7 +2861,6 @@ state 49
     SPACE           reduce using rule 59 (concat -> CONCAT .)
     COMMENT_LINE    reduce using rule 59 (concat -> CONCAT .)
     COMMENT_BLOCK   reduce using rule 59 (concat -> CONCAT .)
-    DROP            reduce using rule 59 (concat -> CONCAT .)
     SWAP            reduce using rule 59 (concat -> CONCAT .)
     ROT             reduce using rule 59 (concat -> CONCAT .)
     OVER            reduce using rule 59 (concat -> CONCAT .)
@@ -2947,11 +2896,12 @@ state 49
     SUPEQ           reduce using rule 59 (concat -> CONCAT .)
 
 
-state 50
+state 49
 
     (60) cr -> CR .
 
     DUP             reduce using rule 60 (cr -> CR .)
+    DROP            reduce using rule 60 (cr -> CR .)
     NUMBER          reduce using rule 60 (cr -> CR .)
     STRING          reduce using rule 60 (cr -> CR .)
     STDOUT          reduce using rule 60 (cr -> CR .)
@@ -2959,7 +2909,6 @@ state 50
     SPACE           reduce using rule 60 (cr -> CR .)
     COMMENT_LINE    reduce using rule 60 (cr -> CR .)
     COMMENT_BLOCK   reduce using rule 60 (cr -> CR .)
-    DROP            reduce using rule 60 (cr -> CR .)
     SWAP            reduce using rule 60 (cr -> CR .)
     ROT             reduce using rule 60 (cr -> CR .)
     OVER            reduce using rule 60 (cr -> CR .)
@@ -2995,11 +2944,12 @@ state 50
     SUPEQ           reduce using rule 60 (cr -> CR .)
 
 
-state 51
+state 50
 
     (61) emit -> EMIT .
 
     DUP             reduce using rule 61 (emit -> EMIT .)
+    DROP            reduce using rule 61 (emit -> EMIT .)
     NUMBER          reduce using rule 61 (emit -> EMIT .)
     STRING          reduce using rule 61 (emit -> EMIT .)
     STDOUT          reduce using rule 61 (emit -> EMIT .)
@@ -3007,7 +2957,6 @@ state 51
     SPACE           reduce using rule 61 (emit -> EMIT .)
     COMMENT_LINE    reduce using rule 61 (emit -> EMIT .)
     COMMENT_BLOCK   reduce using rule 61 (emit -> EMIT .)
-    DROP            reduce using rule 61 (emit -> EMIT .)
     SWAP            reduce using rule 61 (emit -> EMIT .)
     ROT             reduce using rule 61 (emit -> EMIT .)
     OVER            reduce using rule 61 (emit -> EMIT .)
@@ -3043,11 +2992,12 @@ state 51
     SUPEQ           reduce using rule 61 (emit -> EMIT .)
 
 
-state 52
+state 51
 
     (62) char -> CHAR .
 
     DUP             reduce using rule 62 (char -> CHAR .)
+    DROP            reduce using rule 62 (char -> CHAR .)
     NUMBER          reduce using rule 62 (char -> CHAR .)
     STRING          reduce using rule 62 (char -> CHAR .)
     STDOUT          reduce using rule 62 (char -> CHAR .)
@@ -3055,7 +3005,6 @@ state 52
     SPACE           reduce using rule 62 (char -> CHAR .)
     COMMENT_LINE    reduce using rule 62 (char -> CHAR .)
     COMMENT_BLOCK   reduce using rule 62 (char -> CHAR .)
-    DROP            reduce using rule 62 (char -> CHAR .)
     SWAP            reduce using rule 62 (char -> CHAR .)
     ROT             reduce using rule 62 (char -> CHAR .)
     OVER            reduce using rule 62 (char -> CHAR .)
@@ -3091,11 +3040,12 @@ state 52
     SUPEQ           reduce using rule 62 (char -> CHAR .)
 
 
-state 53
+state 52
 
     (63) key -> KEY .
 
     DUP             reduce using rule 63 (key -> KEY .)
+    DROP            reduce using rule 63 (key -> KEY .)
     NUMBER          reduce using rule 63 (key -> KEY .)
     STRING          reduce using rule 63 (key -> KEY .)
     STDOUT          reduce using rule 63 (key -> KEY .)
@@ -3103,7 +3053,6 @@ state 53
     SPACE           reduce using rule 63 (key -> KEY .)
     COMMENT_LINE    reduce using rule 63 (key -> KEY .)
     COMMENT_BLOCK   reduce using rule 63 (key -> KEY .)
-    DROP            reduce using rule 63 (key -> KEY .)
     SWAP            reduce using rule 63 (key -> KEY .)
     ROT             reduce using rule 63 (key -> KEY .)
     OVER            reduce using rule 63 (key -> KEY .)
@@ -3139,11 +3088,12 @@ state 53
     SUPEQ           reduce using rule 63 (key -> KEY .)
 
 
-state 54
+state 53
 
     (64) spaces -> SPACES .
 
     DUP             reduce using rule 64 (spaces -> SPACES .)
+    DROP            reduce using rule 64 (spaces -> SPACES .)
     NUMBER          reduce using rule 64 (spaces -> SPACES .)
     STRING          reduce using rule 64 (spaces -> SPACES .)
     STDOUT          reduce using rule 64 (spaces -> SPACES .)
@@ -3151,7 +3101,6 @@ state 54
     SPACE           reduce using rule 64 (spaces -> SPACES .)
     COMMENT_LINE    reduce using rule 64 (spaces -> SPACES .)
     COMMENT_BLOCK   reduce using rule 64 (spaces -> SPACES .)
-    DROP            reduce using rule 64 (spaces -> SPACES .)
     SWAP            reduce using rule 64 (spaces -> SPACES .)
     ROT             reduce using rule 64 (spaces -> SPACES .)
     OVER            reduce using rule 64 (spaces -> SPACES .)
@@ -3187,11 +3136,12 @@ state 54
     SUPEQ           reduce using rule 64 (spaces -> SPACES .)
 
 
-state 55
+state 54
 
     (65) 2dup -> 2DUP .
 
     DUP             reduce using rule 65 (2dup -> 2DUP .)
+    DROP            reduce using rule 65 (2dup -> 2DUP .)
     NUMBER          reduce using rule 65 (2dup -> 2DUP .)
     STRING          reduce using rule 65 (2dup -> 2DUP .)
     STDOUT          reduce using rule 65 (2dup -> 2DUP .)
@@ -3199,7 +3149,6 @@ state 55
     SPACE           reduce using rule 65 (2dup -> 2DUP .)
     COMMENT_LINE    reduce using rule 65 (2dup -> 2DUP .)
     COMMENT_BLOCK   reduce using rule 65 (2dup -> 2DUP .)
-    DROP            reduce using rule 65 (2dup -> 2DUP .)
     SWAP            reduce using rule 65 (2dup -> 2DUP .)
     ROT             reduce using rule 65 (2dup -> 2DUP .)
     OVER            reduce using rule 65 (2dup -> 2DUP .)
@@ -3235,7 +3184,7 @@ state 55
     SUPEQ           reduce using rule 65 (2dup -> 2DUP .)
 
 
-state 56
+state 55
 
     (80) func_criada -> FUNC_BODY .
 
@@ -3243,6 +3192,7 @@ state 56
     FUNCTION_CALL   reduce using rule 80 (func_criada -> FUNC_BODY .)
     FUNC_BODY       reduce using rule 80 (func_criada -> FUNC_BODY .)
     DUP             reduce using rule 80 (func_criada -> FUNC_BODY .)
+    DROP            reduce using rule 80 (func_criada -> FUNC_BODY .)
     NUMBER          reduce using rule 80 (func_criada -> FUNC_BODY .)
     STRING          reduce using rule 80 (func_criada -> FUNC_BODY .)
     STDOUT          reduce using rule 80 (func_criada -> FUNC_BODY .)
@@ -3250,7 +3200,6 @@ state 56
     SPACE           reduce using rule 80 (func_criada -> FUNC_BODY .)
     COMMENT_LINE    reduce using rule 80 (func_criada -> FUNC_BODY .)
     COMMENT_BLOCK   reduce using rule 80 (func_criada -> FUNC_BODY .)
-    DROP            reduce using rule 80 (func_criada -> FUNC_BODY .)
     SWAP            reduce using rule 80 (func_criada -> FUNC_BODY .)
     ROT             reduce using rule 80 (func_criada -> FUNC_BODY .)
     OVER            reduce using rule 80 (func_criada -> FUNC_BODY .)
@@ -3283,7 +3232,7 @@ state 56
     SUPEQ           reduce using rule 80 (func_criada -> FUNC_BODY .)
 
 
-state 57
+state 56
 
     (78) function -> FUNCTION .
 
@@ -3291,6 +3240,7 @@ state 57
     FUNCTION_CALL   reduce using rule 78 (function -> FUNCTION .)
     FUNC_BODY       reduce using rule 78 (function -> FUNCTION .)
     DUP             reduce using rule 78 (function -> FUNCTION .)
+    DROP            reduce using rule 78 (function -> FUNCTION .)
     NUMBER          reduce using rule 78 (function -> FUNCTION .)
     STRING          reduce using rule 78 (function -> FUNCTION .)
     STDOUT          reduce using rule 78 (function -> FUNCTION .)
@@ -3298,7 +3248,6 @@ state 57
     SPACE           reduce using rule 78 (function -> FUNCTION .)
     COMMENT_LINE    reduce using rule 78 (function -> FUNCTION .)
     COMMENT_BLOCK   reduce using rule 78 (function -> FUNCTION .)
-    DROP            reduce using rule 78 (function -> FUNCTION .)
     SWAP            reduce using rule 78 (function -> FUNCTION .)
     ROT             reduce using rule 78 (function -> FUNCTION .)
     OVER            reduce using rule 78 (function -> FUNCTION .)
@@ -3331,7 +3280,7 @@ state 57
     SUPEQ           reduce using rule 78 (function -> FUNCTION .)
 
 
-state 58
+state 57
 
     (79) function -> FUNCTION_CALL .
 
@@ -3339,6 +3288,7 @@ state 58
     FUNCTION_CALL   reduce using rule 79 (function -> FUNCTION_CALL .)
     FUNC_BODY       reduce using rule 79 (function -> FUNCTION_CALL .)
     DUP             reduce using rule 79 (function -> FUNCTION_CALL .)
+    DROP            reduce using rule 79 (function -> FUNCTION_CALL .)
     NUMBER          reduce using rule 79 (function -> FUNCTION_CALL .)
     STRING          reduce using rule 79 (function -> FUNCTION_CALL .)
     STDOUT          reduce using rule 79 (function -> FUNCTION_CALL .)
@@ -3346,7 +3296,6 @@ state 58
     SPACE           reduce using rule 79 (function -> FUNCTION_CALL .)
     COMMENT_LINE    reduce using rule 79 (function -> FUNCTION_CALL .)
     COMMENT_BLOCK   reduce using rule 79 (function -> FUNCTION_CALL .)
-    DROP            reduce using rule 79 (function -> FUNCTION_CALL .)
     SWAP            reduce using rule 79 (function -> FUNCTION_CALL .)
     ROT             reduce using rule 79 (function -> FUNCTION_CALL .)
     OVER            reduce using rule 79 (function -> FUNCTION_CALL .)
@@ -3379,11 +3328,12 @@ state 58
     SUPEQ           reduce using rule 79 (function -> FUNCTION_CALL .)
 
 
-state 59
+state 58
 
     (70) variable_definition -> VARIABLE_DEFENITION .
 
     DUP             reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
+    DROP            reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     NUMBER          reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     STRING          reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     STDOUT          reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
@@ -3391,7 +3341,6 @@ state 59
     SPACE           reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     COMMENT_LINE    reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     COMMENT_BLOCK   reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
-    DROP            reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     SWAP            reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     ROT             reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
     OVER            reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
@@ -3427,11 +3376,12 @@ state 59
     SUPEQ           reduce using rule 70 (variable_definition -> VARIABLE_DEFENITION .)
 
 
-state 60
+state 59
 
     (71) variable_assignment -> VARIABLE_ASSIGNMENT .
 
     DUP             reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
+    DROP            reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     NUMBER          reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     STRING          reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     STDOUT          reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
@@ -3439,7 +3389,6 @@ state 60
     SPACE           reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     COMMENT_LINE    reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     COMMENT_BLOCK   reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
-    DROP            reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     SWAP            reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     ROT             reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
     OVER            reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
@@ -3475,11 +3424,12 @@ state 60
     SUPEQ           reduce using rule 71 (variable_assignment -> VARIABLE_ASSIGNMENT .)
 
 
-state 61
+state 60
 
     (72) variable_fetch -> VARIABLE_FETCH .
 
     DUP             reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
+    DROP            reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     NUMBER          reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     STRING          reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     STDOUT          reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
@@ -3487,7 +3437,6 @@ state 61
     SPACE           reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     COMMENT_LINE    reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     COMMENT_BLOCK   reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
-    DROP            reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     SWAP            reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     ROT             reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
     OVER            reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
@@ -3523,11 +3472,12 @@ state 61
     SUPEQ           reduce using rule 72 (variable_fetch -> VARIABLE_FETCH .)
 
 
-state 62
+state 61
 
     (73) variable_print -> VARIABLE_PRINT .
 
     DUP             reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
+    DROP            reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     NUMBER          reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     STRING          reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     STDOUT          reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
@@ -3535,7 +3485,6 @@ state 62
     SPACE           reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     COMMENT_LINE    reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     COMMENT_BLOCK   reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
-    DROP            reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     SWAP            reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     ROT             reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
     OVER            reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
@@ -3571,11 +3520,12 @@ state 62
     SUPEQ           reduce using rule 73 (variable_print -> VARIABLE_PRINT .)
 
 
-state 63
+state 62
 
     (28) if -> IF .
 
     DUP             reduce using rule 28 (if -> IF .)
+    DROP            reduce using rule 28 (if -> IF .)
     NUMBER          reduce using rule 28 (if -> IF .)
     STRING          reduce using rule 28 (if -> IF .)
     STDOUT          reduce using rule 28 (if -> IF .)
@@ -3583,7 +3533,6 @@ state 63
     SPACE           reduce using rule 28 (if -> IF .)
     COMMENT_LINE    reduce using rule 28 (if -> IF .)
     COMMENT_BLOCK   reduce using rule 28 (if -> IF .)
-    DROP            reduce using rule 28 (if -> IF .)
     SWAP            reduce using rule 28 (if -> IF .)
     ROT             reduce using rule 28 (if -> IF .)
     OVER            reduce using rule 28 (if -> IF .)
@@ -3619,11 +3568,12 @@ state 63
     SUPEQ           reduce using rule 28 (if -> IF .)
 
 
-state 64
+state 63
 
     (29) else -> ELSE .
 
     DUP             reduce using rule 29 (else -> ELSE .)
+    DROP            reduce using rule 29 (else -> ELSE .)
     NUMBER          reduce using rule 29 (else -> ELSE .)
     STRING          reduce using rule 29 (else -> ELSE .)
     STDOUT          reduce using rule 29 (else -> ELSE .)
@@ -3631,7 +3581,6 @@ state 64
     SPACE           reduce using rule 29 (else -> ELSE .)
     COMMENT_LINE    reduce using rule 29 (else -> ELSE .)
     COMMENT_BLOCK   reduce using rule 29 (else -> ELSE .)
-    DROP            reduce using rule 29 (else -> ELSE .)
     SWAP            reduce using rule 29 (else -> ELSE .)
     ROT             reduce using rule 29 (else -> ELSE .)
     OVER            reduce using rule 29 (else -> ELSE .)
@@ -3667,11 +3616,12 @@ state 64
     SUPEQ           reduce using rule 29 (else -> ELSE .)
 
 
-state 65
+state 64
 
     (30) then -> THEN .
 
     DUP             reduce using rule 30 (then -> THEN .)
+    DROP            reduce using rule 30 (then -> THEN .)
     NUMBER          reduce using rule 30 (then -> THEN .)
     STRING          reduce using rule 30 (then -> THEN .)
     STDOUT          reduce using rule 30 (then -> THEN .)
@@ -3679,7 +3629,6 @@ state 65
     SPACE           reduce using rule 30 (then -> THEN .)
     COMMENT_LINE    reduce using rule 30 (then -> THEN .)
     COMMENT_BLOCK   reduce using rule 30 (then -> THEN .)
-    DROP            reduce using rule 30 (then -> THEN .)
     SWAP            reduce using rule 30 (then -> THEN .)
     ROT             reduce using rule 30 (then -> THEN .)
     OVER            reduce using rule 30 (then -> THEN .)
@@ -3715,11 +3664,12 @@ state 65
     SUPEQ           reduce using rule 30 (then -> THEN .)
 
 
-state 66
+state 65
 
     (31) do -> DO .
 
     DUP             reduce using rule 31 (do -> DO .)
+    DROP            reduce using rule 31 (do -> DO .)
     NUMBER          reduce using rule 31 (do -> DO .)
     STRING          reduce using rule 31 (do -> DO .)
     STDOUT          reduce using rule 31 (do -> DO .)
@@ -3727,7 +3677,6 @@ state 66
     SPACE           reduce using rule 31 (do -> DO .)
     COMMENT_LINE    reduce using rule 31 (do -> DO .)
     COMMENT_BLOCK   reduce using rule 31 (do -> DO .)
-    DROP            reduce using rule 31 (do -> DO .)
     SWAP            reduce using rule 31 (do -> DO .)
     ROT             reduce using rule 31 (do -> DO .)
     OVER            reduce using rule 31 (do -> DO .)
@@ -3763,11 +3712,12 @@ state 66
     SUPEQ           reduce using rule 31 (do -> DO .)
 
 
-state 67
+state 66
 
     (32) loop -> LOOP .
 
     DUP             reduce using rule 32 (loop -> LOOP .)
+    DROP            reduce using rule 32 (loop -> LOOP .)
     NUMBER          reduce using rule 32 (loop -> LOOP .)
     STRING          reduce using rule 32 (loop -> LOOP .)
     STDOUT          reduce using rule 32 (loop -> LOOP .)
@@ -3775,7 +3725,6 @@ state 67
     SPACE           reduce using rule 32 (loop -> LOOP .)
     COMMENT_LINE    reduce using rule 32 (loop -> LOOP .)
     COMMENT_BLOCK   reduce using rule 32 (loop -> LOOP .)
-    DROP            reduce using rule 32 (loop -> LOOP .)
     SWAP            reduce using rule 32 (loop -> LOOP .)
     ROT             reduce using rule 32 (loop -> LOOP .)
     OVER            reduce using rule 32 (loop -> LOOP .)
@@ -3811,7 +3760,7 @@ state 67
     SUPEQ           reduce using rule 32 (loop -> LOOP .)
 
 
-state 68
+state 67
 
     (3) comandos -> comandos comando .
     (11) exp_aritmeticas -> comando . comando PLUS
@@ -3825,6 +3774,7 @@ state 68
     (19) exp_relacionais -> comando . comando INFEQ
     (20) exp_relacionais -> comando . comando SUPEQ
     (52) dup -> comando . DUP
+    (55) drop -> comando . DROP
     (4) comando -> . exp_aritmeticas
     (5) comando -> . exp_relacionais
     (6) comando -> . functions
@@ -3879,7 +3829,7 @@ state 68
     (52) dup -> . comando DUP
     (53) comment -> . COMMENT_LINE
     (54) comment -> . COMMENT_BLOCK
-    (55) drop -> . DROP
+    (55) drop -> . comando DROP
     (56) swap -> . SWAP
     (57) rot -> . ROT
     (58) over -> . OVER
@@ -3910,7 +3860,6 @@ state 68
   ! shift/reduce conflict for SPACE resolved as shift
   ! shift/reduce conflict for COMMENT_LINE resolved as shift
   ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
-  ! shift/reduce conflict for DROP resolved as shift
   ! shift/reduce conflict for SWAP resolved as shift
   ! shift/reduce conflict for ROT resolved as shift
   ! shift/reduce conflict for OVER resolved as shift
@@ -3934,7 +3883,8 @@ state 68
   ! shift/reduce conflict for DO resolved as shift
   ! shift/reduce conflict for LOOP resolved as shift
     $end            reduce using rule 3 (comandos -> comandos comando .)
-    DUP             shift and go to state 70
+    DUP             shift and go to state 69
+    DROP            shift and go to state 70
     NUMBER          shift and go to state 27
     STRING          shift and go to state 28
     STDOUT          shift and go to state 40
@@ -3942,29 +3892,28 @@ state 68
     SPACE           shift and go to state 42
     COMMENT_LINE    shift and go to state 43
     COMMENT_BLOCK   shift and go to state 44
-    DROP            shift and go to state 45
-    SWAP            shift and go to state 46
-    ROT             shift and go to state 47
-    OVER            shift and go to state 48
-    CONCAT          shift and go to state 49
-    CR              shift and go to state 50
-    EMIT            shift and go to state 51
-    CHAR            shift and go to state 52
-    KEY             shift and go to state 53
-    SPACES          shift and go to state 54
-    2DUP            shift and go to state 55
-    FUNC_BODY       shift and go to state 56
-    FUNCTION        shift and go to state 57
-    FUNCTION_CALL   shift and go to state 58
-    VARIABLE_DEFENITION shift and go to state 59
-    VARIABLE_ASSIGNMENT shift and go to state 60
-    VARIABLE_FETCH  shift and go to state 61
-    VARIABLE_PRINT  shift and go to state 62
-    IF              shift and go to state 63
-    ELSE            shift and go to state 64
-    THEN            shift and go to state 65
-    DO              shift and go to state 66
-    LOOP            shift and go to state 67
+    SWAP            shift and go to state 45
+    ROT             shift and go to state 46
+    OVER            shift and go to state 47
+    CONCAT          shift and go to state 48
+    CR              shift and go to state 49
+    EMIT            shift and go to state 50
+    CHAR            shift and go to state 51
+    KEY             shift and go to state 52
+    SPACES          shift and go to state 53
+    2DUP            shift and go to state 54
+    FUNC_BODY       shift and go to state 55
+    FUNCTION        shift and go to state 56
+    FUNCTION_CALL   shift and go to state 57
+    VARIABLE_DEFENITION shift and go to state 58
+    VARIABLE_ASSIGNMENT shift and go to state 59
+    VARIABLE_FETCH  shift and go to state 60
+    VARIABLE_PRINT  shift and go to state 61
+    IF              shift and go to state 62
+    ELSE            shift and go to state 63
+    THEN            shift and go to state 64
+    DO              shift and go to state 65
+    LOOP            shift and go to state 66
 
   ! NUMBER          [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! STRING          [ reduce using rule 3 (comandos -> comandos comando .) ]
@@ -3973,7 +3922,6 @@ state 68
   ! SPACE           [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! COMMENT_LINE    [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! COMMENT_BLOCK   [ reduce using rule 3 (comandos -> comandos comando .) ]
-  ! DROP            [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! SWAP            [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! ROT             [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! OVER            [ reduce using rule 3 (comandos -> comandos comando .) ]
@@ -3997,7 +3945,187 @@ state 68
   ! DO              [ reduce using rule 3 (comandos -> comandos comando .) ]
   ! LOOP            [ reduce using rule 3 (comandos -> comandos comando .) ]
 
-    comando                        shift and go to state 69
+    comando                        shift and go to state 68
+    exp_aritmeticas                shift and go to state 4
+    exp_relacionais                shift and go to state 5
+    functions                      shift and go to state 6
+    values                         shift and go to state 7
+    creating_funcs                 shift and go to state 8
+    variable                       shift and go to state 9
+    flow_control                   shift and go to state 10
+    stdout                         shift and go to state 11
+    dot                            shift and go to state 12
+    space                          shift and go to state 13
+    dup                            shift and go to state 14
+    comment                        shift and go to state 15
+    drop                           shift and go to state 16
+    swap                           shift and go to state 17
+    rot                            shift and go to state 18
+    over                           shift and go to state 19
+    concat                         shift and go to state 20
+    cr                             shift and go to state 21
+    emit                           shift and go to state 22
+    char                           shift and go to state 23
+    key                            shift and go to state 24
+    spaces                         shift and go to state 25
+    2dup                           shift and go to state 26
+    func_criada                    shift and go to state 29
+    function                       shift and go to state 30
+    variable_definition            shift and go to state 31
+    variable_assignment            shift and go to state 32
+    variable_fetch                 shift and go to state 33
+    variable_print                 shift and go to state 34
+    if                             shift and go to state 35
+    else                           shift and go to state 36
+    then                           shift and go to state 37
+    do                             shift and go to state 38
+    loop                           shift and go to state 39
+
+state 68
+
+    (11) exp_aritmeticas -> comando comando . PLUS
+    (12) exp_aritmeticas -> comando comando . MINUS
+    (13) exp_aritmeticas -> comando comando . TIMES
+    (14) exp_aritmeticas -> comando comando . DIVIDE
+    (15) exp_aritmeticas -> comando comando . MOD
+    (16) exp_relacionais -> comando comando . NOT
+    (17) exp_relacionais -> comando comando . INF
+    (18) exp_relacionais -> comando comando . SUP
+    (19) exp_relacionais -> comando comando . INFEQ
+    (20) exp_relacionais -> comando comando . SUPEQ
+    (11) exp_aritmeticas -> comando . comando PLUS
+    (12) exp_aritmeticas -> comando . comando MINUS
+    (13) exp_aritmeticas -> comando . comando TIMES
+    (14) exp_aritmeticas -> comando . comando DIVIDE
+    (15) exp_aritmeticas -> comando . comando MOD
+    (16) exp_relacionais -> comando . comando NOT
+    (17) exp_relacionais -> comando . comando INF
+    (18) exp_relacionais -> comando . comando SUP
+    (19) exp_relacionais -> comando . comando INFEQ
+    (20) exp_relacionais -> comando . comando SUPEQ
+    (52) dup -> comando . DUP
+    (55) drop -> comando . DROP
+    (4) comando -> . exp_aritmeticas
+    (5) comando -> . exp_relacionais
+    (6) comando -> . functions
+    (7) comando -> . values
+    (8) comando -> . creating_funcs
+    (9) comando -> . variable
+    (10) comando -> . flow_control
+    (11) exp_aritmeticas -> . comando comando PLUS
+    (12) exp_aritmeticas -> . comando comando MINUS
+    (13) exp_aritmeticas -> . comando comando TIMES
+    (14) exp_aritmeticas -> . comando comando DIVIDE
+    (15) exp_aritmeticas -> . comando comando MOD
+    (16) exp_relacionais -> . comando comando NOT
+    (17) exp_relacionais -> . comando comando INF
+    (18) exp_relacionais -> . comando comando SUP
+    (19) exp_relacionais -> . comando comando INFEQ
+    (20) exp_relacionais -> . comando comando SUPEQ
+    (33) functions -> . stdout
+    (34) functions -> . dot
+    (35) functions -> . space
+    (36) functions -> . dup
+    (37) functions -> . comment
+    (38) functions -> . drop
+    (39) functions -> . swap
+    (40) functions -> . rot
+    (41) functions -> . over
+    (42) functions -> . concat
+    (43) functions -> . cr
+    (44) functions -> . emit
+    (45) functions -> . char
+    (46) functions -> . key
+    (47) functions -> . spaces
+    (48) functions -> . 2dup
+    (21) values -> . NUMBER
+    (22) values -> . STRING
+    (74) creating_funcs -> . func_criada
+    (75) creating_funcs -> . function
+    (76) creating_funcs -> . creating_funcs function
+    (77) creating_funcs -> . creating_funcs func_criada
+    (66) variable -> . variable_definition
+    (67) variable -> . variable_assignment
+    (68) variable -> . variable_fetch
+    (69) variable -> . variable_print
+    (23) flow_control -> . if
+    (24) flow_control -> . else
+    (25) flow_control -> . then
+    (26) flow_control -> . do
+    (27) flow_control -> . loop
+    (49) stdout -> . STDOUT
+    (50) dot -> . DOT
+    (51) space -> . SPACE
+    (52) dup -> . comando DUP
+    (53) comment -> . COMMENT_LINE
+    (54) comment -> . COMMENT_BLOCK
+    (55) drop -> . comando DROP
+    (56) swap -> . SWAP
+    (57) rot -> . ROT
+    (58) over -> . OVER
+    (59) concat -> . CONCAT
+    (60) cr -> . CR
+    (61) emit -> . EMIT
+    (62) char -> . CHAR
+    (63) key -> . KEY
+    (64) spaces -> . SPACES
+    (65) 2dup -> . 2DUP
+    (80) func_criada -> . FUNC_BODY
+    (78) function -> . FUNCTION
+    (79) function -> . FUNCTION_CALL
+    (70) variable_definition -> . VARIABLE_DEFENITION
+    (71) variable_assignment -> . VARIABLE_ASSIGNMENT
+    (72) variable_fetch -> . VARIABLE_FETCH
+    (73) variable_print -> . VARIABLE_PRINT
+    (28) if -> . IF
+    (29) else -> . ELSE
+    (30) then -> . THEN
+    (31) do -> . DO
+    (32) loop -> . LOOP
+
+    PLUS            shift and go to state 73
+    MINUS           shift and go to state 74
+    TIMES           shift and go to state 75
+    DIVIDE          shift and go to state 76
+    MOD             shift and go to state 77
+    NOT             shift and go to state 78
+    INF             shift and go to state 79
+    SUP             shift and go to state 80
+    INFEQ           shift and go to state 81
+    SUPEQ           shift and go to state 82
+    DUP             shift and go to state 69
+    DROP            shift and go to state 70
+    NUMBER          shift and go to state 27
+    STRING          shift and go to state 28
+    STDOUT          shift and go to state 40
+    DOT             shift and go to state 41
+    SPACE           shift and go to state 42
+    COMMENT_LINE    shift and go to state 43
+    COMMENT_BLOCK   shift and go to state 44
+    SWAP            shift and go to state 45
+    ROT             shift and go to state 46
+    OVER            shift and go to state 47
+    CONCAT          shift and go to state 48
+    CR              shift and go to state 49
+    EMIT            shift and go to state 50
+    CHAR            shift and go to state 51
+    KEY             shift and go to state 52
+    SPACES          shift and go to state 53
+    2DUP            shift and go to state 54
+    FUNC_BODY       shift and go to state 55
+    FUNCTION        shift and go to state 56
+    FUNCTION_CALL   shift and go to state 57
+    VARIABLE_DEFENITION shift and go to state 58
+    VARIABLE_ASSIGNMENT shift and go to state 59
+    VARIABLE_FETCH  shift and go to state 60
+    VARIABLE_PRINT  shift and go to state 61
+    IF              shift and go to state 62
+    ELSE            shift and go to state 63
+    THEN            shift and go to state 64
+    DO              shift and go to state 65
+    LOOP            shift and go to state 66
+
+    comando                        shift and go to state 68
     exp_aritmeticas                shift and go to state 4
     exp_relacionais                shift and go to state 5
     functions                      shift and go to state 6
@@ -4035,188 +4163,10 @@ state 68
 
 state 69
 
-    (11) exp_aritmeticas -> comando comando . PLUS
-    (12) exp_aritmeticas -> comando comando . MINUS
-    (13) exp_aritmeticas -> comando comando . TIMES
-    (14) exp_aritmeticas -> comando comando . DIVIDE
-    (15) exp_aritmeticas -> comando comando . MOD
-    (16) exp_relacionais -> comando comando . NOT
-    (17) exp_relacionais -> comando comando . INF
-    (18) exp_relacionais -> comando comando . SUP
-    (19) exp_relacionais -> comando comando . INFEQ
-    (20) exp_relacionais -> comando comando . SUPEQ
-    (11) exp_aritmeticas -> comando . comando PLUS
-    (12) exp_aritmeticas -> comando . comando MINUS
-    (13) exp_aritmeticas -> comando . comando TIMES
-    (14) exp_aritmeticas -> comando . comando DIVIDE
-    (15) exp_aritmeticas -> comando . comando MOD
-    (16) exp_relacionais -> comando . comando NOT
-    (17) exp_relacionais -> comando . comando INF
-    (18) exp_relacionais -> comando . comando SUP
-    (19) exp_relacionais -> comando . comando INFEQ
-    (20) exp_relacionais -> comando . comando SUPEQ
-    (52) dup -> comando . DUP
-    (4) comando -> . exp_aritmeticas
-    (5) comando -> . exp_relacionais
-    (6) comando -> . functions
-    (7) comando -> . values
-    (8) comando -> . creating_funcs
-    (9) comando -> . variable
-    (10) comando -> . flow_control
-    (11) exp_aritmeticas -> . comando comando PLUS
-    (12) exp_aritmeticas -> . comando comando MINUS
-    (13) exp_aritmeticas -> . comando comando TIMES
-    (14) exp_aritmeticas -> . comando comando DIVIDE
-    (15) exp_aritmeticas -> . comando comando MOD
-    (16) exp_relacionais -> . comando comando NOT
-    (17) exp_relacionais -> . comando comando INF
-    (18) exp_relacionais -> . comando comando SUP
-    (19) exp_relacionais -> . comando comando INFEQ
-    (20) exp_relacionais -> . comando comando SUPEQ
-    (33) functions -> . stdout
-    (34) functions -> . dot
-    (35) functions -> . space
-    (36) functions -> . dup
-    (37) functions -> . comment
-    (38) functions -> . drop
-    (39) functions -> . swap
-    (40) functions -> . rot
-    (41) functions -> . over
-    (42) functions -> . concat
-    (43) functions -> . cr
-    (44) functions -> . emit
-    (45) functions -> . char
-    (46) functions -> . key
-    (47) functions -> . spaces
-    (48) functions -> . 2dup
-    (21) values -> . NUMBER
-    (22) values -> . STRING
-    (74) creating_funcs -> . func_criada
-    (75) creating_funcs -> . function
-    (76) creating_funcs -> . creating_funcs function
-    (77) creating_funcs -> . creating_funcs func_criada
-    (66) variable -> . variable_definition
-    (67) variable -> . variable_assignment
-    (68) variable -> . variable_fetch
-    (69) variable -> . variable_print
-    (23) flow_control -> . if
-    (24) flow_control -> . else
-    (25) flow_control -> . then
-    (26) flow_control -> . do
-    (27) flow_control -> . loop
-    (49) stdout -> . STDOUT
-    (50) dot -> . DOT
-    (51) space -> . SPACE
-    (52) dup -> . comando DUP
-    (53) comment -> . COMMENT_LINE
-    (54) comment -> . COMMENT_BLOCK
-    (55) drop -> . DROP
-    (56) swap -> . SWAP
-    (57) rot -> . ROT
-    (58) over -> . OVER
-    (59) concat -> . CONCAT
-    (60) cr -> . CR
-    (61) emit -> . EMIT
-    (62) char -> . CHAR
-    (63) key -> . KEY
-    (64) spaces -> . SPACES
-    (65) 2dup -> . 2DUP
-    (80) func_criada -> . FUNC_BODY
-    (78) function -> . FUNCTION
-    (79) function -> . FUNCTION_CALL
-    (70) variable_definition -> . VARIABLE_DEFENITION
-    (71) variable_assignment -> . VARIABLE_ASSIGNMENT
-    (72) variable_fetch -> . VARIABLE_FETCH
-    (73) variable_print -> . VARIABLE_PRINT
-    (28) if -> . IF
-    (29) else -> . ELSE
-    (30) then -> . THEN
-    (31) do -> . DO
-    (32) loop -> . LOOP
-
-    PLUS            shift and go to state 73
-    MINUS           shift and go to state 74
-    TIMES           shift and go to state 75
-    DIVIDE          shift and go to state 76
-    MOD             shift and go to state 77
-    NOT             shift and go to state 78
-    INF             shift and go to state 79
-    SUP             shift and go to state 80
-    INFEQ           shift and go to state 81
-    SUPEQ           shift and go to state 82
-    DUP             shift and go to state 70
-    NUMBER          shift and go to state 27
-    STRING          shift and go to state 28
-    STDOUT          shift and go to state 40
-    DOT             shift and go to state 41
-    SPACE           shift and go to state 42
-    COMMENT_LINE    shift and go to state 43
-    COMMENT_BLOCK   shift and go to state 44
-    DROP            shift and go to state 45
-    SWAP            shift and go to state 46
-    ROT             shift and go to state 47
-    OVER            shift and go to state 48
-    CONCAT          shift and go to state 49
-    CR              shift and go to state 50
-    EMIT            shift and go to state 51
-    CHAR            shift and go to state 52
-    KEY             shift and go to state 53
-    SPACES          shift and go to state 54
-    2DUP            shift and go to state 55
-    FUNC_BODY       shift and go to state 56
-    FUNCTION        shift and go to state 57
-    FUNCTION_CALL   shift and go to state 58
-    VARIABLE_DEFENITION shift and go to state 59
-    VARIABLE_ASSIGNMENT shift and go to state 60
-    VARIABLE_FETCH  shift and go to state 61
-    VARIABLE_PRINT  shift and go to state 62
-    IF              shift and go to state 63
-    ELSE            shift and go to state 64
-    THEN            shift and go to state 65
-    DO              shift and go to state 66
-    LOOP            shift and go to state 67
-
-    comando                        shift and go to state 69
-    exp_aritmeticas                shift and go to state 4
-    exp_relacionais                shift and go to state 5
-    functions                      shift and go to state 6
-    values                         shift and go to state 7
-    creating_funcs                 shift and go to state 8
-    variable                       shift and go to state 9
-    flow_control                   shift and go to state 10
-    stdout                         shift and go to state 11
-    dot                            shift and go to state 12
-    space                          shift and go to state 13
-    dup                            shift and go to state 14
-    comment                        shift and go to state 15
-    drop                           shift and go to state 16
-    swap                           shift and go to state 17
-    rot                            shift and go to state 18
-    over                           shift and go to state 19
-    concat                         shift and go to state 20
-    cr                             shift and go to state 21
-    emit                           shift and go to state 22
-    char                           shift and go to state 23
-    key                            shift and go to state 24
-    spaces                         shift and go to state 25
-    2dup                           shift and go to state 26
-    func_criada                    shift and go to state 29
-    function                       shift and go to state 30
-    variable_definition            shift and go to state 31
-    variable_assignment            shift and go to state 32
-    variable_fetch                 shift and go to state 33
-    variable_print                 shift and go to state 34
-    if                             shift and go to state 35
-    else                           shift and go to state 36
-    then                           shift and go to state 37
-    do                             shift and go to state 38
-    loop                           shift and go to state 39
-
-state 70
-
     (52) dup -> comando DUP .
 
     DUP             reduce using rule 52 (dup -> comando DUP .)
+    DROP            reduce using rule 52 (dup -> comando DUP .)
     NUMBER          reduce using rule 52 (dup -> comando DUP .)
     STRING          reduce using rule 52 (dup -> comando DUP .)
     STDOUT          reduce using rule 52 (dup -> comando DUP .)
@@ -4224,7 +4174,6 @@ state 70
     SPACE           reduce using rule 52 (dup -> comando DUP .)
     COMMENT_LINE    reduce using rule 52 (dup -> comando DUP .)
     COMMENT_BLOCK   reduce using rule 52 (dup -> comando DUP .)
-    DROP            reduce using rule 52 (dup -> comando DUP .)
     SWAP            reduce using rule 52 (dup -> comando DUP .)
     ROT             reduce using rule 52 (dup -> comando DUP .)
     OVER            reduce using rule 52 (dup -> comando DUP .)
@@ -4260,6 +4209,54 @@ state 70
     SUPEQ           reduce using rule 52 (dup -> comando DUP .)
 
 
+state 70
+
+    (55) drop -> comando DROP .
+
+    DUP             reduce using rule 55 (drop -> comando DROP .)
+    DROP            reduce using rule 55 (drop -> comando DROP .)
+    NUMBER          reduce using rule 55 (drop -> comando DROP .)
+    STRING          reduce using rule 55 (drop -> comando DROP .)
+    STDOUT          reduce using rule 55 (drop -> comando DROP .)
+    DOT             reduce using rule 55 (drop -> comando DROP .)
+    SPACE           reduce using rule 55 (drop -> comando DROP .)
+    COMMENT_LINE    reduce using rule 55 (drop -> comando DROP .)
+    COMMENT_BLOCK   reduce using rule 55 (drop -> comando DROP .)
+    SWAP            reduce using rule 55 (drop -> comando DROP .)
+    ROT             reduce using rule 55 (drop -> comando DROP .)
+    OVER            reduce using rule 55 (drop -> comando DROP .)
+    CONCAT          reduce using rule 55 (drop -> comando DROP .)
+    CR              reduce using rule 55 (drop -> comando DROP .)
+    EMIT            reduce using rule 55 (drop -> comando DROP .)
+    CHAR            reduce using rule 55 (drop -> comando DROP .)
+    KEY             reduce using rule 55 (drop -> comando DROP .)
+    SPACES          reduce using rule 55 (drop -> comando DROP .)
+    2DUP            reduce using rule 55 (drop -> comando DROP .)
+    FUNC_BODY       reduce using rule 55 (drop -> comando DROP .)
+    FUNCTION        reduce using rule 55 (drop -> comando DROP .)
+    FUNCTION_CALL   reduce using rule 55 (drop -> comando DROP .)
+    VARIABLE_DEFENITION reduce using rule 55 (drop -> comando DROP .)
+    VARIABLE_ASSIGNMENT reduce using rule 55 (drop -> comando DROP .)
+    VARIABLE_FETCH  reduce using rule 55 (drop -> comando DROP .)
+    VARIABLE_PRINT  reduce using rule 55 (drop -> comando DROP .)
+    IF              reduce using rule 55 (drop -> comando DROP .)
+    ELSE            reduce using rule 55 (drop -> comando DROP .)
+    THEN            reduce using rule 55 (drop -> comando DROP .)
+    DO              reduce using rule 55 (drop -> comando DROP .)
+    LOOP            reduce using rule 55 (drop -> comando DROP .)
+    $end            reduce using rule 55 (drop -> comando DROP .)
+    PLUS            reduce using rule 55 (drop -> comando DROP .)
+    MINUS           reduce using rule 55 (drop -> comando DROP .)
+    TIMES           reduce using rule 55 (drop -> comando DROP .)
+    DIVIDE          reduce using rule 55 (drop -> comando DROP .)
+    MOD             reduce using rule 55 (drop -> comando DROP .)
+    NOT             reduce using rule 55 (drop -> comando DROP .)
+    INF             reduce using rule 55 (drop -> comando DROP .)
+    SUP             reduce using rule 55 (drop -> comando DROP .)
+    INFEQ           reduce using rule 55 (drop -> comando DROP .)
+    SUPEQ           reduce using rule 55 (drop -> comando DROP .)
+
+
 state 71
 
     (76) creating_funcs -> creating_funcs function .
@@ -4268,6 +4265,7 @@ state 71
     FUNCTION_CALL   reduce using rule 76 (creating_funcs -> creating_funcs function .)
     FUNC_BODY       reduce using rule 76 (creating_funcs -> creating_funcs function .)
     DUP             reduce using rule 76 (creating_funcs -> creating_funcs function .)
+    DROP            reduce using rule 76 (creating_funcs -> creating_funcs function .)
     NUMBER          reduce using rule 76 (creating_funcs -> creating_funcs function .)
     STRING          reduce using rule 76 (creating_funcs -> creating_funcs function .)
     STDOUT          reduce using rule 76 (creating_funcs -> creating_funcs function .)
@@ -4275,7 +4273,6 @@ state 71
     SPACE           reduce using rule 76 (creating_funcs -> creating_funcs function .)
     COMMENT_LINE    reduce using rule 76 (creating_funcs -> creating_funcs function .)
     COMMENT_BLOCK   reduce using rule 76 (creating_funcs -> creating_funcs function .)
-    DROP            reduce using rule 76 (creating_funcs -> creating_funcs function .)
     SWAP            reduce using rule 76 (creating_funcs -> creating_funcs function .)
     ROT             reduce using rule 76 (creating_funcs -> creating_funcs function .)
     OVER            reduce using rule 76 (creating_funcs -> creating_funcs function .)
@@ -4316,6 +4313,7 @@ state 72
     FUNCTION_CALL   reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     FUNC_BODY       reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     DUP             reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
+    DROP            reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     NUMBER          reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     STRING          reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     STDOUT          reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
@@ -4323,7 +4321,6 @@ state 72
     SPACE           reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     COMMENT_LINE    reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     COMMENT_BLOCK   reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
-    DROP            reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     SWAP            reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     ROT             reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
     OVER            reduce using rule 77 (creating_funcs -> creating_funcs func_criada .)
@@ -4361,6 +4358,7 @@ state 73
     (11) exp_aritmeticas -> comando comando PLUS .
 
     DUP             reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
+    DROP            reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     NUMBER          reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     STRING          reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     STDOUT          reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
@@ -4368,7 +4366,6 @@ state 73
     SPACE           reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     COMMENT_LINE    reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     COMMENT_BLOCK   reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
-    DROP            reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     SWAP            reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     ROT             reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
     OVER            reduce using rule 11 (exp_aritmeticas -> comando comando PLUS .)
@@ -4409,6 +4406,7 @@ state 74
     (12) exp_aritmeticas -> comando comando MINUS .
 
     DUP             reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
+    DROP            reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     NUMBER          reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     STRING          reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     STDOUT          reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
@@ -4416,7 +4414,6 @@ state 74
     SPACE           reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     COMMENT_LINE    reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     COMMENT_BLOCK   reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
-    DROP            reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     SWAP            reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     ROT             reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
     OVER            reduce using rule 12 (exp_aritmeticas -> comando comando MINUS .)
@@ -4457,6 +4454,7 @@ state 75
     (13) exp_aritmeticas -> comando comando TIMES .
 
     DUP             reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
+    DROP            reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     NUMBER          reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     STRING          reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     STDOUT          reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
@@ -4464,7 +4462,6 @@ state 75
     SPACE           reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     COMMENT_LINE    reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     COMMENT_BLOCK   reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
-    DROP            reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     SWAP            reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     ROT             reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
     OVER            reduce using rule 13 (exp_aritmeticas -> comando comando TIMES .)
@@ -4505,6 +4502,7 @@ state 76
     (14) exp_aritmeticas -> comando comando DIVIDE .
 
     DUP             reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
+    DROP            reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     NUMBER          reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     STRING          reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     STDOUT          reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
@@ -4512,7 +4510,6 @@ state 76
     SPACE           reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     COMMENT_LINE    reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     COMMENT_BLOCK   reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
-    DROP            reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     SWAP            reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     ROT             reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
     OVER            reduce using rule 14 (exp_aritmeticas -> comando comando DIVIDE .)
@@ -4553,6 +4550,7 @@ state 77
     (15) exp_aritmeticas -> comando comando MOD .
 
     DUP             reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
+    DROP            reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     NUMBER          reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     STRING          reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     STDOUT          reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
@@ -4560,7 +4558,6 @@ state 77
     SPACE           reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     COMMENT_LINE    reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     COMMENT_BLOCK   reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
-    DROP            reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     SWAP            reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     ROT             reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
     OVER            reduce using rule 15 (exp_aritmeticas -> comando comando MOD .)
@@ -4601,6 +4598,7 @@ state 78
     (16) exp_relacionais -> comando comando NOT .
 
     DUP             reduce using rule 16 (exp_relacionais -> comando comando NOT .)
+    DROP            reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     NUMBER          reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     STRING          reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     STDOUT          reduce using rule 16 (exp_relacionais -> comando comando NOT .)
@@ -4608,7 +4606,6 @@ state 78
     SPACE           reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     COMMENT_LINE    reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     COMMENT_BLOCK   reduce using rule 16 (exp_relacionais -> comando comando NOT .)
-    DROP            reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     SWAP            reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     ROT             reduce using rule 16 (exp_relacionais -> comando comando NOT .)
     OVER            reduce using rule 16 (exp_relacionais -> comando comando NOT .)
@@ -4649,6 +4646,7 @@ state 79
     (17) exp_relacionais -> comando comando INF .
 
     DUP             reduce using rule 17 (exp_relacionais -> comando comando INF .)
+    DROP            reduce using rule 17 (exp_relacionais -> comando comando INF .)
     NUMBER          reduce using rule 17 (exp_relacionais -> comando comando INF .)
     STRING          reduce using rule 17 (exp_relacionais -> comando comando INF .)
     STDOUT          reduce using rule 17 (exp_relacionais -> comando comando INF .)
@@ -4656,7 +4654,6 @@ state 79
     SPACE           reduce using rule 17 (exp_relacionais -> comando comando INF .)
     COMMENT_LINE    reduce using rule 17 (exp_relacionais -> comando comando INF .)
     COMMENT_BLOCK   reduce using rule 17 (exp_relacionais -> comando comando INF .)
-    DROP            reduce using rule 17 (exp_relacionais -> comando comando INF .)
     SWAP            reduce using rule 17 (exp_relacionais -> comando comando INF .)
     ROT             reduce using rule 17 (exp_relacionais -> comando comando INF .)
     OVER            reduce using rule 17 (exp_relacionais -> comando comando INF .)
@@ -4697,6 +4694,7 @@ state 80
     (18) exp_relacionais -> comando comando SUP .
 
     DUP             reduce using rule 18 (exp_relacionais -> comando comando SUP .)
+    DROP            reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     NUMBER          reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     STRING          reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     STDOUT          reduce using rule 18 (exp_relacionais -> comando comando SUP .)
@@ -4704,7 +4702,6 @@ state 80
     SPACE           reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     COMMENT_LINE    reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     COMMENT_BLOCK   reduce using rule 18 (exp_relacionais -> comando comando SUP .)
-    DROP            reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     SWAP            reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     ROT             reduce using rule 18 (exp_relacionais -> comando comando SUP .)
     OVER            reduce using rule 18 (exp_relacionais -> comando comando SUP .)
@@ -4745,6 +4742,7 @@ state 81
     (19) exp_relacionais -> comando comando INFEQ .
 
     DUP             reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
+    DROP            reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     NUMBER          reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     STRING          reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     STDOUT          reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
@@ -4752,7 +4750,6 @@ state 81
     SPACE           reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     COMMENT_LINE    reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     COMMENT_BLOCK   reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
-    DROP            reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     SWAP            reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     ROT             reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
     OVER            reduce using rule 19 (exp_relacionais -> comando comando INFEQ .)
@@ -4793,6 +4790,7 @@ state 82
     (20) exp_relacionais -> comando comando SUPEQ .
 
     DUP             reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
+    DROP            reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     NUMBER          reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     STRING          reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     STDOUT          reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
@@ -4800,7 +4798,6 @@ state 82
     SPACE           reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     COMMENT_LINE    reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     COMMENT_BLOCK   reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
-    DROP            reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     SWAP            reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     ROT             reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
     OVER            reduce using rule 20 (exp_relacionais -> comando comando SUPEQ .)
@@ -4845,7 +4842,6 @@ WARNING: shift/reduce conflict for DOT in state 3 resolved as shift
 WARNING: shift/reduce conflict for SPACE in state 3 resolved as shift
 WARNING: shift/reduce conflict for COMMENT_LINE in state 3 resolved as shift
 WARNING: shift/reduce conflict for COMMENT_BLOCK in state 3 resolved as shift
-WARNING: shift/reduce conflict for DROP in state 3 resolved as shift
 WARNING: shift/reduce conflict for SWAP in state 3 resolved as shift
 WARNING: shift/reduce conflict for ROT in state 3 resolved as shift
 WARNING: shift/reduce conflict for OVER in state 3 resolved as shift
@@ -4871,33 +4867,32 @@ WARNING: shift/reduce conflict for LOOP in state 3 resolved as shift
 WARNING: shift/reduce conflict for FUNCTION in state 8 resolved as shift
 WARNING: shift/reduce conflict for FUNCTION_CALL in state 8 resolved as shift
 WARNING: shift/reduce conflict for FUNC_BODY in state 8 resolved as shift
-WARNING: shift/reduce conflict for NUMBER in state 68 resolved as shift
-WARNING: shift/reduce conflict for STRING in state 68 resolved as shift
-WARNING: shift/reduce conflict for STDOUT in state 68 resolved as shift
-WARNING: shift/reduce conflict for DOT in state 68 resolved as shift
-WARNING: shift/reduce conflict for SPACE in state 68 resolved as shift
-WARNING: shift/reduce conflict for COMMENT_LINE in state 68 resolved as shift
-WARNING: shift/reduce conflict for COMMENT_BLOCK in state 68 resolved as shift
-WARNING: shift/reduce conflict for DROP in state 68 resolved as shift
-WARNING: shift/reduce conflict for SWAP in state 68 resolved as shift
-WARNING: shift/reduce conflict for ROT in state 68 resolved as shift
-WARNING: shift/reduce conflict for OVER in state 68 resolved as shift
-WARNING: shift/reduce conflict for CONCAT in state 68 resolved as shift
-WARNING: shift/reduce conflict for CR in state 68 resolved as shift
-WARNING: shift/reduce conflict for EMIT in state 68 resolved as shift
-WARNING: shift/reduce conflict for CHAR in state 68 resolved as shift
-WARNING: shift/reduce conflict for KEY in state 68 resolved as shift
-WARNING: shift/reduce conflict for SPACES in state 68 resolved as shift
-WARNING: shift/reduce conflict for 2DUP in state 68 resolved as shift
-WARNING: shift/reduce conflict for FUNC_BODY in state 68 resolved as shift
-WARNING: shift/reduce conflict for FUNCTION in state 68 resolved as shift
-WARNING: shift/reduce conflict for FUNCTION_CALL in state 68 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE_DEFENITION in state 68 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE_ASSIGNMENT in state 68 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE_FETCH in state 68 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE_PRINT in state 68 resolved as shift
-WARNING: shift/reduce conflict for IF in state 68 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 68 resolved as shift
-WARNING: shift/reduce conflict for THEN in state 68 resolved as shift
-WARNING: shift/reduce conflict for DO in state 68 resolved as shift
-WARNING: shift/reduce conflict for LOOP in state 68 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 67 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 67 resolved as shift
+WARNING: shift/reduce conflict for STDOUT in state 67 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 67 resolved as shift
+WARNING: shift/reduce conflict for SPACE in state 67 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_LINE in state 67 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_BLOCK in state 67 resolved as shift
+WARNING: shift/reduce conflict for SWAP in state 67 resolved as shift
+WARNING: shift/reduce conflict for ROT in state 67 resolved as shift
+WARNING: shift/reduce conflict for OVER in state 67 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 67 resolved as shift
+WARNING: shift/reduce conflict for CR in state 67 resolved as shift
+WARNING: shift/reduce conflict for EMIT in state 67 resolved as shift
+WARNING: shift/reduce conflict for CHAR in state 67 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 67 resolved as shift
+WARNING: shift/reduce conflict for SPACES in state 67 resolved as shift
+WARNING: shift/reduce conflict for 2DUP in state 67 resolved as shift
+WARNING: shift/reduce conflict for FUNC_BODY in state 67 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 67 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION_CALL in state 67 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE_DEFENITION in state 67 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE_ASSIGNMENT in state 67 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE_FETCH in state 67 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE_PRINT in state 67 resolved as shift
+WARNING: shift/reduce conflict for IF in state 67 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 67 resolved as shift
+WARNING: shift/reduce conflict for THEN in state 67 resolved as shift
+WARNING: shift/reduce conflict for DO in state 67 resolved as shift
+WARNING: shift/reduce conflict for LOOP in state 67 resolved as shift

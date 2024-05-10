@@ -1,6 +1,1 @@
-1
-2
-3
-4
-DROP
-DROP
+1 DROP

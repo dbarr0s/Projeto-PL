@@ -1,0 +1,11 @@
+PUSHI 2
+PUSHI 3
+SUP
+jz else0
+PUSHS " TRUE"
+WRITES
+else0:
+PUSHS " FALSE"
+WRITES
+jump endif0
+endif0:

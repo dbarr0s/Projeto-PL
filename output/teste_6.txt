@@ -1,0 +1,6 @@
+PUSHA TOFU
+CALL
+
+TOFU:
+PUSHS "Yummy bean curd!"
+WRITES

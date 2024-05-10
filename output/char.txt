@@ -1,0 +1,2 @@
+PUSHI 87
+WRITEI

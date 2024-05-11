@@ -1,3 +1,4 @@
+import re
 import ply.yacc as yacc
 from forthLexer import tokens, lexer
 
@@ -141,7 +142,7 @@ def p_if(p):
     if len(stack) == 0:
         print("Error: Not enough members on the stack for IF operation")
         return
-    vm_code += f'jz else{current_else}\n'
+    vm_code += f'JZ else{current_else}\n'
 
 def p_else(p):
     '''else : ELSE'''
@@ -149,13 +150,14 @@ def p_else(p):
     if len(stack) == 0:
         print("Error: Not enough members on the stack for ELSE operation")
         return
+    vm_code += f'JUMP endif{current_else}\n'
     vm_code += f'else{current_else}:\n'
     current_else += 1
     
 def p_then(p):
     '''then : THEN'''
     global vm_code, current_if
-    vm_code += f'jump endif{current_if}\n'
+    vm_code += f'JUMP endif{current_if}\n'
     vm_code += f'endif{current_if}:\n'
     current_if += 1
 
@@ -191,7 +193,7 @@ def p_loop(p):
     vm_code += f'PUSHI 1\n'
     vm_code += f'ADD\n'
     vm_code += f'STOREG {limit_var_index}\n'
-    vm_code += f'jump WHILE{current_loop - 1}\n'
+    vm_code += f'JUMP WHILE{current_loop - 1}\n'
     vm_code += f'ENDWHILE{current_loop - 1}:\n'
     
 def p_functions(p):
@@ -488,34 +490,160 @@ def p_creating_funcs(p):
     p[0] = p[1] 
     
 def p_function(p):
-    '''function : FUNCTION
-                | FUNCTION_CALL'''
-    global vm_code
+    '''function : FUNCTION'''
+    global vm_code, current_loop, variables
     executable_parts = []
     if isinstance(p[1], str): 
         vm_code += f"PUSHA {p[1]}\nCALL\n\n"
         vm_code += f"{p[1]}:\n"
         for func_name, func_body in function_definitions.items():
-            print(function_definitions)
             if func_name == p[1]:
                 body_parts = func_body.split(" ")  # DIVIDE A STRING EM PARTES
                 body_content = " ".join(body_parts[2:-1])  # JUNTA AS PARTES DA STRING, QUE DEVE SER EXECUTADO
-                print(body_content)
                 for part in body_content.split(" "): 
-                    print(part)
-                    if part in function_definitions:
+                    maiuscula = part.upper()
+                    if re.match(r'\d+(\.\d+)?', part):
+                        if "." in part:
+                            part = float(part)
+                            stack.append(part)
+                            vm_code += f"PUSHF {part}\n"     
+                        else:
+                            part = int(part)
+                            stack.append(part)
+                            vm_code += f"PUSHI {part}\n"   
+                    elif re.match(r'\.', part):
+                        top_value = stack.pop()
+                        if top_value == None:
+                            if isinstance(top_value, int):
+                                vm_code += f'WRITEI\n'
+                            elif isinstance(top_value, float):
+                                vm_code += f'WRITEF\n'
+                            elif isinstance(top_value, str):
+                                vm_code += f'WRITES\n'
+                        if isinstance(top_value, int):
+                            vm_code += f'WRITEI\n'
+                        elif isinstance(top_value, float):
+                            vm_code += f'WRITEF\n'
+                        elif isinstance(top_value, str):
+                            vm_code += f'WRITES\n'
+                    elif re.match(r'[<>]=?', part):
+                        b = stack.pop()
+                        a = stack.pop()
+                        result = 0
+                        if part == '<':
+                            stack.append(a < b)
+                            if isinstance(result, float):
+                                vm_code += "FINF\n"
+                            else: vm_code += "INF\n"
+                        elif part == '>':
+                            stack.append(a > b)
+                            if isinstance(result, float):
+                                vm_code += "FSUP\n"
+                            else: vm_code += "SUP\n"
+                        elif part == '<=':
+                            stack.append(a <= b)
+                            if isinstance(result,float):
+                                vm_code += "FINFEQ\n"
+                            else: vm_code += "INFEQ\n"
+                        elif part == '>=':
+                            stack.append(a >= b)
+                            if isinstance(result,float):
+                                vm_code += "FSUPEQ\n"
+                            else: vm_code += "SUPEQ\n"
+                    elif re.match(r'[\+\-\*/%]', part):
+                        b = stack.pop()
+                        a = stack.pop()
+                        result = 0
+                        if part == '+':
+                            result = a + b
+                            stack.append(result)
+                            if isinstance(result, float):
+                                vm_code += f'FADD\n'
+                            else: vm_code += f'ADD\n'
+                        elif part == '-':
+                            result = a - b
+                            stack.append(result)
+                            if isinstance(result, float):
+                                vm_code += f'FSUB\n'
+                            else: vm_code += f'SUB\n'
+                        elif part == '*':
+                            result = a * b
+                            stack.append(result)
+                            if isinstance(result, float):
+                                vm_code += f'FMUL\n'
+                            else: vm_code += f'MUL\n'
+                        elif part == '/':
+                            result = a / b
+                            stack.append(result)
+                            if isinstance(result, float):
+                                vm_code += f'FDIV\n'
+                            else: vm_code += f'DIV\n'
+                        elif part == '%':
+                            result = a % b
+                            stack.append(result)
+                            vm_code += f'MOD\n'
+                    elif re.match(r'"([^"]|\s)*"', part):
+                        stack.append(part)
+                        vm_code += f"PUSHS {part}\n"
+                    elif part in function_definitions:
                         vm_code += f"PUSHA {part}\nCALL\n\n"
                         vm_code += f"{part}:\n"
                         body = function_definitions[part]
                         body_parts1 = body.split(" ")  # DIVIDE A STRING EM PARTES
                         body_content1 = " ".join(body_parts1[2:-1])  # JUNTA AS PARTES DA STRING, QUE DEVE SER EXECUTADO
                         parse_input(body_content1)
-                    elif part in tokens:
-                        parse_input(part)  
+                    elif maiuscula in tokens:
+                        if maiuscula == "DO":
+                            do_loop = re.match(r'([0-9]+)\s([0-9]+)\sDO', body_content)
+                            match = do_loop.groups()
+                            limit, index = match
+                            variables[f'limit{current_loop}'] = limit
+                            var_len_1 = len(variables) - 1
+                            variables[f'index{current_loop}'] = index
+                            var_len_2 = len(variables) - 1
+
+                            vm_code += f'PUSHG {var_len_1}\n'
+                            vm_code += f'PUSHI {limit}\n'
+                            vm_code += f'STOREG {var_len_1}\n'
+
+                            vm_code += f'PUSHG {var_len_2}\n'
+                            vm_code += f'PUSHI {index}\n'
+                            vm_code += f'STOREG {var_len_2}\n'
+
+                            vm_code += f'WHILE{current_loop}:\n'
+                            vm_code += f'PUSHG {var_len_1}\n'
+                            vm_code += f'PUSHG {var_len_2}\n'
+                            vm_code += f'SUP\n'
+                            vm_code += f'jz ENDWHILE{current_loop}\n'
+                            current_loop += 1
+                        elif maiuscula == "CHAR":
+                            char = re.match(r'CHAR\s+.', body_content)
+                            char_value = char.group(0).split()[1]
+                            ascii_value = ord(char_value)
+                            vm_code += f"PUSHI {ascii_value}\n"
+                            stack.append(ascii_value)
+                        elif maiuscula == "EMIT":
+                            emit = re.match(r'\d*\s*EMIT', body_content)
+                            if emit is not None:
+                                emit_value = emit.group(0).split()[1]
+                                ascii_value = emit_value
+                                vm_code += f"PUSHI {ascii_value}\nWRITECHR\n"
+                                stack.append(ascii_value)
+                            else:
+                                vm_code += f"WRITECHR\n"
+                        elif maiuscula == "SPACES":
+                            spaces = re.match(r'\d+\s+SPACES', body_content)
+                            spaces_value = spaces.group(0).split()[1]
+                            space = " "
+                            while spaces_value > 0:
+                                vm_code += f'PUSHS "{space}"\nWRITES\n'
+                                stack.append(space)
+                                spaces_value -= 1
                     else:
                         executable_parts.append(part)       
-        full_body_content = " ".join(executable_parts)
-        parse_input(full_body_content)
+                        full_body_content = " ".join(executable_parts)
+                        if re.match(r'\.\s*"([^"]*)"\s*', full_body_content): 
+                            parse_input(full_body_content)
         p[0] = p[1]
             
 def p_func_criada(p):

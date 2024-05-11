@@ -1,3 +1,3 @@
 "Olá" .
-CR "Tudo bem" . 
-CR
+cr "Tudo bem" . 
+cr

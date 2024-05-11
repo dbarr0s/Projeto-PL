@@ -15,13 +15,7 @@ tokens = [
     'SUP',
     'INFEQ',
     'SUPEQ',
-    'EXCLAMATION',
-    'AT',
     'DOT',
-    'COLON',
-    'SEMICOLON',
-    'LEFT_PAREN',
-    'RIGHT_PAREN',
     'STDOUT',
     'CHAR',
     'COMMENT_LINE',
@@ -30,11 +24,8 @@ tokens = [
     'IF',
     'ELSE',
     'THEN',
-    'WHILE',
     'DO',
     'LOOP',
-    'BEGIN',
-    'REPEAT',
     'DROP',
     'SWAP',
     'ROT',
@@ -47,7 +38,6 @@ tokens = [
     'SPACE',
     'SPACES',
     '2DUP',
-    'FUNCTION_CALL',
     'FUNC_BODY',
     'VARIABLE_DEFENITION',
     'VARIABLE_ASSIGNMENT',
@@ -70,18 +60,9 @@ t_INFEQ = r'<='
 t_SUPEQ = r'>='
 
 # Símbolos
-t_EXCLAMATION = r'!'
-t_AT = r'@'
 t_DOT = r'\.'
-t_COLON = r':'
-t_SEMICOLON = r';'
-t_LEFT_PAREN = r'\('
-t_RIGHT_PAREN = r'\)'
 
 # Expressões de Controlo de Fluxo
-t_WHILE = r'[Ww][Hh][Ii][Ll][Ee]'
-t_REPEAT = r'[Rr][Ee][Pp][Ee][Aa][Tt]'
-
 def t_DO(t):
     r'[0-9]+\s[0-9]+\sDO'
     limit = t.value.split()[0]
@@ -203,12 +184,6 @@ def t_SPACE(t):
 def t_FUNCTION(t):
     r'[a-zA-Z_][a-zA-Z0-9_-]*'
     t.value = str(t.value)
-    return t
-
-def t_FUNCTION_CALL(t):
-    r'([0-9]+\s+)*[a-zA-Z_][a-zA-Z0-9_-]*'
-    numbers_and_function = t.value.split()
-    t.value = numbers_and_function 
     return t
 
 def t_FUNC_BODY(t):

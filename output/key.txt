@@ -1,4 +1,3 @@
 PUSHS "Introduza um caracter:"
 WRITES
 READ
-WRITES

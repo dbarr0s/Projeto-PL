@@ -1,0 +1,2 @@
+: TESTKEY 1 2 3.5 . . . ;
+TESTKEY

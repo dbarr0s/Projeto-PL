@@ -1,1 +1,1 @@
-2 3 > IF " TRUE" . ELSE " FALSE" . THEN 
+2 3 > IF "TRUE" . ELSE "FALSE" . THEN 

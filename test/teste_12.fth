@@ -1,0 +1,5 @@
+: FUNC1 12 5 + . 34 14 - . ;
+: FUNC2 16 2 * . 50 10 % . ;
+: FUNC3 100 5 / . ;
+: FUNC4 FUNC1 CR FUNC2 CR FUNC3 ;
+FUNC4

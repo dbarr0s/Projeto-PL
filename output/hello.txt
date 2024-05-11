@@ -1,0 +1,2 @@
+PUSHS "hello-world"
+WRITES

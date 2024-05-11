@@ -2,7 +2,7 @@ PUSHA FUNC
 CALL
 
 FUNC:
-jz endif0
+jump endif0
 endif0:
 PUSHI 2
 PUSHI 3

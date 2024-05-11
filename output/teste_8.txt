@@ -1,6 +1,8 @@
-PUSHA TOFU
+PUSHA helloworld
 CALL
 
-TOFU:
-PUSHS "Yummy bean curd!"
+helloworld:
+PUSHS "Hello, World!"
 WRITES
+WRITELN
+// \ Call the defined word

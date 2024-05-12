@@ -192,7 +192,7 @@ def t_FUNC_BODY(t):
     return t
 
 def t_NUMBER(t):
-    r'\d+(\.\d+)?'
+    r'-?\d+(\.\d+)?'
     t.value = float(t.value) if '.' in t.value else int(t.value)
     return t
 

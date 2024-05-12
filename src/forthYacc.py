@@ -631,19 +631,13 @@ def p_function(p):
                                 stack.append(ascii_value)
                             else:
                                 vm_code += f"WRITECHR\n"
-                        elif maiuscula == "SPACES":
-                            spaces = re.match(r'\d+\s+SPACES', body_content)
-                            spaces_value = spaces.group(0).split()[1]
-                            space = " "
-                            while spaces_value > 0:
-                                vm_code += f'PUSHS "{space}"\nWRITES\n'
-                                stack.append(space)
-                                spaces_value -= 1
+                        else:
+                            parse_input(maiuscula)
                     else:
                         executable_parts.append(part)       
                         full_body_content = " ".join(executable_parts)
                         if re.match(r'\.\s*"([^"]*)"\s*', full_body_content): 
-                            parse_input(full_body_content)
+                            parse_input(full_body_content) 
         p[0] = p[1]
             
 def p_func_criada(p):

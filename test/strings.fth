@@ -1,0 +1,1 @@
+"MUNDO" "OLA" CONCAT "FORTH" . SPACE .

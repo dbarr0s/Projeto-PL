@@ -1,0 +1,2 @@
+: TESTE CHAR W . CR 46 EMIT . ;
+TESTE
